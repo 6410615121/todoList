@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User 
 from .form import RegistrationForm
-from .models import Customer
+from .models import todoUser
 
 # Create your views here.
 
+def about(request):
+    return render(request, 'user/about.html') 
 
 def register(request):
     if request.method == 'POST':
@@ -15,7 +17,7 @@ def register(request):
             user = form.save()
             
 
-            Customer.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )
+            todoUser.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )
             
             # Log the user in after registration if needed
             # ...
