@@ -1,0 +1,17 @@
+<form method = "post">
+    {% csrf_token %}
+    <label for="task_title">Task Title:</label>
+    <input type="text" id="task_title" name="task_title"><br>
+
+    <label for="due_date">Due Date:</label>
+    <input type="datetime-local" id="due_date" name="due_date"><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+
+<br>
+<a href="{% url 'taskIndex' %}">back</a>

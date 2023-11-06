@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .form import RegistrationForm
 from .models import todoUser
 
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
 # Create your views here.
 
 def about(request):
@@ -23,4 +26,22 @@ def register(request):
         form = RegistrationForm()
 
     return render(request, 'user/register.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page or any other desired URL
+            return redirect('about')
+        else:
+            # Provide an error message or handle invalid login attempts
+            return render(request, 'user/login.html', {'error': 'Invalid username or password'})
+
+    return render(request, 'user/login.html')  # Render the login form
+
+
     

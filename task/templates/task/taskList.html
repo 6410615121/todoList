@@ -1,0 +1,11 @@
+{% load custom_tags %}
+{% for project in projects_with_user %}
+    <h1> {{ project.Project_name }} </h1>
+    <ul>
+        {% with project_id=project.Project_ID %}
+            {% for task in tasks_by_project|get_item:project_id %}
+                <li>{{ task.task_title }}</li>
+            {% endfor %}
+        {% endwith %}
+    </ul>
+{% endfor %}

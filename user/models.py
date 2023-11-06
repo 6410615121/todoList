@@ -4,7 +4,7 @@ import uuid
 
 # Create your models here.
 class todoUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     todoUser_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
     Firstname = models.CharField(max_length=50)
     Lastname = models.CharField(max_length=50)
