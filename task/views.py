@@ -1,11 +1,11 @@
 from django.shortcuts import render ,redirect
-from .form import TaskForm
+#from .form import TaskForm
 # Create your views here.
 
 
 
 
-def create_task(request):
+"""def create_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -14,4 +14,4 @@ def create_task(request):
     else:
         form = TaskForm()
     
-    return render(request, 'task/task.html', {'form': form})
+    return render(request, 'task/task.html', {'form': form})"""

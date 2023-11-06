@@ -15,8 +15,6 @@ def register(request):
         if form.is_valid():
             # Create a new User instance and link it to the Customer
             user = form.save()
-            
-
             todoUser.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )
             
             # Log the user in after registration if needed

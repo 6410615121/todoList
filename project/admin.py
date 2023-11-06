@@ -1,6 +1,14 @@
 from django.contrib import admin
-from .models import Project , Team 
+from .models import Project #, Team 
 
 # Register your models here.
-admin.site.register(Project)
-admin.site.register(Team)
+
+class projectAdmin(admin.ModelAdmin):
+    filter_horizontal = ("TeamMember",)
+admin.site.register(Project,projectAdmin)
+
+"""class TeamAdmin(admin.ModelAdmin):
+    filter_horizontal = ("TeamMember",)
+admin.site.register(Team, TeamAdmin)"""
+
+
