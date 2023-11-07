@@ -1,6 +1,8 @@
 from django.test import TestCase
-from .models import todoUser
+from .models import todoUser, Friend_request
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 class TodoUserTestCase(TestCase):
     def setUp(self):
@@ -27,3 +29,36 @@ class TodoUserTestCase(TestCase):
 
         # Check if the second user is in the first user's friends list
         self.assertIn(another_todo_user, self.test_todo_user.friends.all())
+
+class FriendRequestTest(TestCase):
+    def setUp(self):
+        # Create test users
+        self.user1 = User.objects.create(username='user1')
+        self.user2 = User.objects.create(username='user2')
+        self.profile1 = todoUser.objects.create(user=self.user1, Firstname='John', Lastname='Doe')
+        self.profile2 = todoUser.objects.create(user=self.user2, Firstname='Jane', Lastname='Smith')
+
+    def test_send_friend_request(self):
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('send_friend_request', kwargs={'userID': self.profile2.todoUser_ID}))
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure a friend request is created
+        friend_request = Friend_request.objects.filter(From_user=self.profile1, To_user=self.profile2).first()
+        self.assertIsNotNone(friend_request)
+
+    def test_accept_friend_request(self):
+        # Create a friend request
+        friend_request = Friend_request.objects.create(From_user=self.profile1, To_user=self.profile2)
+
+        self.client.force_login(self.user2)
+        response = self.client.get(reverse('accept_friend_request', kwargs={'userID': self.profile1.todoUser_ID}))
+        self.assertEqual(response.status_code, 302)  # Assuming redirect to 'index'
+
+        # Ensure the friend request is accepted
+        self.profile1.refresh_from_db()
+        self.profile2.refresh_from_db()
+        self.assertIn(self.profile1, self.profile2.friends.all())
+        self.assertIn(self.profile2, self.profile1.friends.all())
+        self.assertFalse(Friend_request.objects.filter(pk=friend_request.pk).exists())  # Friend request should be deleted
+

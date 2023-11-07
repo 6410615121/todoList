@@ -12,11 +12,8 @@ class todoUser(models.Model):
     
     def __str__(self):
         return f'Name:{self.user} ID:{self. todoUser_ID}'
-    
 
-"""
-class Friend(models.Model):
+class Friend_request(models.Model):
     From_user = models.ForeignKey(todoUser,related_name="from_user", on_delete=models.CASCADE)
     To_user = models.ForeignKey(todoUser,related_name= "to_user", on_delete=models.CASCADE)
-"""
-
+    

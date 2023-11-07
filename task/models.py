@@ -16,6 +16,7 @@ class Task(models.Model):
     Finish_Date = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=False,editable=False)
     description = models.TextField(default="No description")
+    file = models.FileField(null=True,blank=True)
 
     def __str__(self):
         return f"title: {self.task_title}////Task Owner: {self.TaskOwner.Firstname} {self.TaskOwner.Lastname}"
@@ -32,6 +33,7 @@ class Individual_Task(models.Model):
     Finish_Date = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=False,editable=False)
     description = models.TextField(default="No description")
+    file = models.FileField(null=True,blank=True)
 
 
 
