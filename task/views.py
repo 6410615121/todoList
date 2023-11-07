@@ -37,11 +37,15 @@ def taskIndividualList(request):
 
 @login_required
 def task_add(request):
+    todouser = todoUser.objects.get(user = request.user)
     project_members = None
+    project_selected_ID = request.session.get('project_selected', 0)
+    selected_project = Project.objects.get(Project_ID = project_selected_ID)
     if request.method == 'POST':
         if 'submit_project' in request.POST:
             selected_project = request.POST.get('project')
             if selected_project is not None:
+                request.session['project_selected'] = selected_project
                 selected_project = Project.objects.get(Project_ID = selected_project)
                 project_members = selected_project.TeamMember.all()
 
