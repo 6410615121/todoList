@@ -3,6 +3,7 @@ from .form import TaskForm
 from .models import Project,Task, Individual_Task
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import todoUser
 # Create your views here.
 
@@ -26,16 +27,15 @@ def taskList(request):
     return render(request, 'task/taskList.html', context)
 
 
-
+@login_required
 def task_add(request):
     project_members = None
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
-        selected_project = request.POST.get('project')
-        if selected_project is not None:
-            selected_project = Project.objects.get(Project_ID = selected_project)
-            project_members = selected_project.TeamMember.all()
+        if 'submit_project' in request.POST:
+            selected_project = request.POST.get('project')
+            if selected_project is not None:
+                selected_project = Project.objects.get(Project_ID = selected_project)
+                project_members = selected_project.TeamMember.all()
 
         if 'submit_task' in request.POST:
             selected_Owner = request.POST.get('task_owner')

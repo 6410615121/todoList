@@ -3,9 +3,16 @@
     <h1> {{ project.Project_name }} </h1>
     <ul>
         {% with project_id=project.Project_ID %}
-            {% for task in tasks_by_project|get_item:project_id %}
-                <li>{{ task.task_title }}</li>
-            {% endfor %}
+            {% if tasks_by_project|get_item:project_id %}
+                {% for task in tasks_by_project|get_item:project_id %}
+                    <li>{{ task.task_title }}</li>
+                {% endfor %}
+            {% else %}
+                <li>None</li>
+            {% endif %}
         {% endwith %}
     </ul>
 {% endfor %}
+
+<br>
+<a href="{% url 'taskIndex' %}">back</a>
