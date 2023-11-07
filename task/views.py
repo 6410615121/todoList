@@ -26,6 +26,14 @@ def taskList(request):
 
     return render(request, 'task/taskList.html', context)
 
+@login_required
+def taskIndividualList(request):
+    todouser = todoUser.objects.get(user = request.user)
+    tasks = todouser.individual_tasks.all()
+    context = { 'tasks' : tasks
+    }
+    return render(request, 'task/taskIndividualList.html', context)
+
 
 @login_required
 def task_add(request):

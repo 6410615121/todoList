@@ -5,7 +5,7 @@
         {% with project_id=project.Project_ID %}
             {% if tasks_by_project|get_item:project_id %}
                 {% for task in tasks_by_project|get_item:project_id %}
-                    <li>{{ task.task_title }}</li>
+                    <li>{{ task.task_title }} //// due: {{ task.Due_Date }}</li>
                 {% endfor %}
             {% else %}
                 <li>None</li>

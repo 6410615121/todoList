@@ -1,0 +1,30 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="project_name">Project name</label>
+    <input type="text" id="project_name" name="project_name"><br>
+
+    <div class="Added member">
+        <h3>Added member</h3>
+        <ul class="item-list">
+            {% for member in memberAdded %}
+                <li>{{ member }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <h3>Friend</h3>
+    <div class="Added Friend">
+    
+    <select name="friend" id="">
+        {% for friend in friendList %}
+        <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
+        {% endfor %}
+    </select>
+    <button type="submit" name="submit_add_member">Submit</button>
+    </div>
+    <br>
+    <h3>Submit project add</h3>
+    <button type="submit" name="submit_add_project">Submit</button>
+
+
+</form>

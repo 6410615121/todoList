@@ -22,6 +22,7 @@ def register(request):
             
             # Log the user in after registration if needed
             # ...
+            redirect('login')
     else:
         form = RegistrationForm()
 
@@ -36,7 +37,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page or any other desired URL
-            return redirect('about')
+            return redirect('index')
         else:
             # Provide an error message or handle invalid login attempts
             return render(request, 'user/login.html', {'error': 'Invalid username or password'})

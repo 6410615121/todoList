@@ -1,0 +1,6 @@
+{% for task in tasks %}
+<li> {{task.task_title}}/// due date :  {{ task.Due_Date }}</li>
+{% endfor %}
+
+<br>
+<a href= '{% url 'taskIndex' %}'>back</a>

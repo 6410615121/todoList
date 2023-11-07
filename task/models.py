@@ -23,7 +23,7 @@ class Task(models.Model):
 
 
 class Individual_Task(models.Model):
-    User = models.ForeignKey(todoUser, on_delete=models.CASCADE, related_name="Individual_Task")
+    User = models.ForeignKey(todoUser, on_delete=models.CASCADE, related_name="individual_tasks")
 
     Task_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
     task_title = models.CharField(max_length=64)
