@@ -23,6 +23,7 @@ def taskList(request):
         'projects_with_user': projects_with_user,
         'tasks_by_project': tasks_by_project,
     }
+    #print(context)
 
     return render(request, 'task/taskList.html', context)
 
@@ -40,7 +41,10 @@ def task_add(request):
     todouser = todoUser.objects.get(user = request.user)
     project_members = None
     project_selected_ID = request.session.get('project_selected', 0)
-    selected_project = Project.objects.get(Project_ID = project_selected_ID)
+    if project_selected_ID != 0:
+        selected_project = Project.objects.get(Project_ID = project_selected_ID)
+    else:
+        selected_project = None
     if request.method == 'POST':
         if 'submit_project' in request.POST:
             selected_project = request.POST.get('project')

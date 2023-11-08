@@ -30,8 +30,12 @@ def projectAdd(request):
                 finalmembers.append(member)
 
             with transaction.atomic():
-                new_project = Project.objects.create(Project_name=project_name, TeamLeader= project_leader)
-                new_project.TeamMember.set(finalmembers)
+                if project_name != '':
+                    new_project = Project.objects.create(Project_name=project_name, TeamLeader= project_leader)
+                    new_project.TeamMember.set(finalmembers)
+                    print(project_name)
+                else:
+                    return render(request, 'project/projectAdd.html', context)
                 
             request.session.pop('memberAdded')
             return redirect('taskList')

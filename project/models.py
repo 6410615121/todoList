@@ -8,7 +8,7 @@ from user.models import todoUser
 # Create your models here.
 class Project(models.Model):
     Project_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    Project_name = models.CharField(max_length=64)
+    Project_name = models.CharField(max_length=64,blank=False,null=False)
     
 
     TeamLeader = models.ForeignKey(todoUser, on_delete=models.CASCADE, related_name="TeamLeader",null=True)
