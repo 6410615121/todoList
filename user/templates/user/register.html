@@ -1,15 +1,77 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="{% static 'user_css/login_register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 <body>
-    <h1>Register</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <div class="cover">
+            <div class="image">
+                <img src= "{% static 'images/login.jpg' %}"> 
+            </div>
+            <!--
+                 <div class="text">
+                <span class="text-1">ToDoList</span>
+                <span class="text-2">Let's get started</span>
+            </div>
+            -->
+           
+        </div>
+        <form action="{%url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-content">
+                <div class="signup-form">
+                    <div class="title">Sign Up</div>
+                    <div class="input-boxes">
+
+                        <div class="input-box">
+                            
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                            <i class="fas fa-user"></i>
+                            
+                        </div>
+
+                        <div class="input-box">
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </div>
+
+                        <div class="input-box">
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}                    
+                        </div>
+                        <div class="input-box">
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                          
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="input-box" >
+                            {{ form.password }}
+                            {{ form.password.errors }}
+                          
+                            <i class="fas fa-lock"></i>
+                        </div>
+
+                        <div class="button input-box">
+                          <input type="submit" value="Sumbit">
+                        </div>
+
+                        <div class="text sign-up-text">Already have an account? <a href="{% url 'login' %}">Log in</a></div>
+                      
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>

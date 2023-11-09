@@ -1,0 +1,31 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="project">Project:</label>
+    <form id="projectForm" method="post" action="/get_project_members/">
+        <select name="project" id="project">
+            {% for project in requester_project %}
+                <option value="{{ project.Project_ID }}">{{ project.Project_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" name="submit_project">Submit Project</button><br>
+
+    <label for="task_owner">Task Owner:</label>
+    <select name="task_owner" id="task_owner">
+        {% for member in project_members %}
+            <option value="{{ member.todoUser_ID }}">{{ member.Firstname }} {{ member.Lastname }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label for="task_title">Task Title:</label>
+    <input type="text" id="task_title" name="task_title"><br>
+
+    <label for="due_date">Due Date:</label>
+    <input type="datetime-local" id="due_date" name="due_date"><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+
+    <button type="submit" name="submit_task">Submit</button>
+</form>
+
+<br>

@@ -1,7 +1,7 @@
 # Create your models here.
 from django.db import models
 import uuid
-from user.models import todoUser , Friend
+from user.models import todoUser
 
 
 
@@ -10,17 +10,9 @@ class Project(models.Model):
     Project_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
     Project_name = models.CharField(max_length=64)
     
+
+    TeamLeader = models.ForeignKey(todoUser, on_delete=models.CASCADE, related_name="TeamLeader",null=True)
+    TeamMember = models.ManyToManyField(todoUser, related_name="TeamMember")
     
-
-class Team(models.Model):
-    Project_ID = models.ForeignKey(Project, on_delete=models.CASCADE)
-    Team_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    Team_name = models.CharField(max_length=64)
-    TeamLeader_ID = models.ForeignKey(todoUser, on_delete=models.CASCADE)
-    TeamUser_ID = models.ManyToManyField(Friend)
-
-    
-
-
-    
-
+    def __str__(self):
+        return self.Project_name
