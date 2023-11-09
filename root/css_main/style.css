@@ -38,7 +38,6 @@ body.dark {
   justify-content: space-between;
   padding: 15px 30px;
   z-index: 1000;
-  margin-bottom: 150px; 
   box-shadow: 0 0 2px var(--grey-color-light);
 }
 .logo_item {
@@ -52,7 +51,6 @@ body.dark {
 .navbar img {
   width: 35px;
   height: 35px;
-  object-fit: cover;
   border-radius: 50%;
 }
 .search_bar {
@@ -121,11 +119,11 @@ body.dark {
 .menu_dahsboard::before {
   content: "Dashboard";
 }
-.menu_task::before {
-  content: "Task";
+.menu_editor::before {
+  content: "Editor";
 }
-.menu_project::before {
-  content: "Project";
+.menu_setting::before {
+  content: "Setting";
 }
 .sidebar.close .menu_title::before {
   content: "";
@@ -259,7 +257,6 @@ body.dark {
   .sidebar.close .bottom_content {
     left: -100%;
   }
-  
 }
 
 

@@ -17,11 +17,11 @@
     
     <nav class="navbar">
       
-        <div class="logo_item"> ToDoList
-          <!-- <i class="bx bx-menu" id="sidebarOpen"></i>
-          <img src="images/logo.png" alt=""></i>ToDoList
-        </div>-->
+        <div class="logo_item"> 
+            ToDoList
+          <i class="bx bx-menu" id="sidebarOpen"></i>
         </div>
+  
   
         <div class="search_bar">
           <input type="text" placeholder="Search" />
@@ -31,7 +31,7 @@
           <i class="bi bi-grid"></i>
           <i class='bx bx-sun' id="darkLight"></i>
           <i class='bx bx-bell' ></i>
-          <img src="images/profile.jpg" alt="" class="profile" />
+          <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
         </div>
       </nav>
       <!-- sidebar -->
@@ -212,61 +212,9 @@
 
     
 
+    
     <!-- JavaScript -->
-    <script>const body = document.querySelector("body");
-      const darkLight = document.querySelector("#darkLight");
-      const sidebar = document.querySelector(".sidebar");
-      const submenuItems = document.querySelectorAll(".submenu_item");
-      const sidebarOpen = document.querySelector("#sidebarOpen");
-      const sidebarClose = document.querySelector(".collapse_sidebar");
-      const sidebarExpand = document.querySelector(".expand_sidebar");
-      sidebarOpen.addEventListener("click", () => sidebar.classList.toggle("close"));
-      
-      sidebarClose.addEventListener("click", () => {
-        sidebar.classList.add("close", "hoverable");
-      });
-      sidebarExpand.addEventListener("click", () => {
-        sidebar.classList.remove("close", "hoverable");
-      });
-      
-      sidebar.addEventListener("mouseenter", () => {
-        if (sidebar.classList.contains("hoverable")) {
-          sidebar.classList.remove("close");
-        }
-      });
-      sidebar.addEventListener("mouseleave", () => {
-        if (sidebar.classList.contains("hoverable")) {
-          sidebar.classList.add("close");
-        }
-      });
-      
-      darkLight.addEventListener("click", () => {
-        body.classList.toggle("dark");
-        if (body.classList.contains("dark")) {
-          document.setI;
-          darkLight.classList.replace("bx-sun", "bx-moon");
-        } else {
-          darkLight.classList.replace("bx-moon", "bx-sun");
-        }
-      });
-      
-      submenuItems.forEach((item, index) => {
-        item.addEventListener("click", () => {
-          item.classList.toggle("show_submenu");
-          submenuItems.forEach((item2, index2) => {
-            if (index !== index2) {
-              item2.classList.remove("show_submenu");
-            }
-          });
-        });
-      });
-      
-      if (window.innerWidth < 768) {
-        sidebar.classList.add("close");
-      } else {
-        sidebar.classList.remove("close");
-      }
-      </script>
+    <script src="{% static 'javasc/script.js' %}"></script>
   </body>
 </html>
 

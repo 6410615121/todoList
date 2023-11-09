@@ -25,7 +25,7 @@ def updatetask(request ,cat):
         mytask = Individual_Task.objects.filter(User=mytodouser, category='pastdue')
     elif cat == "com":
         mytask = Individual_Task.objects.filter(User=mytodouser, category='complete')
-    print(mytask)
+    
     return   mytask
 
 
