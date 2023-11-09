@@ -39,7 +39,7 @@ def projectAdd(request):
                     return render(request, 'project/projectAdd.html', context)
                 
             request.session.pop('memberAdded')
-            return redirect('taskList')
+            return redirect('ProjectList')
 
     for member_id in memberAdded_ids:
         # Retrieve the todoUser object for each ID and extract the name
