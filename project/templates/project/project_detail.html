@@ -8,15 +8,11 @@
     <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <title>Project</title>
-    
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css_main/createproject_style.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'css_main/project_list.css' %}">
   </head>
   <body>
-    
     <!-- navbar -->
-    
     <nav class="navbar">
       
         <div class="logo_item"> 
@@ -170,57 +166,95 @@
             </div>
           </div>
         </div>
-      </nav>
-
     </nav>
-    <!-- element task --> 
-    
 
+    <!--content -->
+    <div class= 'content_box'>
+        <p class='project_name'>
+            {{ project_name }}
+        </p>
+        
+        <div class='task_container'>
+            <p class ='Owned_task_and_other_tasks_label'>
+                Owned Tasks
+            </p>
 
-
-    <div class="container_project_add">
-        <div class="formproject">
-            <form method="post">
-                {% csrf_token %}
-                <label class='projectadd_label'>Project name</label>
-                <input type="text" name="project_name" class='project_name_form' placeholder='Enter project name'></input>
+            {% for task in assignedtask %}
+            <div class='due_date'>
+                {% if task.time_difference_format == "Late"%}
+                    <p class='late'>
+                        Past due
+                    </p>
                 
-                <div class="Added member">
-                    <label class='projectadd_label'>Added member</label><br>
-                    <ul class="item-list">
-                        {% for member in memberAdded %}
-                            <li>{{ member }}</li>
-                        {% endfor %}
-                    </ul>
+                {% elif 'left' in task.time_difference_format %}
+                    <p class='upcoming'>
+                        {{task.time_difference_format}}
+                    </p>
+                {% elif 'Completed' in task.time_difference_format %}
+                    <p class='completed'>
+                        {{task.time_difference_format}}
+                    </p>
+                {% endif %}
+            </div>
+            <div class='task_and_mark'>
+
+                <div class='task_box'>
+                    <p class ='task-content'>
+                        {{task}}
+                    </p>
                 </div>
 
-                <label class='projectadd_label'>Friend</label>
-                <div class="Added Friend">
-                    <select name="friend" id="">
-                        {% for friend in friendList %}
-                            <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit" name="submit_add_member">Submit</button>
-                </div>
-                <label class='projectadd_label'>Submit project add</label>
-                <button type="submit" name="submit_add_project">Submit</button>
-            </form>
+                <button class='mark'>
+                    mark as finish
+                </button>
+
+            </div>
+            {% endfor %}
         </div>
 
-        <div class="cover_project">
-          <img src= "{% static 'images/login.jpg' %}"> 
-        </div> 
-    </div>
+        <div class='task_container'>
+            <p class ='Owned_task_and_other_tasks_label'>
+                Other tasks
+            </p>
 
+            {% for task in other_tasks %}
+            <div class='due_date'>
+                {% if task.time_difference_format == "Late"%}
+                    <p class='late'>
+                        Past due
+                    </p>
+                
+                {% elif 'left' in task.time_difference_format %}
+                    <p class='upcoming'>
+                        {{task.time_difference_format}}
+                    </p>
+                {% elif 'Completed' in task.time_difference_format %}
+                    <p class='completed'>
+                        {{task.time_difference_format}}
+                    </p>
+                {% endif %}
+            </div>
+            <div class='task_and_mark'>
 
+                <div class='task_box'>
+                    <p class ='task-content'>
+                        {{task}}
+                    </p>
+                </div>
+
+                <button class='mark'>
+                    mark as finish
+                </button>
+
+            </div>
+            {% endfor %}
+        </div>
 
 
     
 
-    
+
     <!-- JavaScript -->
     <script src="{% static 'javasc/script.js' %}"></script>
   </body>
 </html>
-

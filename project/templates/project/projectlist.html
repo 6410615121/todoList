@@ -8,13 +8,12 @@
     <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <title>Project</title>
-    
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/project_list.css' %}">
   </head>
   <body>
     
     <!-- navbar -->
-    
     <nav class="navbar">
       
         <div class="logo_item"> 
@@ -168,22 +167,28 @@
             </div>
           </div>
         </div>
-      </nav>
+    </nav>
 
 
-    <!-- element task --> 
+    
+    
+    
+    
+      
+    
+    
     <div class='container'>
 
-        {% for project in projects_with_user %}
-        <div class='original-box-shadow'>
-            {{ project.Project_name }}<br>
-            
-        </div>
-        {% endfor %}
-    </div>
-     
+      {% for project in projects_with_user %}
+      <a href="{% url 'project_detail' project_id=project.Project_ID %}" class="original-box-shadow">
+
+          {{ project.Project_name }}<br>
+
+      </a>
+      {% endfor %}
 
   </div>
+  
 
 
 
