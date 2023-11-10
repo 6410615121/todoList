@@ -66,3 +66,21 @@ def ProjectList(request):
     }
     
     return render(request, 'project/projectlist.html', context)
+
+@login_required
+def project_detail(request, project_id):
+    todouser = todoUser.objects.get(user = request.user)
+
+    project_obj = Project.objects.get(Project_ID = project_id)
+    tasks = project_obj.tasks_project.all()
+
+    assignedtask = tasks.filter(TeamUser = todouser)
+    other_tasks = tasks.exclude(TeamUser=todouser)
+
+    context = {
+        'project_obj': project_obj,
+        'project_name': project_obj.Project_name,
+        'assignedtask': assignedtask,
+        'other_tasks': other_tasks,
+    }
+    return render(request,'project/project_detail.html', context)

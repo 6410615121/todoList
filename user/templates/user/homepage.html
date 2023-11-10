@@ -40,7 +40,7 @@
           <div class="menu_title menu_dahsboard"></div>
           <!-- start -->
           <li class="item">
-            <div href="#" class="nav_link submenu_item">
+            <div href="{% url 'homepage' %}" class="nav_link submenu_item">
               <span class="navlink_icon">
                 <i class="bx bx-home-alt"></i>
               </span>
@@ -139,13 +139,14 @@
             </a>
           </li>
           <li class="item">
-            <a href="#" class="nav_link">
+            <a href="{% url 'logout' %}" class="nav_link">
               <span class="navlink_icon">
-                <i class="bx bx-cog"></i>
+                <i class="bx bx-log-out"></i>
               </span>
-              <span class="navlink">Setting</span>
+              <span class="navlink">Logout</span>
             </a>
           </li>
+          <!-- 
           <li class="item">
             <a href="#" class="nav_link">
               <span class="navlink_icon">
@@ -155,6 +156,7 @@
             </a>
           </li>
         </ul> 
+        -->
         <!-- Sidebar Open / Close -->
         <div class="bottom_content">
           <div class="bottom expand_sidebar">
@@ -169,10 +171,6 @@
       </div>
     </nav>
 
-
-     
-
-  
 
     <!-- JavaScript -->
 

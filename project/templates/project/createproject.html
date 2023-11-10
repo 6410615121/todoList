@@ -10,6 +10,8 @@
     <title>Project</title>
     
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/createproject_style.css' %}">
+    
   </head>
   <body>
     
@@ -170,43 +172,47 @@
         </div>
       </nav>
 
-
+    </nav>
     <!-- element task --> 
     
-    <div class='container' >
-        <form method="post">
-            {% csrf_token %}
-            <label for="project_name">Project name</label>
-            <input type="text" id="project_name" name="project_name"><br>
-        
-            <div class="Added member">
-                <h3>Added member</h3>
-                <ul class="item-list">
-                    {% for member in memberAdded %}
-                        <li>{{ member }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        
-            <h3>Friend</h3>
-            <div class="Added Friend">
-            
-            <select name="friend" id="">
-                {% for friend in friendList %}
-                <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
-                {% endfor %}
-            </select>
-            <button type="submit" name="submit_add_member">Submit</button>
-            </div>
-            <br>
-            <h3>Submit project add</h3>
-            <button type="submit" name="submit_add_project">Submit</button>
-        
-        
-        </form>
-     
 
-  </div>
+
+
+    <div class="container_project_add">
+        <div class="formproject">
+            <form method="post">
+                {% csrf_token %}
+                <label class='projectadd_label'>Project name</label>
+                <input type="text" name="project_name" class='project_name_form' placeholder='Enter project name'></input>
+                
+                <div class="Added member">
+                    <label class='projectadd_label'>Added member</label><br>
+                    <ul class="item-list">
+                        {% for member in memberAdded %}
+                            <li>{{ member }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <label class='projectadd_label'>Friend</label>
+                <div class="Added Friend">
+                    <select name="friend" id="">
+                        {% for friend in friendList %}
+                            <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" name="submit_add_member">Submit</button>
+                </div>
+                <label class='projectadd_label'>Submit project add</label>
+                <button type="submit" name="submit_add_project">Submit</button>
+            </form>
+        </div>
+
+        <div class="cover_project">
+          <img src= "{% static 'images/login.jpg' %}"> 
+        </div> 
+    </div>
+
 
 
 
@@ -217,4 +223,3 @@
     <script src="{% static 'javasc/script.js' %}"></script>
   </body>
 </html>
-

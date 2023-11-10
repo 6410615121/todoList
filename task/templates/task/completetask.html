@@ -41,7 +41,7 @@
           <div class="menu_title menu_dahsboard"></div>
           <!-- start -->
           <li class="item">
-            <div href="#" class="nav_link submenu_item">
+            <div href="{% url 'homepage' %}" class="nav_link submenu_item">
               <span class="navlink_icon">
                 <i class="bx bx-home-alt"></i>
               </span>
@@ -174,15 +174,26 @@
     <!-- element task --> 
     <div class='container'>
 
-        {% for task in tasklist %}
-        <div class='original-box-shadow'>
+      {% for task in tasklist %}
+      <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="original-box-shadow">
+        
+        <div class="task-com">
             {{ task.task_title }}
         </div>
-        {% endfor %}
-    </div>
+        <div class="description">
+          {{ task.description|slice:"101" }}
+          {% if task.description|length > 101 %}
+              ...  
+          {% endif %}
+        </div>
+        <p style="color: green;" class="status">
+          Complete
+      </p>
 
+      </a>
+      {% endfor %}
 
-    </div>
+  </div>
 
 
 

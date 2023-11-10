@@ -7,7 +7,7 @@ from django.utils import timezone
 # Create your models here.
 class Task(models.Model):
     Task_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    Project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name='tasks_project')
     Teamleader = models.ForeignKey(todoUser, on_delete=models.CASCADE)
     TeamUser = models.ForeignKey(todoUser, on_delete=models.CASCADE,related_name = 'assignedtask') 
     task_title = models.CharField(max_length=64)
@@ -31,8 +31,26 @@ class Task(models.Model):
     )
 
     @property
-    def time_difference(self):
-        return self.Due_Date - timezone.now()
+    def time_difference_format(self):
+        if self.achieve:
+            return "Completed"
+
+        time_diff = self.Due_Date - timezone.now()
+
+        is_negative = time_diff.total_seconds() < 0
+
+        days, seconds = divmod(abs(time_diff.seconds), 86400)  # 86400 seconds in a day
+        hours, remainder = divmod(seconds, 3600)  # 3600 seconds in an hour
+        minutes, seconds = divmod(remainder, 60)  # 60 seconds in a minute
+
+        if days > 0:
+            formatted_time = f"{days} days, {hours} hours, {minutes} minutes "
+        elif hours > 0:
+            formatted_time = f"{hours} hours, {minutes} minutes "
+        else:
+            formatted_time = f"{minutes} minutes "
+
+        return "Late" if is_negative else formatted_time
 
 
 class Individual_Task(models.Model):
@@ -58,15 +76,27 @@ class Individual_Task(models.Model):
     )
 
     @property
-    def time_difference(self):
-        diff =  self.Due_Date - timezone.now()
-        days = diff.days
-        seconds = diff.seconds
-        hours, remainder = divmod(seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        
-        
-        return f"{days} days  {hours}:{minutes}:{seconds}"
+    def time_difference_format(self):
+        if self.achieve:
+            return "Completed"
+
+        time_diff = self.Due_Date - timezone.now()
+
+        is_negative = time_diff.total_seconds() < 0
+
+        days, seconds = divmod(abs(time_diff.seconds), 86400)  # 86400 seconds in a day
+        hours, remainder = divmod(seconds, 3600)  # 3600 seconds in an hour
+        minutes, seconds = divmod(remainder, 60)  # 60 seconds in a minute
+
+        if days > 0:
+            formatted_time = f"{days} days, {hours} hours, {minutes} minutes "
+        elif hours > 0:
+            formatted_time = f"{hours} hours, {minutes} minutes "
+        else:
+            formatted_time = f"{minutes} minutes "
+
+        return "Late" if is_negative else formatted_time
+
      
     
    

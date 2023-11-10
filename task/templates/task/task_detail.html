@@ -88,30 +88,30 @@
                 <!-- Start -->
                 <li class="item">
                     <a href="{% url 'individual_tasklist' %}" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="bx bxs-magic-wand"></i>
-                        </span>
-                        <span class="navlink">Task</span>
+                      <span class="navlink_icon">
+                        <i class="bx bxs-magic-wand"></i>
+                      </span>
+                      <span class="navlink">Task</span>
                     </a>
-                </li>
-                <!-- End -->
-
-                <li class="item">
-                    <a href="#" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="bx bx-loader-circle"></i>
-                        </span>
-                        <span class="navlink">Past due</span>
+                  </li>
+                  <!-- End -->
+        
+                  <li class="item">
+                    <a href="{% url 'individual_past_tasklist' %}" class="nav_link">
+                      <span class="navlink_icon">
+                        <i class="bx bx-loader-circle"></i>
+                      </span>
+                      <span class="navlink">Past due</span>
                     </a>
-                </li>
-                <li class="item">
-                    <a href="#" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="bx bx-filter"></i>
-                        </span>
-                        <span class="navlink">Completed task</span>
+                  </li>
+                  <li class="item">
+                    <a href="{% url 'individual_com_tasklist' %}" class="nav_link">
+                      <span class="navlink_icon">
+                        <i class="bx bx-filter"></i>
+                      </span>
+                      <span class="navlink">Completed task</span>
                     </a>
-                </li>
+                  </li>
                 <!--
           <li class="item">
             <a href="#" class="nav_link">
@@ -172,27 +172,61 @@
         </div>
     </nav>
 
-
+    <!--
+    task_title = models.CharField(max_length=64)
+    Entry_Date = models.DateTimeField(auto_now=True)
+    Due_Date =   models.DateTimeField(default=timezone.now)
+    Finish_Date = models.DateTimeField(default=timezone.now)
+    achieve = models.BooleanField(default=False)
+    description = models.TextField(default="No description")
+    file = models.FileField(null=True,blank=True)-->
     <!-- element task -->
-
     <div class='container'>
-        <form method = "post">
-            {% csrf_token %}
-            <label for="task_title">Task Title:</label>
-            <input type="text" id="task_title" name="task_title"><br>
-        
-            <label for="due_date">Due Date:</label>
-            <input type="datetime-local" id="due_date" name="due_date"><br>
-        
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
-        
-            <button type="submit">Submit</button>
-        </form>
+        <div class= 'detailtask_box'>
+            <div class='task_container'>
+                <div class='title'>
+                    Task name : {{taskdetail.task_title}}
+                </div>
+                <div class='date'>
+                    Entry date :  {{ taskdetail.Entry_Date }}
+                </div>
+                <div class='date'>
+                    Due date : {{ taskdetail.Due_Date }}
+                </div>
+                <div class='description'>
+                    Task description 
+                </div>
+                <div class='descriptiondetail'>
+                    {{ taskdetail.description }} 
+                </div>
+                <div class='submit'>
+                    {% if taskdetail.achieve %}
+                        <a href="{% url 'submit' task_id=taskdetail.Task_ID %}">undo submit</a>
+                        
+                    {% else  %}
+                    
+                        <a href="{% url 'submit' task_id=taskdetail.Task_ID %}">submit</a>
+                    
+                    {% endif %}
+                    
+                </div>
+                <div class='file'>
+                    {% if taskdetail.file %}
+                    <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}">{{ taskdetail.file}}</a>
+                        
+                    {% else  %}
+                    
+                        No submmited file
+                    
+                    {% endif %}
+                </div>
+                
+            </div>
+            
+        </div>
     </div>
-
-
-    </div>
+    
+    
 
 
 

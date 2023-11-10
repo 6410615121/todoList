@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User 
 from .form import RegistrationForm
 from .models import todoUser ,Friend_request
-from django.contrib.auth import authenticate, login 
+from django.contrib.auth import authenticate, login ,logout
 
 # Create your views here.
 
@@ -29,6 +29,12 @@ def login_view(request):
             return render(request, 'user/login.html', {'error': 'Invalid username or password'})
 
     return render(request, 'user/login.html')  # Render the login form
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'user/login.html',{
+        'message': 'Logged out'
+    })
 
 def register(request):
     if request.method == 'POST':

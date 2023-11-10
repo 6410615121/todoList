@@ -1,10 +1,12 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .form import TaskForm
+from django.http import HttpResponse ,Http404
 from user.models import todoUser
 from project.models import Project
 from .models import Individual_Task ,Task
 from django.utils import timezone
+from django.conf import settings
+import os
 # Create your views here.
 
 
@@ -111,3 +113,39 @@ def task_add(request):
 
     return render(request, 'task/taskProjectadd.html', context)
 
+@login_required
+def task_detail(request, task_id):
+    
+    mytask = Individual_Task.objects.get(Task_ID=task_id)
+
+    context = {
+        'taskdetail': mytask,
+        
+    }
+    return render(request,'task/task_detail.html', context)
+
+@login_required
+def download_file(request, task_id):
+    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    
+    response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
+    return response
+    
+@login_required
+def submit(request, task_id):
+    mytask = Individual_Task.objects.get(Task_ID=task_id)
+    
+    if mytask.achieve == True:
+        mytask.achieve = False  # undo submit 
+        mytask.category = 'due'
+    else:
+        mytask.achieve = True   # submit
+        mytask.category = 'complete'
+
+    mytask.save()
+    context = {
+        'taskdetail': mytask,
+        
+    }
+    return render(request,'task/task_detail.html', context)
