@@ -10,7 +10,7 @@ class todoUser(models.Model):
     Lastname = models.CharField(max_length=50 )
     friends = models.ManyToManyField('self', blank=True)
 
-    def str(self):
+    def __str__(self):
         return f'Name:{self.Firstname} ID:{self.todoUser_ID}'
 
     
