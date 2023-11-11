@@ -1,31 +1,208 @@
-<form method="post">
-    {% csrf_token %}
-    <label for="project">Project:</label>
-    <form id="projectForm" method="post" action="/get_project_members/">
-        <select name="project" id="project">
-            {% for project in requester_project %}
-                <option value="{{ project.Project_ID }}">{{ project.Project_name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" name="submit_project">Submit Project</button><br>
+{%load static %}
+<!DOCTYPE html>
+<!-- Coding Navbar by CodingNepal || www.codingnepalweb.com -->
+<html lang="en">
 
-    <label for="task_owner">Task Owner:</label>
-    <select name="task_owner" id="task_owner">
-        {% for member in project_members %}
-            <option value="{{ member.todoUser_ID }}">{{ member.Firstname }} {{ member.Lastname }}</option>
-        {% endfor %}
-    </select><br>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <title>Task</title>
 
-    <label for="task_title">Task Title:</label>
-    <input type="text" id="task_title" name="task_title"><br>
+    <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+</head>
 
-    <label for="due_date">Due Date:</label>
-    <input type="datetime-local" id="due_date" name="due_date"><br>
+<body>
 
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+    <!-- navbar -->
 
-    <button type="submit" name="submit_task">Submit</button>
-</form>
+    <nav class="navbar">
 
-<br>
+        <div class="logo_item"> 
+            ToDoList
+          <i class="bx bx-menu" id="sidebarOpen"></i>
+        </div>
+  
+
+        <div class="search_bar">
+            <input type="text" placeholder="Search" />
+        </div>
+
+        <div class="navbar_content">
+            <i class="bi bi-grid"></i>
+            <i class='bx bx-sun' id="darkLight"></i>
+            <i class='bx bx-bell'></i>
+            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+        </div>
+    </nav>
+    <!-- sidebar -->
+    <nav class="sidebar">
+        <div class="menu_content">
+            <ul class="menu_items">
+                <div class="menu_title menu_dahsboard"></div>
+                <!-- start -->
+                <li class="item">
+                    <a href="{% url 'homepage' %}" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bx-home-alt"></i>
+                        </span>
+                        <span class="navlink">Home</span>
+                      </a>
+                </li>
+                <!-- end -->
+
+                <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
+                <!-- start -->
+                <li class="item">
+                    <div href="#" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bx-grid-alt"></i>
+                        </span>
+                        <span class="navlink">Account</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+
+                    <ul class="menu_items submenu">
+                        <a href="#" class="nav_link sublink">My account</a>
+                        <a href="#" class="nav_link sublink">Friend</a>
+                        <!--               <a href="#" class="nav_link sublink">Nav Sub Link</a>
+              <a href="#" class="nav_link sublink">Nav Sub Link</a> -->
+
+                    </ul>
+                </li>
+                <!-- end -->
+            </ul>
+
+            <ul class="menu_items">
+                <div class="menu_title menu_task"></div>
+                <!-- duplicate these li tag if you want to add or remove navlink only -->
+                <!-- Start -->
+                <li class="item">
+                    <a href="{% url 'individual_tasklist' %}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bxs-magic-wand"></i>
+                        </span>
+                        <span class="navlink">Task</span>
+                    </a>
+                </li>
+                <!-- End -->
+
+                <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-loader-circle"></i>
+                        </span>
+                        <span class="navlink">Past due</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-filter"></i>
+                        </span>
+                        <span class="navlink">Completed task</span>
+                    </a>
+                </li>
+                <!--
+          <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-cloud-upload"></i>
+              </span>
+              <span class="navlink">Upload new</span>
+            </a>
+          </li>
+          -->
+            </ul>
+            <ul class="menu_items">
+                <div class="menu_title menu_project"></div>
+                <li class="item">
+                    <a href="{% url 'ProjectList' %}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-flag"></i>
+                        </span>
+                        <span class="navlink">My Project</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{% url 'projectAdd' %}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-medal"></i>
+                        </span>
+                        <span class="navlink">Create Project</span>
+                    </a>
+                </li>
+                <!-- <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-cog"></i>
+              </span>
+              <span class="navlink">Setting</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-layer"></i>
+              </span>
+              <span class="navlink">Features</span>
+            </a>
+          </li>
+        </ul> -->
+                <!-- Sidebar Open / Close -->
+                <div class="bottom_content">
+                    <div class="bottom expand_sidebar">
+                        <span> Expand</span>
+                        <i class='bx bx-log-in'></i>
+                    </div>
+                    <div class="bottom collapse_sidebar">
+                        <span> Collapse</span>
+                        <i class='bx bx-log-out'></i>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+
+    <!-- element task -->
+
+    <div class='container'>
+        <form method="post">
+            {% csrf_token %}
+            <label for="task_owner">Task Owner:</label>
+            <select name="task_owner" id="task_owner" required>
+                {% for member in project_members %}
+                    <option value="{{ member.todoUser_ID }}">{{ member.Firstname }} {{ member.Lastname }} </option>
+                {% endfor %}
+            </select><br>
+        
+            <label for="task_title">Task Title:</label>
+            <input type="text" id="task_title" name="task_title"><br>
+        
+            <label for="due_date">Due Date:</label>
+            <input type="datetime-local" id="due_date" name="due_date" required><br>
+        
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+        
+            <button type="submit" name="submit_task">Submit</button>
+        </form>
+        
+        
+    </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- JavaScript -->
+    <!-- JavaScript -->
+    <script src="{% static 'javasc/script.js' %}"></script>
+</body>
+
+</html>
+

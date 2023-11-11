@@ -13,7 +13,7 @@
   --grey-color-light: #aaa;
 }
 body {
-  background-color: #e7f2fd;
+  background-color: #e3ebf4;
   transition: all 0.5s ease;
 }
 body.dark {
@@ -32,7 +32,7 @@ body.dark {
   top: 0;
   width: 100%;
   left: 0;
-  background-color: var(--white-color);
+  background-color: rgb(14, 115, 203);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,7 @@ body.dark {
   column-gap: 10px;
   font-size: 22px;
   font-weight: 500;
-  color: var(--blue-color);
+  color: rgb(233, 236, 239);
 }
 .navbar img {
   width: 35px;
@@ -77,7 +77,7 @@ body.dark {
 .navbar_content i {
   cursor: pointer;
   font-size: 20px;
-  color: var(--grey-color);
+  color: rgb(233, 236, 239);
 }
 
 /* sidebar */
@@ -166,6 +166,7 @@ body.dark {
   color: var(--grey-color);
   white-space: nowrap;
 }
+
 .sidebar.close .navlink {
   display: none;
 }
@@ -346,14 +347,15 @@ body.dark {
   
 }
 
+
 .container {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap; 
   justify-content: center;
-  height: 100vh; 
-  margin-top: 100px; /* Adjust the top margin if needed */
+  height: auto; 
+  margin-top: 170px; /* Adjust the top margin if needed */
   margin-left: 100px;
   margin-bottom: 100px;
   
@@ -379,13 +381,43 @@ body.dark {
  
 }
 
+
 .right-top-addtask:hover {
   background-color: #d1e5f4; /* Change background color on hover */
 }
 
 
+.picture {
+  
+  display: flex;
+  flex-direction: row;
+  bottom : 10px;
+  
+}
+.picture .pictureteam {
+  position: absolute;
+  display: block;
+  
+}
+
 
 /*project detail*/
+
+.project_name {
+  display: inline-block;
+  color: rgb(103, 144, 181);
+  font-size: 20px;
+  font-weight: 500;
+
+  padding-left: 20px;
+  padding-right: 20px;
+
+  margin-bottom: 5px;
+
+  border-radius: 50px;
+  background-color: #dbebfa;
+}
+
 .content_box{
   display: inline-block;
   margin-top: 125px;
@@ -425,6 +457,55 @@ body.dark {
   color: rgb(96, 94, 94);
 }
 
+.task_container .date{
+  display: block;
+  font-size: 25px;
+  color: rgb(96, 94, 94);
+  margin-bottom: 20px;
+}
+
+.task_container .title{
+  display: block;
+  font-size: 25px;
+  color: rgb(96, 94, 94);
+  margin-bottom: 20px;
+}
+
+.task_container .description{
+  display: block;
+  font-size: 25px;
+  color: rgb(96, 94, 94);
+  margin-bottom: 20px;
+}
+.task_container .descriptiondetail{
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 50px;
+  color: rgb(96, 94, 94);
+}
+
+.task_container .file{
+  display: block;
+  margin-top: 30px;
+  font-size: 20px;
+  color: rgb(96, 94, 94);
+ 
+}
+.task_container .submit{
+
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(58, 183, 225);
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+ 
+}
+
 .task_container .task_and_mark{
   display: grid;
   grid-template-columns: 1fr 150px;
@@ -456,3 +537,14 @@ body.dark {
   color: rgb(255, 255, 255);
   background-color: rgb(176, 189, 233)
 }
+
+.detailtask_box{
+  display: flex;
+  margin-top: 125px;
+  width: 1000px;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  padding: 50px;
+}
+

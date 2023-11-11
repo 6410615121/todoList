@@ -43,20 +43,12 @@
             <div class="menu_title menu_dahsboard"></div>
             <!-- start -->
             <li class="item">
-              <div href="#" class="nav_link submenu_item">
+              <a href="{% url 'homepage' %}" class="nav_link submenu_item">
                 <span class="navlink_icon">
-                  <i class="bx bx-home-alt"></i>
+                    <i class="bx bx-home-alt"></i>
                 </span>
                 <span class="navlink">Home</span>
-                <i class="bx bx-chevron-right arrow-left"></i>
-              </div>
-  
-              <ul class="menu_items submenu">
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              </ul>
+              </a>
             </li>
             <!-- end -->
   
@@ -179,39 +171,63 @@
 
 
     <div class="container_project_add">
-        <div class="formproject">
-            <form method="post">
-                {% csrf_token %}
-                <label class='projectadd_label'>Project name</label>
-                <input type="text" name="project_name" class='project_name_form' placeholder='Enter project name'></input>
-                
-                <div class="Added member">
-                    <label class='projectadd_label'>Added member</label><br>
-                    <ul class="item-list">
-                        {% for member in memberAdded %}
-                            <li>{{ member }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+      <img class='cover' src='{% static 'images/pngtree-messy-documents-pile-paperwork-overload-png-image_6349779.png' %}' >
+      
+      <div class='content'>
+          <p class ='project-add-header'>
+            PROJECT ADD
+          </p>
 
-                <label class='projectadd_label'>Friend</label>
-                <div class="Added Friend">
-                    <select name="friend" id="">
+          <form method="post">
+              {% csrf_token %}
+
+              <div class='project_name_form'>
+                  <label>Project name</label>
+                  <input type="text" name="project_name" placeholder='Enter project name'>
+              </div>
+      
+              <div class="added_member_box">
+
+                <div class='head'>
+                    <p>
+                      Added member
+                    </p>
+                </div>
+                
+                <div class='memberbox'>
+                  {% for member in memberAdded %}
+                      <img src="{% static 'images/computer-icons-user-profile-head-ico-download.jpg' %}">
+                      <p>{{ member }}</p>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <div class="friend_container">
+                  <label class=''>
+                    Friend
+                  </label>
+                  <div class='addmember_and_submit'>
+
+                    <select name="friend" class='selector'>
                         {% for friend in friendList %}
                             <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
                         {% endfor %}
                     </select>
-                    <button type="submit" name="submit_add_member">Submit</button>
-                </div>
-                <label class='projectadd_label'>Submit project add</label>
-                <button type="submit" name="submit_add_project">Submit</button>
-            </form>
-        </div>
+                  
+                    <button type="submit" name="submit_add_member" class='button'>Add</button>
 
-        <div class="cover_project">
-          <img src= "{% static 'images/login.jpg' %}"> 
-        </div> 
-    </div>
+                    <div class='submit_add_project_box'>
+                      <button type="submit" name="submit_add_project" class='submit_add_project'>Submit project</button>
+                    </div>
+
+                  </div>
+              </div>
+              
+
+          </form>
+      </div>
+  </div>
+  
 
 
 
