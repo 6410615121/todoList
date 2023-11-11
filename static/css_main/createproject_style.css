@@ -1,43 +1,179 @@
 .container_project_add{
-    display: block;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
     background-color: rgb(255, 255, 255);
-    align-items: center;
-    width: auto;
-    margin-top: 150px;
-    margin-left: 300px;
-}
+    border-radius: 60px;
+    padding: 20px;
 
-.container_project_add .cover_project{
-    display: inline-block;
-    top: 0;
-    right: 0;
-}
-
-.container_project_add .cover_project img{
+    height: auto;
+    min-height: 300px;
+    max-width: 800px;
     
-    opacity: 0.2;
-    width: 100%;
+    margin-top: 100px;
+    margin-left: 300px;
+    box-shadow: 4px 4px 5px rgb(211, 211, 211);
 }
 
-.container_project_add .formproject{
-    display: inline-block;
+.container_project_add .cover{
+    width: 100%; 
+    object-fit: cover;
+    align-self: self-end;
+    opacity: 0.4;
 }
-.projectadd_label{
-    display: inline-block;
-    font-size: large;
-    font-weight: 500;
+
+.container_project_add .content{
+    margin-left: 50px;
+}
+
+.project-add-header{
+    text-align: left;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: Arial;
+
+    letter-spacing: 5px;
+    margin-bottom: 15px;
+    
 }
 
 .project_name_form{
-    display: inline-block;
-    background-color: rgb(255, 255, 255);
-    padding-bottom: 5px;
-    border: none;
-    border-bottom: 2px solid hsl(270, 1%, 60%);
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-.item-list{
-    display: inline-block;
-    background-color: rgb(161, 251, 221);
+.project_name_form label{
+    font-size: medium;
+    color: rgb(51, 46, 81);
+    padding: 6px;
+    padding-left: 10px;
+    border-radius: 8px;
+    margin-right: 5px;
+    background-color: #dae7f3;
 }
+
+.project_name_form input{
+    text-align: center;
+    border: none;
+    border-bottom: 2px solid #ccc;
+
+    background-color: rgb(255, 255, 255);
+
+    margin-bottom: 10px;
+}
+
+.project_name_form input::placeholder{
+    color: #525252; 
+}
+
+
+.project_name_form input:focus {
+    outline: none; 
+    border-color:rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+.added_member_box{
+    margin-top: 10px;
+    }
+
+.added_member_box .head{
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    color: rgb(51, 46, 81);
+    padding: 6px;
+    border-radius: 8px;
+    margin-right: 5px;
+    background-color: #dae7f3;
+}
+
+.added_member_box .memberbox{
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    padding: 15px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    margin-right: 3px;
+    background-color: rgb(232, 234, 238);
+}
+
+.memberbox img{
+    width: 85%; 
+    margin-top: 2px;
+}
+
+.memberbox p{
+    font-size: medium;
+    color: rgb(58, 57, 64);
+    margin-bottom: 10px;
+}
+
+
+
+
+.friend_container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.addmember_and_submit{
+    display:grid;
+    grid-template-columns: 200px 70px 1fr;
+}
+
+
+.addmember_and_submit .button{
+    display: inline-block;
+    background-color: #dae7f3;
+    border: none;
+    border-radius: 10px;
+    padding:5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
+    transition: 0.10s;
+}
+
+.addmember_and_submit .button:hover{
+    background-color: #bccfe1;
+    border: none;
+    border-radius: 10px;
+    padding:5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
+    box-shadow: 2px 2px 10px rgb(234, 234, 234);
+}
+
+
+.submit_add_project_box{
+    text-align: end;
+}
+
+.submit_add_project_box .submit_add_project{
+    background-color: #dae7f3;
+    border: none;
+    border-radius: 10px;
+    padding:5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 3px;
+    transition: 0.10s;
+}
+
+.submit_add_project_box .submit_add_project:hover{
+    background-color: #bccfe1;
+    border: none;
+    border-radius: 10px;
+    padding:5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 3px;
+    box-shadow: 2px 2px 10px rgb(234, 234, 234);
+}
+
+
+
+

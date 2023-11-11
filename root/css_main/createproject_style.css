@@ -1,43 +1,6 @@
 .container_project_add{
     display: block;
-    background-color: rgb(255, 255, 255);
-    align-items: center;
-    width: auto;
-    margin-top: 150px;
-    margin-left: 300px;
-}
-
-.container_project_add .cover_project{
-    display: inline-block;
-    top: 0;
-    right: 0;
-}
-
-.container_project_add .cover_project img{
-    
-    opacity: 0.2;
-    width: 100%;
-}
-
-.container_project_add .formproject{
-    display: inline-block;
-}
-.projectadd_label{
-    display: inline-block;
-    font-size: large;
-    font-weight: 500;
-}
-
-.project_name_form{
-    display: inline-block;
-    background-color: rgb(255, 255, 255);
-    padding-bottom: 5px;
-    border: none;
-    border-bottom: 2px solid hsl(270, 1%, 60%);
-    margin-bottom: 20px;
-}
-
-.item-list{
-    display: inline-block;
-    background-color: rgb(161, 251, 221);
+    background-color: rgb(214, 102, 102);
+    height: auto;
+    width: 500px;
 }
