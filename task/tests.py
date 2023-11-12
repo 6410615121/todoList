@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from user.models import todoUser
 from project.models import Project
-from .models import Individual_Task
+from .models import Individual_Task,Task
 
 class TaskViewTest(TestCase):
     def setUp(self):
@@ -65,3 +65,38 @@ class TaskViewTest(TestCase):
     def test_submit_view(self):
         response = self.client.post(reverse('submit', kwargs={'task_id': self.task.Task_ID}))
         self.assertEqual(response.status_code, 302)  # Assuming it redirects after submission
+
+
+class TaskAddViewTest(TestCase):
+
+    def setUp(self):
+        # Create a test user
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Create a test project
+        self.project = Project.objects.create(Project_name='Test Project', TeamLeader=todoUser.objects.create(user=self.user))
+
+    def test_task_add_view(self):
+        # Log in the test user
+        self.client.login(username='testuser', password='testpassword')
+
+        # Get the URL for the task_add view with the project_ID parameter
+        url = reverse('task_add', args=[self.project.Project_ID])
+
+        # Submit a POST request to the task_add view with valid data
+        due_date = timezone.make_aware(timezone.datetime(2023, 12, 31, 14, 30)) 
+        response = self.client.post(url, {
+            'task_owner': todoUser.objects.create(user=User.objects.create_user(username='owner', password='ownerpassword')).todoUser_ID,
+            'task_title': 'Test Task',
+            'due_date': due_date,
+            'description': 'Test description',
+        })
+
+        # Check that the task was created
+        self.assertEqual(Task.objects.count(), 1)
+
+        # Check that the response is a redirect (you can customize this based on your actual redirect logic)
+        self.assertEqual(response.status_code, 200)
+
+        # Optionally, check other aspects of the response or the database as needed
+        # For example, you might want to check that the task is associated with the correct project or user

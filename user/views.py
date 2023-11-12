@@ -14,6 +14,8 @@ def about(request):
 def homepage(request):
     return render(request, 'user/homepage.html') 
 
+from django.contrib import messages
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -21,29 +23,26 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # Redirect to a success page or any other desired URL
-            #return redirect('about.html')
+            messages.success(request, 'Successfully logged in.')
             return HttpResponseRedirect(reverse('homepage'))
         else:
-            # Provide an error message or handle invalid login attempts
-            return render(request, 'user/login.html', {'error': 'Invalid username or password'})
+            messages.error(request, 'Invalid username or password')
+            return render(request, 'user/login.html')
 
-    return render(request, 'user/login.html')  # Render the login form
+    return render(request, 'user/login.html')
 
 def logout_view(request):
     logout(request)
-    return render(request, 'user/login.html',{
-        'message': 'Logged out'
-    })
+    messages.success(request, 'Successfully logged out.')
+    return render(request, 'user/login.html')
+
 
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             # Create a new User instance and link it to the Customer
             user = form.save()
-            print("created")
             todo_user = todoUser.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )   
             todo_user.save()  
             return HttpResponseRedirect(reverse('login'))   

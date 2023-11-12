@@ -2,6 +2,50 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .models import todoUser, Friend_request
+from .form import RegistrationForm
+
+class UserViewsTest(TestCase):
+
+    def test_about_view(self):
+        response = self.client.get(reverse('about'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'user/about.html')
+
+    def test_homepage_view(self):
+        response = self.client.get(reverse('homepage'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'user/homepage.html')
+            
+    def test_login_view(self):
+        user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Test login with invalid credentials
+        response = self.client.post(reverse('login'), {'username': 'invaliduser', 'password': 'invalidpassword'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Invalid username or password')
+
+    def test_logout_view(self):
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Successfully logged out')
+
+
+    def test_successful_login(self):
+        # Create a test user
+        user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Submit a POST request to the login view with valid credentials
+        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword'})
+
+        # Check that the user is redirected to the homepage
+        self.assertRedirects(response, reverse('homepage'))
+
+        # Optionally, you can also check that the user is now logged in
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+
+
+
 
 
 class TodoUserTestCase(TestCase):
@@ -67,42 +111,39 @@ class FriendRequestTest(TestCase):
         self.assertFalse(Friend_request.objects.filter(pk=friend_request.pk).exists())  # Friend request should be deleted because it was accepted
 
 
-'''
-class FriendRequestViewTest(TestCase):
-    def setUp(self):
-        self.user1 = User.objects.create_user(
-            username='user1',
-            password='pass1'
-        )
-        self.user2 = User.objects.create_user(
-            username='user2',
-            password='pass2'
-        )
-        self.todo_user1 = todoUser.objects.create(
-            user=self.user1,
-            Firstname='User1',
-            Lastname='One',
-        )
-        self.todo_user2 = todoUser.objects.create(
-            user=self.user2,
-            Firstname='User2',
-            Lastname='Two',
-        )
 
-    def test_send_friend_request_view(self):
-        self.client.force_login(self.user1)
-        response = self.client.post(reverse('send_friend_request', args=[str(self.todo_user2.todoUser_ID)]))
-        self.assertEqual(response.status_code, 200)
+
+
+class RegistrationTest(TestCase):
+    def test_registration_view(self):
+        # Define test data
+        registration_data = {
+            'username': 'testuser',
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+        }
+
+        # Simulate a POST request to the registration view
+        response = self.client.post(reverse('register'), registration_data)
+
+        # Check if the registration was successful
+        self.assertEqual(response.status_code, 302)  # Redirects after successful registration
+
+        # Check if the user and todoUser are created
+        self.assertTrue(User.objects.filter(username='testuser').exists())
+        user = User.objects.get(username='testuser')
+        self.assertTrue(todoUser.objects.filter(user=user).exists())
+        todo_user = todoUser.objects.get(user=user)
         
+        # Check additional details
+        self.assertEqual(user.first_name, 'John')
+        self.assertEqual(user.last_name, 'Doe')
+        self.assertEqual(user.email, 'testuser@example.com')
+        self.assertEqual(todo_user.Firstname, 'John')
+        self.assertEqual(todo_user.Lastname, 'Doe')
 
-    def test_accept_friend_request_view(self):
-        friend_request = Friend_request.objects.create(
-            From_user=self.todo_user1,
-            To_user=self.todo_user2,
-        )
 
-        self.client.force_login(self.user2)
-        response = self.client.post(reverse('accept_friend_request', args=[str(self.todo_user1.todoUser_ID)]))
-        self.assertEqual(response.status_code, 200)
-'''       
 

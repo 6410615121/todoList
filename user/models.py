@@ -13,9 +13,7 @@ class todoUser(models.Model):
 
     friends = models.ManyToManyField('self', blank=True)
 
-    def __str__(self):
 
-        return f'FirstName:{self.Firstname} LastName:{self.Lastname} ID:{self.todoUser_ID}'
 
 
     
