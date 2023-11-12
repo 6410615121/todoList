@@ -15,7 +15,7 @@ class todoUser(models.Model):
 
     def __str__(self):
 
-        return f'Name:{self.Firstname} ID:{self.todoUser_ID}'
+        return f'FirstName:{self.Firstname} LastName:{self.Lastname} ID:{self.todoUser_ID}'
 
 
     

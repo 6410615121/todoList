@@ -39,11 +39,14 @@ def logout_view(request):
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             # Create a new User instance and link it to the Customer
             user = form.save()
-            
-            todoUser.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )        
+            print("created")
+            todo_user = todoUser.objects.create(user=user ,Firstname=user.first_name, Lastname=user.last_name )   
+            todo_user.save()  
+            return HttpResponseRedirect(reverse('login'))   
     else:
         form = RegistrationForm()
 
