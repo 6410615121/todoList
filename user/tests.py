@@ -16,7 +16,7 @@ class UserViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'user/homepage.html')
             
-    def test_login_view(self):
+    def test_login_view_invalid(self):
         user = User.objects.create_user(username='testuser', password='testpassword')
 
         # Test login with invalid credentials
