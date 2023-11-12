@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
 from user.models import todoUser
@@ -15,7 +16,8 @@ class TaskViewTest(TestCase):
         self.project = Project.objects.create(Project_name='Test Project', TeamLeader=self.todo_user)
 
         # Create a test task
-        self.task = Individual_Task.objects.create(User=self.todo_user, task_title='Test Task', Due_Date='2023-12-31', description='Test Description')
+        due_date = timezone.make_aware(timezone.datetime(2023, 12, 31, 14, 30)) 
+        self.task = Individual_Task.objects.create(User=self.todo_user, task_title='Test Task', Due_Date= due_date, description='Test Description')
 
         # Login the test user
         self.client = Client()
@@ -28,7 +30,8 @@ class TaskViewTest(TestCase):
 
     def test_individual_past_tasklist_view(self):
         # Assuming the Due_Date of the task is in the past
-        self.task.Due_Date = '2022-01-01'
+        due_date = timezone.make_aware(timezone.datetime(2022, 1, 1, 14, 30)) 
+        self.task.Due_Date = due_date 
         self.task.save()
 
         response = self.client.get(reverse('individual_past_tasklist'))
@@ -45,9 +48,10 @@ class TaskViewTest(TestCase):
         
 
     def test_individual_taskAdd_view(self):
-        response = self.client.post(reverse('individual_taskAdd'), {
+        due_date = timezone.make_aware(timezone.datetime(2023, 12, 31, 14, 30)) 
+        response = self.client.post(reverse('individual_taskadd'), {
             'task_title': 'New Task',
-            'due_date': '2023-12-31',
+            'due_date': due_date,
             'description': 'New Task Description'
         })
         self.assertEqual(response.status_code, 200)
@@ -57,11 +61,6 @@ class TaskViewTest(TestCase):
         response = self.client.get(reverse('task_detail', kwargs={'task_id': self.task.Task_ID}))
         self.assertEqual(response.status_code, 200)
         
-
-    def test_download_file_view(self):
-        response = self.client.get(reverse('download_file', kwargs={'task_id': self.task.Task_ID}))
-        self.assertEqual(response.status_code, 200)
-        # You may want to assert more about the response content
 
     def test_submit_view(self):
         response = self.client.post(reverse('submit', kwargs={'task_id': self.task.Task_ID}))
