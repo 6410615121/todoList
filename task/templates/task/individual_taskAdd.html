@@ -171,7 +171,7 @@
         <form method = "post">
             {% csrf_token %}
             <label for="task_title">Task Title:</label>
-            <input type="text" id="task_title" name="task_title"><br>
+            <input type="text" id="task_title" required name="task_title"><br>
         
             <label for="due_date">Due Date:</label>
             <input type="datetime-local" required id="due_date" name="due_date"><br>
