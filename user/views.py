@@ -54,13 +54,13 @@ def register(request):
 
 
 def send_friend_request(request ,userID):
-    from_user = request.user
+    from_user = todoUser.objects.get(user=request.user)
     to_user = todoUser.objects.get(todoUser_ID=userID)
     friend_request ,created = Friend_request.objects.get_or_create( From_user = from_user ,To_user = to_user )
     if created:
-        pass # waiting html
+        return redirect('homepage')
     else:
-        pass # waiting html
+        return render(request, 'user/already_sentrequest.html')
 
 
 def accept_friend_request(request ,userID):

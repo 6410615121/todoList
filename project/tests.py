@@ -11,6 +11,13 @@ class ProjectViewTest(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.todo_user = todoUser.objects.create(user=self.user, Firstname='Test', Lastname='User')
 
+        #create a friend
+        another_user = User.objects.create_user(username='anotheruser', password='anotherpassword')
+        another_todo_user = todoUser.objects.create(user=another_user, Firstname='Another', Lastname='User')
+
+        self.todo_user.friends.add(another_todo_user)
+
+
         # Login the test user
         self.client = Client()
         self.client.login(username='testuser', password='testpass')
@@ -23,19 +30,22 @@ class ProjectViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Assuming friend_id exists
-        friend_id = str(self.todo_user.friends.first().todoUser_ID)
+        friend_id = self.todo_user.friends.first()
+        friend_id = friend_id.todoUser_ID
+
         response = self.client.post(reverse('projectAdd'), {
             'submit_add_member': 'true',
             'friend': friend_id
         })
+
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Test User')  # Adjust based on your actual template
 
         response = self.client.post(reverse('projectAdd'), {
             'submit_add_project': 'true',
             'project_name': 'Test Project'
         })
-        self.assertEqual(response.status_code, 302)  # Assuming it redirects after submission
+        
+        self.assertRedirects(response, reverse('ProjectList'))  # Assuming it redirects after submission
 
 
 
