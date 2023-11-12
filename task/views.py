@@ -1,6 +1,7 @@
 from django.shortcuts import render ,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse ,Http404
+from django.urls import reverse
+from django.http import HttpResponse ,Http404 ,HttpResponseRedirect
 from user.models import todoUser
 from project.models import Project
 from .models import Individual_Task ,Task
@@ -76,33 +77,19 @@ def individual_taskAdd(request):
 
 
 @login_required
-def task_add(request):
+def task_add(request,project_ID):
+    selected_project = Project.objects.get(Project_ID = project_ID)
+    project_members = selected_project.TeamMember.all() 
     todouser = todoUser.objects.get(user = request.user)
-    project_members = None
-    project_selected_ID = request.session.get('project_selected', 0)
-    if project_selected_ID != 0:
-        selected_project = Project.objects.get(Project_ID = project_selected_ID)
-    else:
-        selected_project = None
     if request.method == 'POST':
-        if 'submit_project' in request.POST:
-            selected_project = request.POST.get('project')
-            if selected_project is not None:
-                request.session['project_selected'] = selected_project
-                selected_project = Project.objects.get(Project_ID = selected_project)
-                project_members = selected_project.TeamMember.all()
-
-        if 'submit_task' in request.POST:
-            selected_Owner = request.POST.get('task_owner')
-            selected_Owner = todoUser.objects.get(todoUser_ID = selected_Owner)
-            task_title = request.POST.get('task_title')
-            due_date = request.POST.get('due_date')
-            description = request.POST.get('description')
-            Task.objects.create(Project = selected_project, TaskOwner = selected_Owner, task_title = task_title, Due_Date = due_date, description = description)
-            return render(request, 'task/taskAddSuccessful.html')
-              
-    # Fetch the requester's project
-    # For example, if the user is logged in, you can retrieve their project from the logged-in user
+      
+        selected_Owner = request.POST.get('task_owner')
+        selected_Owner = todoUser.objects.get(todoUser_ID = selected_Owner)
+        task_title = request.POST.get('task_title')
+        due_date = request.POST.get('due_date')
+        description = request.POST.get('description')
+        Task.objects.create(Project = selected_project, Teamleader=todouser ,TeamUser = selected_Owner, task_title = task_title, Due_Date = due_date, description = description)
+            
     todouser = todoUser.objects.get(user = request.user)
     requester_projects = Project.objects.filter(TeamLeader=todouser)
 
@@ -111,7 +98,7 @@ def task_add(request):
         'project_members': project_members  # Pass project members to the template
     }
 
-    return render(request, 'task/taskProjectadd.html', context)
+    return render(request, 'task/taskProjectadd.html',context)
 
 @login_required
 def task_detail(request, task_id):
@@ -135,15 +122,17 @@ def download_file(request, task_id):
 @login_required
 def submit(request, task_id):
     mytask = Individual_Task.objects.get(Task_ID=task_id)
-    
-    if mytask.achieve == True:
-        mytask.achieve = False  # undo submit 
-        mytask.category = 'due'
-    else:
-        mytask.achieve = True   # submit
-        mytask.category = 'complete'
+    if request.method == 'POST':
+        if mytask.achieve == True:
+            mytask.achieve = False  # undo submit 
+            mytask.category = 'due'
+        else:
+            mytask.achieve = True   # submit
+            mytask.category = 'complete'
 
-    mytask.save()
+        mytask.save()
+        return HttpResponseRedirect(reverse('task_detail', kwargs={'task_id': task_id}))
+    
     context = {
         'taskdetail': mytask,
         

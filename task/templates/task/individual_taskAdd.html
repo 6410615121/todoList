@@ -43,20 +43,12 @@
                 <div class="menu_title menu_dahsboard"></div>
                 <!-- start -->
                 <li class="item">
-                    <div href="{% url 'homepage' %}" class="nav_link submenu_item">
+                    <a href="{% url 'homepage' %}" class="nav_link submenu_item">
                         <span class="navlink_icon">
                             <i class="bx bx-home-alt"></i>
                         </span>
                         <span class="navlink">Home</span>
-                        <i class="bx bx-chevron-right arrow-left"></i>
-                    </div>
-
-                    <ul class="menu_items submenu">
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                    </ul>
+                      </a>
                 </li>
                 <!-- end -->
 
@@ -182,7 +174,7 @@
             <input type="text" id="task_title" name="task_title"><br>
         
             <label for="due_date">Due Date:</label>
-            <input type="datetime-local" id="due_date" name="due_date"><br>
+            <input type="datetime-local" required id="due_date" name="due_date"><br>
         
             <label for="description">Description:</label><br>
             <textarea id="description" name="description" rows="4" cols="50"></textarea><br>

@@ -39,20 +39,12 @@
             <div class="menu_title menu_dahsboard"></div>
             <!-- start -->
             <li class="item">
-              <div href="#" class="nav_link submenu_item">
+              <a href="{% url 'homepage' %}" class="nav_link submenu_item">
                 <span class="navlink_icon">
-                  <i class="bx bx-home-alt"></i>
+                    <i class="bx bx-home-alt"></i>
                 </span>
                 <span class="navlink">Home</span>
-                <i class="bx bx-chevron-right arrow-left"></i>
-              </div>
-  
-              <ul class="menu_items submenu">
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              </ul>
+              </a>
             </li>
             <!-- end -->
   
@@ -168,6 +160,9 @@
         </div>
     </nav>
 
+    <a href="{% url 'task_add' project_ID=project_obj.Project_ID %}" class="right-top-addtask"> 
+      Add Task 
+    </a>
     <!--content -->
     <div class= 'content_box'>
         <p class='project_name'>
@@ -213,7 +208,7 @@
 
         <div class='task_container'>
           <p class ='Owned_task_and_other_tasks_label'>
-              Owned Tasks
+              Other Tasks
           </p>
 
           {% for task in other_tasks %}
@@ -239,11 +234,6 @@
                       {{task.task_title}}
                   </p>
               </div>
-
-              <button class='mark'>
-                  mark as finish
-              </button>
-
           </div>
           {% endfor %}
       </div>

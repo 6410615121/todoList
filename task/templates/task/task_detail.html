@@ -43,20 +43,14 @@
                 <div class="menu_title menu_dahsboard"></div>
                 <!-- start -->
                 <li class="item">
-                    <div href="{% url 'homepage' %}" class="nav_link submenu_item">
+                    <a href="{% url 'homepage' %}" class="nav_link submenu_item">
                         <span class="navlink_icon">
                             <i class="bx bx-home-alt"></i>
                         </span>
                         <span class="navlink">Home</span>
-                        <i class="bx bx-chevron-right arrow-left"></i>
-                    </div>
+                      </a>
 
-                    <ul class="menu_items submenu">
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                        <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                    </ul>
+                   
                 </li>
                 <!-- end -->
 
@@ -172,15 +166,6 @@
         </div>
     </nav>
 
-    <!--
-    task_title = models.CharField(max_length=64)
-    Entry_Date = models.DateTimeField(auto_now=True)
-    Due_Date =   models.DateTimeField(default=timezone.now)
-    Finish_Date = models.DateTimeField(default=timezone.now)
-    achieve = models.BooleanField(default=False)
-    description = models.TextField(default="No description")
-    file = models.FileField(null=True,blank=True)-->
-    <!-- element task -->
     <div class='container'>
         <div class= 'detailtask_box'>
             <div class='task_container'>
@@ -199,24 +184,25 @@
                 <div class='descriptiondetail'>
                     {{ taskdetail.description }} 
                 </div>
-                <div class='submit'>
+                
+                    <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post">
+                    {% csrf_token %}
                     {% if taskdetail.achieve %}
-                        <a href="{% url 'submit' task_id=taskdetail.Task_ID %}">undo submit</a>
-                        
-                    {% else  %}
-                    
-                        <a href="{% url 'submit' task_id=taskdetail.Task_ID %}">submit</a>
-                    
+                      <button type="submit" name="action" class = "submit"  value="undo">Undo Achieve</button>
+                    {% else %}
+                      <button type="submit" name="action" class = "submit" value="achieve">Achieve</button>
                     {% endif %}
+                    </form>
+                
                     
-                </div>
+                
                 <div class='file'>
                     {% if taskdetail.file %}
                     <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}">{{ taskdetail.file}}</a>
                         
                     {% else  %}
                     
-                        No submmited file
+                       
                     
                     {% endif %}
                 </div>

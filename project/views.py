@@ -34,11 +34,12 @@ def projectAdd(request):
                 if project_name != '':
                     new_project = Project.objects.create(Project_name=project_name, TeamLeader= project_leader)
                     new_project.TeamMember.set(finalmembers)
-                    print(project_name)
+                    
                 else:
                     return render(request, 'project/projectAdd.html', context)
                 
-            request.session.pop('memberAdded')
+            if memberAdded_ids:
+                request.session.pop('memberAdded')
             return redirect('ProjectList')
 
     for member_id in memberAdded_ids:

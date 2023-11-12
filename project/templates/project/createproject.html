@@ -43,20 +43,12 @@
             <div class="menu_title menu_dahsboard"></div>
             <!-- start -->
             <li class="item">
-              <div href="#" class="nav_link submenu_item">
+              <a href="{% url 'homepage' %}" class="nav_link submenu_item">
                 <span class="navlink_icon">
-                  <i class="bx bx-home-alt"></i>
+                    <i class="bx bx-home-alt"></i>
                 </span>
                 <span class="navlink">Home</span>
-                <i class="bx bx-chevron-right arrow-left"></i>
-              </div>
-  
-              <ul class="menu_items submenu">
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              </ul>
+              </a>
             </li>
             <!-- end -->
   
@@ -191,7 +183,7 @@
 
               <div class='project_name_form'>
                   <label>Project name</label>
-                  <input type="text" name="project_name" placeholder='Enter project name'>
+                  <input type="text" name="project_name" required placeholder='Enter project name'>
               </div>
       
               <div class="added_member_box">

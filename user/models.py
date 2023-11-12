@@ -8,10 +8,13 @@ class todoUser(models.Model):
     todoUser_ID = models.UUIDField(default=uuid.uuid4,editable=False,primary_key=True)
     Firstname = models.CharField(max_length=50 )
     Lastname = models.CharField(max_length=50 )
+    image_field = models.ImageField(default='Django_todo/staticstatic/images/defaultprofile.jpg')
+    
+
     friends = models.ManyToManyField('self', blank=True)
 
-    def __str__(self):
-        return f'Name:{self.Firstname} ID:{self.todoUser_ID}'
+
+
 
     
 

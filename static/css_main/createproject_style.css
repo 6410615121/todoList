@@ -95,12 +95,13 @@
     margin-top: 5px;
     margin-right: 3px;
     background-color: rgb(232, 234, 238);
-}
+
 
 .memberbox img{
     width: 85%; 
     margin-top: 2px;
 }
+
 
 .memberbox p{
     font-size: medium;
@@ -173,7 +174,4 @@
     margin-right: 3px;
     box-shadow: 2px 2px 10px rgb(234, 234, 234);
 }
-
-
-
 
