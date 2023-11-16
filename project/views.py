@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.sessions.models import Session
 from .models import todoUser, Project
 from task.models import Task
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404,redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.db import transaction
 
 
@@ -89,7 +90,7 @@ def project_detail(request, project_id):
 
 
 @login_required
-def project_task_detail(request,project_id, task_id):
+def project_task_detail(request, task_id):
     
     mytasks = Task.objects.get(Task_ID=task_id)
 
@@ -97,3 +98,24 @@ def project_task_detail(request,project_id, task_id):
         'taskdetail': mytasks,
     }
     return render(request,'project/project_task_detail.html', context)
+
+
+@login_required
+def submit(request, task_id):
+    mytask = Task.objects.get(Task_ID=task_id)
+    if request.method == 'POST':
+        if mytask.achieve == True:
+            mytask.achieve = False  # undo submit 
+            mytask.category = 'due'
+        else:
+            mytask.achieve = True   # submit
+            mytask.category = 'complete'
+
+        mytask.save()
+        return HttpResponseRedirect(reverse('project_task_detail', kwargs={'task_id': task_id}))
+    
+    context = {
+        'taskdetail': mytask,
+        
+    }
+    return render(request,'task/task_detail.html', context)

@@ -184,7 +184,7 @@
                 <div class='descriptiondetail'>
                     {{ taskdetail.description }} 
                 </div>
-                    <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post">
+                    <form action="{% url 'project_task_submit' task_id=taskdetail.Task_ID %}" method="post">
                     {% csrf_token %}
                     {% if taskdetail.achieve %}
                       <button type="submit" name="action" class = "submit"  value="undo">Undo Achieve</button>
