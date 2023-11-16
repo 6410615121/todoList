@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.sessions.models import Session
 from .models import todoUser, Project
+from task.models import Task
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404,redirect
 from django.db import transaction
@@ -85,3 +86,14 @@ def project_detail(request, project_id):
         'other_tasks': other_tasks,
     }
     return render(request,'project/project_detail.html', context)
+
+
+@login_required
+def project_task_detail(request,project_id, task_id):
+    
+    mytasks = Task.objects.get(Task_ID=task_id)
+
+    context = {
+        'taskdetail': mytasks,
+    }
+    return render(request,'project/project_task_detail.html', context)

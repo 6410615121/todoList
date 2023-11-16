@@ -193,9 +193,9 @@
             <div class='task_and_mark'>
 
                 <div class='task_box'>
-                    <p class ='task-content'>
+                    <a href="{% url 'project_task_detail' project_id=project_obj.Project_ID task_id=task.Task_ID %}"  class ='task-content'>
                         {{task.task_title}}
-                    </p>
+                    </a>
                 </div>
 
                 <button class='mark'>
