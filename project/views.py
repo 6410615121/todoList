@@ -3,7 +3,7 @@ from django.contrib.sessions.models import Session
 from .models import todoUser, Project
 from task.models import Task
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import transaction
 
@@ -119,3 +119,15 @@ def submit(request, task_id):
         
     }
     return render(request,'task/task_detail.html', context)
+
+
+def delete_project_task(request, task_id):
+    task = Task.objects.get(Task_ID = task_id)
+    task_owner = task.TeamUser
+    todouser_request = todoUser.objects.get(user = request.user)
+
+    if task_owner != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to delete this task.")
+    
+    task.delete()
+    return redirect('ProjectList')
