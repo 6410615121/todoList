@@ -88,7 +88,7 @@ class FriendRequestTest(TestCase):
     def test_send_friend_request(self):
         self.client.force_login(self.user1)
         response = self.client.get(reverse('send_friend_request', kwargs={'userID': self.profile2.todoUser_ID}))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
         # Ensure a friend request is created
         friend_request = Friend_request.objects.filter(From_user=self.profile1, To_user=self.profile2).first()
@@ -100,7 +100,7 @@ class FriendRequestTest(TestCase):
         friend_request = Friend_request.objects.create(From_user=self.profile1, To_user=self.profile2)
 
         self.client.force_login(self.user2)
-        self.client.get(reverse('accept_friend_request', kwargs={'userID': self.profile1.todoUser_ID}))
+        self.client.get(reverse('accept_friend_request'))
         
 
         # Ensure the friend request is accepted
