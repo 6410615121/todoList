@@ -57,7 +57,7 @@ class Task(models.Model):
 
 class Individual_Task(models.Model):
     Task_ID = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    User = models.ForeignKey(todoUser, on_delete=models.CASCADE)
+    User = models.ForeignKey(todoUser, on_delete=models.CASCADE, related_name='Individual_Task')
     task_title = models.CharField(max_length=64)
     Entry_Date = models.DateTimeField(auto_now=True)
     Due_Date =   models.DateTimeField(default=timezone.now)

@@ -1,15 +1,17 @@
 from django.shortcuts import render ,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.http import HttpResponse ,Http404 ,HttpResponseRedirect
+from django.http import HttpResponse ,Http404 ,HttpResponseRedirect, HttpResponseForbidden
 from user.models import todoUser
 from project.models import Project
 from .models import Individual_Task ,Task
 from django.utils import timezone
 from django.conf import settings
+from django.shortcuts import redirect
+
+
 import os
 # Create your views here.
-
 
 def updatetask(request ,cat):
     user_profile = request.user
@@ -30,6 +32,19 @@ def updatetask(request ,cat):
         mytask = Individual_Task.objects.filter(User=mytodouser, category='complete')
     
     return   mytask
+
+
+def delete_individual_task(request, task_id):
+    task = Individual_Task.objects.get(Task_ID = task_id)
+    task_owner = task.User
+    todouser_request = todoUser.objects.get(user = request.user)
+
+    if task_owner != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to delete this task.")
+    
+    task.delete()
+    return redirect('individual_tasklist')
+
 
 
 @login_required

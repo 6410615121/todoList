@@ -184,7 +184,6 @@
                 <div class='descriptiondetail'>
                     {{ taskdetail.description }} 
                 </div>
-                
                     <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post">
                     {% csrf_token %}
                     {% if taskdetail.achieve %}
@@ -194,8 +193,14 @@
                     {% endif %}
                     </form>
                 
-                    
                 
+                <a href="{% url 'delete_individual_task' task_id=taskdetail.Task_ID %}">Delete Task</a>
+
+                <a href=''>Edit Task</a>
+                
+
+
+
                 <div class='file'>
                     {% if taskdetail.file %}
                     <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}">{{ taskdetail.file}}</a>
