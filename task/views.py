@@ -8,6 +8,7 @@ from .models import Individual_Task ,Task
 from django.utils import timezone
 from django.conf import settings
 from django.shortcuts import redirect
+from task.form import IndividualTaskEditForm
 
 
 import os
@@ -153,3 +154,25 @@ def submit(request, task_id):
         
     }
     return render(request,'task/task_detail.html', context)
+
+
+@login_required
+def individual_task_edit(request,task_id):
+    task = get_object_or_404(Individual_Task, Task_ID=task_id)
+
+    todouser_request = todoUser.objects.get(user = request.user)
+    if task.User != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to edit this task.")
+    
+    if request.method == 'POST':
+        form = IndividualTaskEditForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = IndividualTaskEditForm(instance=task)
+
+    context = {'form': form,
+               'task_id':task_id,
+               }
+    return render(request, 'task/individual_task_edit.html',context)

@@ -11,4 +11,5 @@ urlpatterns = [
     path('download/<uuid:task_id>/', views.download_file, name='download_file'),
     path('submit/<uuid:task_id>/', views.submit, name='submit'),
     path('del/<uuid:task_id>/', views.delete_individual_task, name='delete_individual_task'),
+    path('<uuid:task_id>/edit/',views.individual_task_edit, name ='individual_task_edit')
 ]

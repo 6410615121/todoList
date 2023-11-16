@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <form method="post" action="{% url 'individual_task_edit' task_id=task_id %}">
+    {% csrf_token %}
+    
+    <label for="id_task_title">Task title:</label><br>
+    {{ form.task_title }}
+    
+    <label for="id_Due_Date">Due Date:</label><br>
+    {{ form.Due_Date }}
+    
+    <label for="id_description">Description:</label><br>
+    {{ form.description }}<br>
+    
+    <button type="submit">Save Changes</button>
+  </form>
+</body>
+</html>
