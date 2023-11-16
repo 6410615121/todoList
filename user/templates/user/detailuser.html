@@ -168,30 +168,20 @@
     <!-- element task -->
 
 
-    <a href="{% url 'individual_taskadd' %}" class="right-top-addtask">
-        Add Task
-    </a>
+    
     <div class='container'>
 
-        {% for task in tasklist %}
-        <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="original-box-shadow">
-          
-          <div class="task-due">
-              {{ task.task_title }}
-          </div>
-          <div class="description">
-            {{ task.description|slice:"101" }}
-            {% if task.description|length > 101 %}
-                ...  
-            {% endif %}
-          </div>
-          <p class='status'>
-               {{task.time_difference_format}} left
-          </p>
+        <div class="original-box-shadow">
+            {{ user.user }}<br>
+            {{ user.Firstname }}
+            {{ user.Lastname }}
 
+
+        </div>
+        
+        <a href="{% url 'send_friend_request'  userID=user.todoUser_ID %}" >
+            send friend request 
         </a>
-        {% endfor %}
-
     </div>
     
 
