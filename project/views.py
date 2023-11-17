@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import transaction
+from .form import ProjectTaskEditForm
 
 
 @login_required
@@ -131,3 +132,25 @@ def delete_project_task(request, task_id):
     
     task.delete()
     return redirect('ProjectList')
+
+
+@login_required
+def project_task_edit(request,task_id):
+    task = get_object_or_404(Task, Task_ID=task_id)
+
+    todouser_request = todoUser.objects.get(user = request.user)
+    if task.TeamUser != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to edit this task.")
+    
+    if request.method == 'POST':
+        form = ProjectTaskEditForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = ProjectTaskEditForm(instance=task, initial={'TeamUser': task.TeamUser}, project=task.Project)
+
+    context = {'form': form,
+               'task_id':task_id,
+               }
+    return render(request, 'project/project_task_edit.html',context)
