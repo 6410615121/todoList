@@ -24,5 +24,5 @@ urlpatterns = [
     path("project/", include('project.urls')),
     path("task/", include('task.urls')),
     path("user/", include('user.urls')),
-    path("chat/", include('chat.urls')),
+    
 ]
