@@ -51,13 +51,14 @@ def projectAdd(request):
                     new_project = Project.objects.create(Project_name=project_name, TeamLeader= project_leader)
                     new_project.TeamMember.set(finalmembers)
                     
+                    
                 else:
                     return render(request, 'project/projectAdd.html', context)
                 
             if memberAdded_ids:
                 request.session.pop('memberAdded')
-                return redirect('ProjectList')
-                              
+                
+            return redirect('ProjectList')                  
 
 
     for member_id in memberAdded_ids:
@@ -182,6 +183,11 @@ def project_edit(request, project_id):
         form = ProjectEditForm(request.POST, instance=project, project=project)
         if form.is_valid():
             form.save()
+
+        project_name = request.POST.get('Project_name')
+        if project_name:
+            project.Project_name = project_name
+            project.save()
 
         team_member_remove_id = request.POST.get('remove_member')
         if team_member_remove_id:

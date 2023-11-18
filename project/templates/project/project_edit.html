@@ -4,10 +4,10 @@
     </head>
     <body>
         <form method="post" action="">
-            {% csrf_token  %}
+            {% csrf_token %}
             <p>project name</p>
-            {{ form.Project_name }}
-
+            <input type='text' name='Project_name' value="{{ form.Project_name.value }}">
+        
             <p>Team members</p>
             <div class="team-members">
                 {% for member in form.fields.TeamMember.queryset %}
@@ -17,10 +17,7 @@
                     </div>
                 {% endfor %}
             </div>
-            
-            
-            
-
+        
             <p>Add member</p>
             <select name="friend">
                 <option value="None">======</option>
@@ -28,9 +25,9 @@
                 <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
                 {% endfor %}
             </select>
-
-
+        
             <button type="submit">Save Changes</button>
         </form>
+        
     </body>
 </html>
