@@ -12,18 +12,23 @@ from .form import ProjectTaskEditForm, ProjectEditForm
 @login_required
 def projectAdd(request):
     memberAdded_ids = request.session.get('memberAdded', [])
+    project_name_session = request.session.get('project_name', '')
+
     todouser = todoUser.objects.get(user=request.user)
     friendList = todouser.friends.all()
 
     memberAdded = []
 
     if request.method == 'POST':
+        project_name = request.POST.get('project_name')
+        if project_name:
+            project_name_session = project_name
+
         if 'submit_add_member' in request.POST:
             friend_ID = request.POST.get('friend')
             if not friend_ID in memberAdded_ids:
                 memberAdded_ids.append(friend_ID)
                 request.session['memberAdded'] = memberAdded_ids
-
         
         elif 'remove_added_member' in request.POST:
             friend_ID_to_remove = request.POST.get('remove_added_member')
@@ -63,6 +68,7 @@ def projectAdd(request):
     context = {
         'memberAdded': memberAdded,
         'friendList': friendList,
+        'project_name_session':project_name_session,
     }
     
     return render(request, 'project/createproject.html', context)
