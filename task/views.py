@@ -13,7 +13,7 @@ from task.form import IndividualTaskEditForm
 
 import os
 # Create your views here.
-
+@login_required(login_url='login')
 def updatetask(request ,cat):
     user_profile = request.user
     mytodouser = todoUser.objects.get(user=user_profile)
@@ -34,7 +34,7 @@ def updatetask(request ,cat):
     
     return   mytask
 
-
+@login_required(login_url='login')
 def delete_individual_task(request, task_id):
     task = Individual_Task.objects.get(Task_ID = task_id)
     task_owner = task.User
@@ -48,7 +48,7 @@ def delete_individual_task(request, task_id):
 
 
 
-@login_required
+@login_required(login_url='login')
 def individual_tasklist(request):
     mytask = updatetask(request,"due")      
 
@@ -57,7 +57,7 @@ def individual_tasklist(request):
     
     return render(request, 'task/task.html',context)
 
-@login_required
+@login_required(login_url='login')
 def individual_past_tasklist(request):
     mytask = updatetask(request,"past")      
 
@@ -66,7 +66,7 @@ def individual_past_tasklist(request):
     
     return render(request, 'task/pastduetask.html',context)
 
-@login_required
+@login_required(login_url='login')
 def individual_com_tasklist(request):
     mytask = updatetask(request,"com")      
 
@@ -75,8 +75,7 @@ def individual_com_tasklist(request):
     
     return render(request, 'task/completetask.html',context)
 
-
-@login_required
+@login_required(login_url='login')
 def individual_taskAdd(request):
     if request.method == 'POST':
         todouser = todoUser.objects.get(user = request.user)
@@ -92,7 +91,7 @@ def individual_taskAdd(request):
 
 
 
-@login_required
+@login_required(login_url='login')
 def task_add(request,project_ID):
     selected_project = Project.objects.get(Project_ID = project_ID)
     project_members = selected_project.TeamMember.all() 
@@ -116,7 +115,7 @@ def task_add(request,project_ID):
 
     return render(request, 'task/taskProjectadd.html',context)
 
-@login_required
+@login_required(login_url='login')
 def task_detail(request, task_id):
     
     mytask = Individual_Task.objects.get(Task_ID=task_id)
@@ -127,7 +126,7 @@ def task_detail(request, task_id):
     }
     return render(request,'task/task_detail.html', context)
 
-@login_required
+@login_required(login_url='login')
 def download_file(request, task_id):
     instance = get_object_or_404(Individual_Task, Task_ID=task_id)
     
@@ -135,7 +134,7 @@ def download_file(request, task_id):
     response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
     return response
     
-@login_required
+@login_required(login_url='login')
 def submit(request, task_id):
     mytask = Individual_Task.objects.get(Task_ID=task_id)
     if request.method == 'POST':
@@ -156,13 +155,11 @@ def submit(request, task_id):
     return render(request,'task/task_detail.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def individual_task_edit(request,task_id):
     task = get_object_or_404(Individual_Task, Task_ID=task_id)
 
     todouser_request = todoUser.objects.get(user = request.user)
-    if task.User != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to edit this task.")
     
     if request.method == 'POST':
         form = IndividualTaskEditForm(request.POST, instance=task)

@@ -1,26 +1,205 @@
+{%load static %}
 <!DOCTYPE html>
-<html>
+<!-- Coding Navbar by CodingNepal || www.codingnepalweb.com -->
+<html lang="en">
+
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <title>Task</title>
+
+    <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
 </head>
+
 <body>
-  <form method="post" action="{% url 'project_task_edit' task_id=task_id %}">
-    {% csrf_token %}
+
+    <!-- navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo_item"> 
+            ToDoList
+          <i class="bx bx-menu" id="sidebarOpen"></i>
+        </div>
+  
+
+        <div class="search_bar">
+            <input type="text" placeholder="Search" />
+        </div>
+
+        <div class="navbar_content">
+            <i class="bi bi-grid"></i>
+            <i class='bx bx-sun' id="darkLight"></i>
+            <i class='bx bx-bell'></i>
+            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+        </div>
+    </nav>
+    <!-- sidebar -->
+    <nav class="sidebar">
+        <div class="menu_content">
+            <ul class="menu_items">
+                <div class="menu_title menu_dahsboard"></div>
+                <!-- start -->
+                <li class="item">
+                    <a href="{% url 'homepage' %}" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bx-home-alt"></i>
+                        </span>
+                        <span class="navlink">Home</span>
+                      </a>
+
+                   
+                </li>
+                <!-- end -->
+
+                <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
+                <!-- start -->
+                <li class="item">
+                    <div href="#" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bx-grid-alt"></i>
+                        </span>
+                        <span class="navlink">Account</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+
+                    <ul class="menu_items submenu">
+                        <a href="#" class="nav_link sublink">My account</a>
+                        <a href="{% url 'friend_list' %}" class="nav_link sublink">Friend</a>
+                        <a href="{% url 'logout' %}" class="nav_link sublink">Log out</i></a>
+
+                    </ul>
+                </li>
+                <!-- end -->
+            </ul>
+
+            <ul class="menu_items">
+                <div class="menu_title menu_task"></div>
+                <!-- duplicate these li tag if you want to add or remove navlink only -->
+                <!-- Start -->
+                <li class="item">
+                    <a href="{% url 'individual_tasklist' %}" class="nav_link">
+                      <span class="navlink_icon">
+                        <i class="bx bxs-magic-wand"></i>
+                      </span>
+                      <span class="navlink">Task</span>
+                    </a>
+                  </li>
+                  <!-- End -->
+        
+                  <li class="item">
+                    <a href="{% url 'individual_past_tasklist' %}" class="nav_link">
+                      <span class="navlink_icon">
+                        <i class="bx bx-loader-circle"></i>
+                      </span>
+                      <span class="navlink">Past due</span>
+                    </a>
+                  </li>
+                  <li class="item">
+                    <a href="{% url 'individual_com_tasklist' %}" class="nav_link">
+                      <span class="navlink_icon">
+                        <i class="bx bx-filter"></i>
+                      </span>
+                      <span class="navlink">Completed task</span>
+                    </a>
+                  </li>
+                <!--
+          <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-cloud-upload"></i>
+              </span>
+              <span class="navlink">Upload new</span>
+            </a>
+          </li>
+          -->
+            </ul>
+            <ul class="menu_items">
+                <div class="menu_title menu_project"></div>
+                <li class="item">
+                    <a href="{% url 'ProjectList' %}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-flag"></i>
+                        </span>
+                        <span class="navlink">My Project</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{% url 'projectAdd' %}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-medal"></i>
+                        </span>
+                        <span class="navlink">Create Project</span>
+                    </a>
+                </li>
+                <!-- <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-cog"></i>
+              </span>
+              <span class="navlink">Setting</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-layer"></i>
+              </span>
+              <span class="navlink">Features</span>
+            </a>
+          </li>
+        </ul> -->
+                <!-- Sidebar Open / Close -->
+                <div class="bottom_content">
+                    <div class="bottom expand_sidebar">
+                        <span> Expand</span>
+                        <i class='bx bx-log-in'></i>
+                    </div>
+                    <div class="bottom collapse_sidebar">
+                        <span> Collapse</span>
+                        <i class='bx bx-log-out'></i>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <div class='container'>
+        <div class= 'detailtask_box'>
+            <div class='task_container'>
+              <form method="post" action="{% url 'project_task_edit'  task_id=task_id %}">
+                {% csrf_token %}
+                
+                <label for="id_task_title">Task title:</label><br>
+                {{ form.task_title }}
+                
+                <br><label for="id_Due_Date">Due Date:</label><br>
+                {{ form.Due_Date }}
+                
+            
+                <br><label for="TeamUser">Task Owner:</label><br>
+                {{ form.TeamUser }}
+            
+            
+                <br><label for="id_description">Description:</label><br>
+                {{ form.description }}
+                
+                <br><button type="submit">Save Changes</button>
+              </form>
+            </div>
+            
+        </div>
+    </div>
     
-    <label for="id_task_title">Task title:</label><br>
-    {{ form.task_title }}
-    
-    <br><label for="id_Due_Date">Due Date:</label><br>
-    {{ form.Due_Date }}
     
 
-    <br><label for="TeamUser">Task Owner:</label><br>
-    {{ form.TeamUser }}
 
 
-    <br><label for="id_description">Description:</label><br>
-    {{ form.description }}
-    
-    <br><button type="submit">Save Changes</button>
-  </form>
+
+
+    <!-- JavaScript -->
+    <!-- JavaScript -->
+    <script src="{% static 'javasc/script.js' %}"></script>
 </body>
-</html>
+

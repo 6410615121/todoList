@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login ,logout
 def about(request):
     return render(request, 'user/about.html') 
 
+@login_required(login_url='login')
 def homepage(request):
     return render(request, 'user/homepage.html') 
 
@@ -30,6 +31,7 @@ def login_view(request):
 
     return render(request, 'user/login.html')
 
+@login_required(login_url='login')
 def logout_view(request):
     logout(request)
     messages.success(request, 'Successfully logged out.')
@@ -50,7 +52,7 @@ def register(request):
 
     return render(request, 'user/register.html', {'form': form})
 
-
+@login_required(login_url='login')
 def friend_request(request):   # this function will render html that show all request from other users send request to me 
     to_user = todoUser.objects.get(user=request.user)
     
@@ -61,7 +63,7 @@ def friend_request(request):   # this function will render html that show all re
     return render(request,'user/acc_friendrequest.html',context)
 
 
-
+@login_required(login_url='login')
 def show_send_request(request):
     from_user = todoUser.objects.get(user=request.user)
     all_friend_request =  Friend_request.objects.filter(From_user = from_user)
@@ -73,7 +75,7 @@ def show_send_request(request):
 
 
 
-
+@login_required(login_url='login')
 def send_friend_request(request ,userID):
     from_user = todoUser.objects.get(user=request.user)
     to_user = todoUser.objects.get(todoUser_ID=userID)
@@ -83,7 +85,7 @@ def send_friend_request(request ,userID):
     
     
 
-
+@login_required(login_url='login')
 def accept_friend_request(request):
     
     user_profile = request.user
@@ -96,7 +98,7 @@ def accept_friend_request(request):
         return friend_list(request)
         
     
-
+@login_required(login_url='login')
 def friend_list(request):
     myfriend = todoUser.objects.get(user=request.user).friends.all()
     user_profile = request.user
@@ -107,7 +109,7 @@ def friend_list(request):
     }
     return render(request, 'user/friendlist.html',context)
 
-
+@login_required(login_url='login')
 def find_user(request):
     if request.method == 'POST':
         user = request.POST.get('user')

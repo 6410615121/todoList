@@ -62,8 +62,7 @@
               <ul class="menu_items submenu">
                 <a href="#" class="nav_link sublink">My account</a>
                 <a href="{% url 'friend_list' %}" class="nav_link sublink">Friend</a>
-                <!--               <a href="#" class="nav_link sublink">Nav Sub Link</a>
-                <a href="#" class="nav_link sublink">Nav Sub Link</a> -->
+                <a href="{% url 'logout' %}" class="nav_link sublink">Log out</i></a>
   
               </ul>
             </li>
@@ -159,10 +158,11 @@
           </div>
         </div>
     </nav>
-
-    <a href="{% url 'task_add' project_ID=project_obj.Project_ID %}" class="right-top-addtask"> 
-      Add Task 
-    </a>
+    
+      <a href="{% url 'task_add' project_ID=project_obj.Project_ID %}" class="right-top-addtask"> 
+        Add Task 
+      </a>
+    
     <!--content -->
     <div class= 'content_box'>
         <p class='project_name'>
@@ -193,9 +193,14 @@
             <div class='task_and_mark'>
 
                 <div class='task_box'>
+                  {% if authorization == task.Teamleader or authorization == task.TeamUser  %}
                     <a href="{% url 'project_task_detail' task_id=task.Task_ID %}"  class ='task-content'>
-                        {{task.task_title}}
+                          {{task.task_title}}
                     </a>
+                  {% else %}
+                    {{task.task_title}}
+                  {% endif %}
+                    
                 </div>
 
                 <button class='mark'>
@@ -230,9 +235,13 @@
           <div class='task_and_mark'>
 
               <div class='task_box'>
-                  <p class ='task-content'>
-                      {{task.task_title}}
-                  </p>
+                {% if authorization == task.Teamleader or authorization == task.TeamUser  %}
+                    <a href="{% url 'project_task_detail' task_id=task.Task_ID %}"  class ='task-content'>
+                          {{task.task_title}}
+                    </a>
+                {% else %}
+                    {{task.task_title}}
+                {% endif %}
               </div>
           </div>
           {% endfor %}

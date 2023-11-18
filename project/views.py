@@ -9,7 +9,7 @@ from django.db import transaction
 from .form import ProjectTaskEditForm
 
 
-@login_required
+@login_required(login_url='login')
 def projectAdd(request):
     memberAdded_ids = request.session.get('memberAdded', [])
     todouser = todoUser.objects.get(user=request.user)
@@ -58,7 +58,7 @@ def projectAdd(request):
     return render(request, 'project/createproject.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def ProjectList(request):
     todouser = todoUser.objects.get(user=request.user)
     projects_with_user = Project.objects.filter(TeamMember=todouser)
@@ -71,10 +71,11 @@ def ProjectList(request):
     
     return render(request, 'project/projectlist.html', context)
 
-@login_required
+@login_required(login_url='login')
 def project_detail(request, project_id):
     todouser = todoUser.objects.get(user = request.user)
-
+    
+    
     project_obj = Project.objects.get(Project_ID = project_id)
     tasks = project_obj.tasks_project.all()
 
@@ -86,22 +87,25 @@ def project_detail(request, project_id):
         'project_name': project_obj.Project_name,
         'assignedtask': assignedtask,
         'other_tasks': other_tasks,
+        'authorization':todouser,
     }
     return render(request,'project/project_detail.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def project_task_detail(request, task_id):
     
     mytasks = Task.objects.get(Task_ID=task_id)
+    todouser_request = todoUser.objects.get(user = request.user)
 
     context = {
         'taskdetail': mytasks,
+        'authorization':todouser_request,
     }
     return render(request,'project/project_task_detail.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def submit(request, task_id):
     mytask = Task.objects.get(Task_ID=task_id)
     if request.method == 'POST':
@@ -115,13 +119,8 @@ def submit(request, task_id):
         mytask.save()
         return HttpResponseRedirect(reverse('project_task_detail', kwargs={'task_id': task_id}))
     
-    context = {
-        'taskdetail': mytask,
-        
-    }
-    return render(request,'task/task_detail.html', context)
-
-
+    
+@login_required(login_url='login')
 def delete_project_task(request, task_id):
     task = Task.objects.get(Task_ID = task_id)
     task_owner = task.TeamUser
@@ -134,14 +133,10 @@ def delete_project_task(request, task_id):
     return redirect('ProjectList')
 
 
-@login_required
+@login_required(login_url='login')
 def project_task_edit(request,task_id):
     task = get_object_or_404(Task, Task_ID=task_id)
 
-    todouser_request = todoUser.objects.get(user = request.user)
-    if task.TeamUser != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to edit this task.")
-    
     if request.method == 'POST':
         form = ProjectTaskEditForm(request.POST, instance=task)
         if form.is_valid():
@@ -153,4 +148,5 @@ def project_task_edit(request,task_id):
     context = {'form': form,
                'task_id':task_id,
                }
+               
     return render(request, 'project/project_task_edit.html',context)

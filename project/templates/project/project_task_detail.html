@@ -68,8 +68,7 @@
                     <ul class="menu_items submenu">
                         <a href="#" class="nav_link sublink">My account</a>
                         <a href="{% url 'friend_list' %}" class="nav_link sublink">Friend</a>
-                        <!--               <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a> -->
+                        <a href="{% url 'logout' %}" class="nav_link sublink">Log out</i></a>
 
                     </ul>
                 </li>
@@ -184,34 +183,25 @@
                 <div class='descriptiondetail'>
                     {{ taskdetail.description }} 
                 </div>
-                    <form action="{% url 'project_task_submit' task_id=taskdetail.Task_ID %}" method="post">
+                  <form action="{% url 'project_task_submit' task_id=taskdetail.Task_ID %}" method="post">
                     {% csrf_token %}
                     {% if taskdetail.achieve %}
                       <button type="submit" name="action" class = "submit"  value="undo">Undo Achieve</button>
                     {% else %}
                       <button type="submit" name="action" class = "submit" value="achieve">Achieve</button>
                     {% endif %}
-                    </form>
-                
-                
-                <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}">Delete Task</a>
-
-                <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}">Edit Task</a>
-                
-
-
+                  </form>
 
                 <div class='file'>
                     {% if taskdetail.file %}
                     <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}">{{ taskdetail.file}}</a>
-                        
-                    {% else  %}
-                    
-                       
-                    
                     {% endif %}
                 </div>
-                
+                {% if authorization == taskdetail.Teamleader %}
+                  <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}">Delete Task</a>
+  
+                  <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}">Edit Task</a>
+                {% endif %}
             </div>
             
         </div>

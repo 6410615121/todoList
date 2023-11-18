@@ -32,7 +32,17 @@
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
-            <i class='bx bx-bell'></i>
+            <div class="dropdown" >
+              <button class="bx bx-bell"></button>
+                <div class="dropdown-content">
+                  {% for request in friends_request %}
+                        
+                        {{ request }}
+                    
+                  {% endfor %}
+                    
+                </div>
+              </div>
             <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
         </div>
     </nav>
@@ -66,8 +76,7 @@
                     <ul class="menu_items submenu">
                         <a href="#" class="nav_link sublink">My account</a>
                         <a href="{% url 'friend_list' %}" class="nav_link sublink">Friend</a>
-                        <!--               <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a> -->
+                        <a href="{% url 'logout' %}" class="nav_link sublink">Log out</i></a>
 
                     </ul>
                 </li>

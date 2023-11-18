@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'project',
     'task',
     'user',
+    'chat',
 
 ]
 
@@ -75,7 +77,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'todo.wsgi.application'
+ASGI_APPLICATION = 'todo.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
