@@ -8,8 +8,18 @@
             <p>project name</p>
             {{ form.Project_name }}
 
-            <p>Team member</p>
-            {{ form.TeamMember }}
+            <p>Team members</p>
+            <div class="team-members">
+                {% for member in form.fields.TeamMember.queryset %}
+                    <div class="team-member">
+                        {{ member }}
+                        <button type="submit" name="remove_member" value="{{ member.todoUser_ID }}">Remove</button>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            
+            
 
             <p>Add member</p>
             <select name="friend">
