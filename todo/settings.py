@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'project',
     'task',
     'user',
+
 ]
 
 MIDDLEWARE = [
