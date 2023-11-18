@@ -119,7 +119,7 @@ def task_add(request,project_ID):
 def task_detail(request, task_id):
     
     mytask = Individual_Task.objects.get(Task_ID=task_id)
-
+   
     context = {
         'taskdetail': mytask,
         
