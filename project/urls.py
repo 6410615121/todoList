@@ -9,4 +9,5 @@ urlpatterns = [
     path('tasks/<uuid:task_id>/submit/', views.submit,name='project_task_submit'),
     path('tasks/<uuid:task_id>/del', views.delete_project_task, name='delete_project_task'),
     path('tasks/<uuid:task_id>/edit', views.project_task_edit, name='project_task_edit'),
+    path('<uuid:project_id>/edit',views.project_edit, name="project_edit"),
 ]

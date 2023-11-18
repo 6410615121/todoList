@@ -6,25 +6,38 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import transaction
-from .form import ProjectTaskEditForm
+from .form import ProjectTaskEditForm, ProjectEditForm
 
 
 @login_required(login_url='login')
 def projectAdd(request):
     memberAdded_ids = request.session.get('memberAdded', [])
+    project_name_session = request.session.get('project_name', '')
+
     todouser = todoUser.objects.get(user=request.user)
     friendList = todouser.friends.all()
 
-    memberAdded_names = []  # Store added members' names
+    memberAdded = []
 
     if request.method == 'POST':
+        project_name = request.POST.get('project_name')
+        if project_name:
+            project_name_session = project_name
+
         if 'submit_add_member' in request.POST:
             friend_ID = request.POST.get('friend')
             if not friend_ID in memberAdded_ids:
                 memberAdded_ids.append(friend_ID)
                 request.session['memberAdded'] = memberAdded_ids
-
-        if 'submit_add_project' in request.POST:
+        
+        elif 'remove_added_member' in request.POST:
+            friend_ID_to_remove = request.POST.get('remove_added_member')
+            if friend_ID_to_remove in memberAdded_ids:
+                memberAdded_ids.remove(friend_ID_to_remove)
+                request.session['memberAdded'] = memberAdded_ids
+                
+                
+        elif 'submit_add_project' in request.POST:
             project_name = request.POST.get('project_name')
             project_leader = todoUser.objects.get(user = request.user)
             finalmembers = [project_leader]
@@ -43,16 +56,19 @@ def projectAdd(request):
                 
             if memberAdded_ids:
                 request.session.pop('memberAdded')
-            return redirect('ProjectList')
+                return redirect('ProjectList')
+                              
+
 
     for member_id in memberAdded_ids:
         # Retrieve the todoUser object for each ID and extract the name
         member = get_object_or_404(todoUser, todoUser_ID=member_id)
-        memberAdded_names.append(member.Firstname +' '+ member.Lastname) 
+        memberAdded.append(member) 
 
     context = {
-        'memberAdded': memberAdded_names,
+        'memberAdded': memberAdded,
         'friendList': friendList,
+        'project_name_session':project_name_session,
     }
     
     return render(request, 'project/createproject.html', context)
@@ -150,3 +166,38 @@ def project_task_edit(request,task_id):
                }
                
     return render(request, 'project/project_task_edit.html',context)
+
+@login_required
+def project_edit(request, project_id):
+    project = get_object_or_404(Project, Project_ID=project_id)
+    
+    todouser = todoUser.objects.get(user=request.user)
+    friendList = todouser.friends.all()
+
+    todouser_request = todoUser.objects.get(user=request.user)
+    if project.TeamLeader != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to edit this project.")
+    
+    if request.method == 'POST':
+        form = ProjectEditForm(request.POST, instance=project, project=project)
+        if form.is_valid():
+            form.save()
+
+        team_member_remove_id = request.POST.get('remove_member')
+        if team_member_remove_id:
+            team_member_remove = get_object_or_404(todoUser, todoUser_ID=team_member_remove_id)
+            project.TeamMember.remove(team_member_remove)
+
+        added_member = request.POST.get('friend')
+        if added_member != 'None':
+            added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
+            project.TeamMember.add(added_member)
+    else:
+        form = ProjectEditForm(instance=project, project=project)
+
+    # Print the content of form.TeamMember.all() for debugging
+    print(form.fields['TeamMember'].queryset)
+
+    context = {'form': form, 'project_id': project_id, 'friendList': friendList}
+    
+    return render(request, 'project/project_edit.html', context)

@@ -10,7 +10,7 @@
     <title>Project</title>
     
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css_main/createproject_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/createproject_style.css' %}?v=2">
     
   </head>
   <body>
@@ -182,7 +182,7 @@
 
               <div class='project_name_form'>
                   <label>Project name</label>
-                  <input type="text" name="project_name" placeholder='Enter project name'>
+                  <input type="text" name="project_name" placeholder="Enter project name" value="{{ project_name_session }}">
               </div>
       
               <div class="added_member_box">
@@ -195,10 +195,14 @@
                 
                 <div class='memberbox'>
                   {% for member in memberAdded %}
-                      <img src="{% static 'images/computer-icons-user-profile-head-ico-download.jpg' %}">
-                      <p>{{ member }}</p>
+                    <img src="{% static 'images/computer-icons-user-profile-head-ico-download.jpg' %}">
+                    <p>{{ member }}</p>
+                    <button type="submit" name="remove_added_member" value="{{ member.todoUser_ID }}" class="remove-button">
+                      <img src="{% static 'images/Red-X-No-Background.png' %}">
+                    </button>
                   {% endfor %}
                 </div>
+                
               </div>
               
               <div class="friend_container">
@@ -207,7 +211,7 @@
                   </label>
                   <div class='addmember_and_submit'>
 
-                    <select name="friend" class='selector'>
+                    <select name="friend" class=''>
                         {% for friend in friendList %}
                             <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
                         {% endfor %}
@@ -225,7 +229,8 @@
 
           </form>
       </div>
-  </div>
+
+    </div>
   
 
 
