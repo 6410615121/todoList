@@ -1,5 +1,6 @@
 from django import forms
 from task.models import Task
+from .models import Project
 
 class ProjectTaskEditForm(forms.ModelForm):
     class Meta:
@@ -17,3 +18,21 @@ class ProjectTaskEditForm(forms.ModelForm):
         if project:
             project_members = project.TeamMember.all()
             self.fields['TeamUser'].queryset = project_members
+
+class ProjectEditForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['Project_name',
+                  'TeamMember',
+                  'TeamLeader',
+                  ]
+        
+
+    def __init__(self,*args, project=None, **kwargs,):
+        super().__init__(*args, **kwargs)
+
+        if project:
+            project_members = project.TeamMember.all()
+            self.fields['TeamMember'].queryset = project_members
+
+        

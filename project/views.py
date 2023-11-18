@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import transaction
-from .form import ProjectTaskEditForm
+from .form import ProjectTaskEditForm, ProjectEditForm
 
 
 @login_required
@@ -154,3 +154,34 @@ def project_task_edit(request,task_id):
                'task_id':task_id,
                }
     return render(request, 'project/project_task_edit.html',context)
+
+@login_required
+def project_edit(request, project_id):
+    project = get_object_or_404(Project, Project_ID=project_id)
+    
+    todouser = todoUser.objects.get(user=request.user)
+    friendList = todouser.friends.all()
+
+    todouser_request = todoUser.objects.get(user = request.user)
+    if project.TeamLeader != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to edit this project.")
+    
+    if request.method == 'POST':
+        form = ProjectEditForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+
+        added_member = request.POST.get('friend')
+        if added_member != 'None':
+            added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
+            project.TeamMember.add(added_member)
+
+
+    form = ProjectEditForm(instance=project, initial={'TeamLeader':project.TeamLeader}, project=project)
+
+    context = {'form': form,
+               'project_id':project_id,
+               'friendList':friendList
+               }
+    
+    return render(request,'project/project_edit.html',context)

@@ -169,6 +169,10 @@
             {{ project_name }}
         </p>
         
+        <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class=""> 
+          Edit Project
+        </a>
+        
         <div class='task_container'>
             <p class ='Owned_task_and_other_tasks_label'>
                 Owned Tasks
