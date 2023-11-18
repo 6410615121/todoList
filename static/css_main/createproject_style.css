@@ -7,10 +7,10 @@
 
     height: auto;
     min-height: 300px;
-    max-width: 800px;
     
     margin-top: 100px;
     margin-left: 300px;
+    margin-right: 100px;
     box-shadow: 4px 4px 5px rgb(211, 211, 211);
 }
 
@@ -27,7 +27,7 @@
 
 .project-add-header{
     text-align: left;
-    font-size: 30px;
+    font-size: 60px;
     font-weight: 700;
     font-family: Arial;
 
@@ -41,7 +41,7 @@
 }
 
 .project_name_form label{
-    font-size: medium;
+    font-size: larger;
     color: rgb(51, 46, 81);
     padding: 6px;
     padding-left: 10px;
@@ -52,6 +52,7 @@
 
 .project_name_form input{
     text-align: center;
+    font-size: larger;
     border: none;
     border-bottom: 2px solid #ccc;
 
@@ -78,7 +79,7 @@
 .added_member_box .head{
     display: flex;
     justify-content: center;
-    font-size: medium;
+    font-size: larger;
     color: rgb(51, 46, 81);
     padding: 6px;
     border-radius: 8px;
@@ -88,7 +89,7 @@
 
 .added_member_box .memberbox{
     display: grid;
-    grid-template-columns: 20px 1fr;
+    grid-template-columns: 20px 1fr 30px;
     padding: 15px;
     padding-bottom: 10px;
     border-radius: 15px;
@@ -104,9 +105,19 @@
 
 
 .memberbox p{
-    font-size: medium;
+    font-size: larger;
     color: rgb(58, 57, 64);
     margin-bottom: 10px;
+}
+
+.memberbox .remove-button {
+    border: none;
+    outline: none; 
+}
+
+.memberbox .remove-button:hover {
+    padding: 5px;
+    background-color: rgb(232, 234, 238);
 }
 
 
@@ -115,6 +126,7 @@
 .friend_container{
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .addmember_and_submit{
@@ -122,15 +134,23 @@
     grid-template-columns: 200px 70px 1fr;
 }
 
+.addmember_and_submit option{
+    font-size: 20px;
+}
+
+.added_member_box select{
+    font-size: 20px;
+}
 
 .addmember_and_submit .button{
     display: inline-block;
     background-color: #dae7f3;
+    font-size: 20px;
     border: none;
     border-radius: 10px;
     padding:5px;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 65px;
     margin-left: 3px;
     margin-right: 3px;
     transition: 0.10s;
@@ -142,7 +162,7 @@
     border-radius: 10px;
     padding:5px;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 65px;
     margin-left: 3px;
     margin-right: 3px;
     box-shadow: 2px 2px 10px rgb(234, 234, 234);
@@ -157,6 +177,7 @@
     background-color: #dae7f3;
     border: none;
     border-radius: 10px;
+    font-size: 20px;
     padding:5px;
     padding-left: 15px;
     padding-right: 15px;

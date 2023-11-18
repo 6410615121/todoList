@@ -15,7 +15,7 @@ def projectAdd(request):
     todouser = todoUser.objects.get(user=request.user)
     friendList = todouser.friends.all()
 
-    memberAdded_names = []  # Store added members' names
+    memberAdded = []
 
     if request.method == 'POST':
         if 'submit_add_member' in request.POST:
@@ -24,7 +24,15 @@ def projectAdd(request):
                 memberAdded_ids.append(friend_ID)
                 request.session['memberAdded'] = memberAdded_ids
 
-        if 'submit_add_project' in request.POST:
+        
+        elif 'remove_added_member' in request.POST:
+            friend_ID_to_remove = request.POST.get('remove_added_member')
+            if friend_ID_to_remove in memberAdded_ids:
+                memberAdded_ids.remove(friend_ID_to_remove)
+                request.session['memberAdded'] = memberAdded_ids
+                
+                
+        elif 'submit_add_project' in request.POST:
             project_name = request.POST.get('project_name')
             project_leader = todoUser.objects.get(user = request.user)
             finalmembers = [project_leader]
@@ -43,15 +51,17 @@ def projectAdd(request):
                 
             if memberAdded_ids:
                 request.session.pop('memberAdded')
-            return redirect('ProjectList')
+                return redirect('ProjectList')
+                              
+
 
     for member_id in memberAdded_ids:
         # Retrieve the todoUser object for each ID and extract the name
         member = get_object_or_404(todoUser, todoUser_ID=member_id)
-        memberAdded_names.append(member.Firstname +' '+ member.Lastname) 
+        memberAdded.append(member) 
 
     context = {
-        'memberAdded': memberAdded_names,
+        'memberAdded': memberAdded,
         'friendList': friendList,
     }
     
