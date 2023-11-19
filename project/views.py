@@ -54,7 +54,11 @@ def projectAdd(request):
                     
                     
                 else:
-                    return render(request, 'project/projectAdd.html', context)
+                    return render(request, 'project/createproject.html', {
+                        'memberAdded': memberAdded,
+                        'friendList': friendList,
+                        'project_name_session':project_name_session,
+                    })
                 
             if memberAdded_ids:
                 request.session.pop('memberAdded')
@@ -206,12 +210,8 @@ def project_edit(request, project_id):
 
         added_member = request.POST.get('friend')
         if added_member != 'None' and added_member != '':
-            try:
-                added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
-                project.TeamMember.add(added_member)
-            except ValidationError:
-                # Handle the ValidationError if the value is not a valid UUID
-                pass
+            added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
+            project.TeamMember.add(added_member)
     else:
         form = ProjectEditForm(instance=project, project=project)
 

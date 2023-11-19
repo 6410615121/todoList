@@ -24,7 +24,7 @@ class ProjectEditForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['Project_name', 'TeamLeader', 'TeamMember']
+        fields = ['Project_name']
 
     def __init__(self, *args, project=None, **kwargs):
         super().__init__(*args, **kwargs)

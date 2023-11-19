@@ -35,6 +35,13 @@ class ProjectViewTest(TestCase):
         friend_id = self.todo_user.friends.first()
         friend_id = friend_id.todoUser_ID
 
+        # test submit without project name
+        response = self.client.post(reverse('projectAdd'), {
+            'submit_add_project': 'true',
+            'project_name': ''
+        })
+        self.assertEqual(response.status_code, 200)
+
         # add friend
         response = self.client.post(reverse('projectAdd'), {
             'submit_add_member': 'true',
@@ -232,14 +239,21 @@ class ProjectEditViewTest(TestCase):
     def setUp(self):
         # Create a test user
         self.user = User.objects.create_user(username='testuser', password='testpassword')
-
         # Create a test todoUser
         self.todouser = todoUser.objects.create(user=self.user, Firstname='Test', Lastname='User')
 
     def test_project_edit_view(self):
+        another_user = User.objects.create_user(username='testuser2', password='testpassword')
+        another_todoUser = todoUser.objects.create(user=another_user, Firstname='testuser2', Lastname='testpassword')
+
+        another_user1 = User.objects.create_user(username='testuser3', password='testpassword')
+        another_todoUser1 = todoUser.objects.create(user=another_user1, Firstname='testuser2', Lastname='testpassword')
+
+
         # Create a test project with the test user as the leader
         project = Project.objects.create(Project_name='testproject', TeamLeader=self.todouser)
         project.TeamMember.add(self.todouser)
+        project.TeamMember.add(another_todoUser1)
 
         # Log in the test user
         self.client = Client()
@@ -248,16 +262,20 @@ class ProjectEditViewTest(TestCase):
         # Get the project_edit URL for the test project
         url = reverse('project_edit', kwargs={'project_id': project.Project_ID})
 
+
+        # TEST get
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
         # Simulate a POST request to edit the project
         response = self.client.post(url, {
             'Project_name': 'new_testproject',
-            'remove_member': '',  # Handle empty string for remove_member
-            'friend': '',  # Handle empty string for friend
-            'added_member': '',  # Handle empty string for added_member
+            'remove_member': another_todoUser1.todoUser_ID,  
+            'friend': another_todoUser.todoUser_ID,  
+            'added_member': ''
         })
 
-        # Check that the response status code is 200 (OK) or 302 (Redirect) if you have a redirect after successful edit
-        self.assertIn(response.status_code, [200, 302])
+        self.assertEqual(response.status_code, 200)
 
         # Reload the project from the database
         updated_project = Project.objects.get(Project_ID=project.Project_ID)
@@ -265,6 +283,21 @@ class ProjectEditViewTest(TestCase):
         # Check that the project name has changed
         self.assertEqual(updated_project.Project_name, 'new_testproject')
 
-        # You can add more assertions based on your specific logic in the view
+    def test_project_edit_view_noPermission(self):
+        another_user = User.objects.create_user(username='testuser2', password='testpassword')
+        another_todoUser = todoUser.objects.create(user=another_user, Firstname='testuser2', Lastname='testpassword')
 
-    # Add more test cases as needed
+        # Create a test project with the test user as the leader
+        project = Project.objects.create(Project_name='testproject', TeamLeader=self.todouser)
+        project.TeamMember.add(self.todouser)
+
+        # Log in the test user
+        self.client = Client()
+        self.client.login(username='testuser2', password='testpassword')
+
+        url = reverse('project_edit', kwargs={'project_id': project.Project_ID})
+        # TEST get
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+
