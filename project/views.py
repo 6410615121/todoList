@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import transaction
 from .form import ProjectTaskEditForm, ProjectEditForm
+from django.core.exceptions import ValidationError
 
 
 @login_required(login_url='login')
@@ -144,7 +145,7 @@ def delete_project_task(request, task_id):
     todouser_request = todoUser.objects.get(user = request.user)
 
     if task_owner != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to delete this task.")
+        return HttpResponseForbidden("You don't have permission to delete this task.")
     
     task.delete()
     return redirect('ProjectList')
@@ -153,6 +154,13 @@ def delete_project_task(request, task_id):
 @login_required(login_url='login')
 def project_task_edit(request,task_id):
     task = get_object_or_404(Task, Task_ID=task_id)
+    task_owner = task.TeamUser
+    project_leader = task.Teamleader
+
+    todouser_request = todoUser.objects.get(user = request.user)
+
+    if task_owner != todouser_request and project_leader != todouser_request:
+        return HttpResponseForbidden("You don't have permission to delete this task.")
 
     if request.method == 'POST':
         form = ProjectTaskEditForm(request.POST, instance=task)
@@ -177,7 +185,7 @@ def project_edit(request, project_id):
 
     todouser_request = todoUser.objects.get(user=request.user)
     if project.TeamLeader != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to edit this project.")
+        return HttpResponseForbidden("You don't have permission to edit this project.")
     
     if request.method == 'POST':
         form = ProjectEditForm(request.POST, instance=project, project=project)
@@ -197,9 +205,13 @@ def project_edit(request, project_id):
                 project.TeamMember.remove(team_member_remove)
 
         added_member = request.POST.get('friend')
-        if added_member != 'None':
-            added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
-            project.TeamMember.add(added_member)
+        if added_member != 'None' and added_member != '':
+            try:
+                added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
+                project.TeamMember.add(added_member)
+            except ValidationError:
+                # Handle the ValidationError if the value is not a valid UUID
+                pass
     else:
         form = ProjectEditForm(instance=project, project=project)
 
