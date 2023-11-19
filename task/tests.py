@@ -144,7 +144,9 @@ class IndividualTaskTests_edit_del(TestCase):
 
         # Create a test POST data dictionary
         post_data = {
-            'task_title': 'change name'
+            'task_title': 'new title',
+            'Due_Date': timezone.now().strftime('%Y-%m-%dT%H:%M'),
+            'description': 'new description'
         }
 
         # Simulate a POST request to the view with the test data
@@ -155,7 +157,7 @@ class IndividualTaskTests_edit_del(TestCase):
 
         # Optionally, you can check if the task was updated in the database
         updated_task = Individual_Task.objects.get(Task_ID=self.task.Task_ID)
-        #self.assertEqual(updated_task, expected_updated_task)
+        self.assertEqual(updated_task.task_title, 'new title')
 
     def test_delete_individual_task_view(self):
         # Log in the test user

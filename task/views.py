@@ -41,7 +41,7 @@ def delete_individual_task(request, task_id):
     todouser_request = todoUser.objects.get(user = request.user)
 
     if task_owner != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to delete this task.")
+        return HttpResponseForbidden("You don't have permission to delete this task.")
     
     task.delete()
     return redirect('individual_tasklist')
@@ -125,13 +125,14 @@ def task_detail(request, task_id):
         
     }
     return render(request,'task/task_detail.html', context)
+
 # do next iteration
 @login_required(login_url='login')
 def download_file(request, task_id):
-#    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
-#    
-#    response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
-#    response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
+    # instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    
+    # response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
+    # response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
     return True
     
 @login_required(login_url='login')
@@ -146,13 +147,13 @@ def submit(request, task_id):
             mytask.category = 'complete'
 
         mytask.save()
-        return HttpResponseRedirect(reverse('task_detail', kwargs={'task_id': task_id}))
+    return HttpResponseRedirect(reverse('task_detail', kwargs={'task_id': task_id}))
     
-    context = {
-        'taskdetail': mytask,
+    # context = {
+    #     'taskdetail': mytask,
         
-    }
-    return render(request,'task/task_detail.html', context)
+    # }
+    # return render(request,'task/task_detail.html', context)
 
 
 @login_required(login_url='login')
