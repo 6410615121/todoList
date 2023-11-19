@@ -1,0 +1,25 @@
+.form_box{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    background-color: white;
+
+    height: auto;
+    width: auto;
+    min-width: 800px;
+
+    margin-top: 100px;
+    margin-left: 300px;
+    margin-right: 200px;
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    box-shadow: 5px 5px 10px rgb(209, 209, 209);
+}
+
+.form_box .project_name_box{
+    background-color: white;
+}
