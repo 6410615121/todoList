@@ -192,7 +192,9 @@ def project_edit(request, project_id):
         team_member_remove_id = request.POST.get('remove_member')
         if team_member_remove_id:
             team_member_remove = get_object_or_404(todoUser, todoUser_ID=team_member_remove_id)
-            project.TeamMember.remove(team_member_remove)
+
+            if team_member_remove != project.TeamLeader:
+                project.TeamMember.remove(team_member_remove)
 
         added_member = request.POST.get('friend')
         if added_member != 'None':
