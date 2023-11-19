@@ -35,8 +35,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, 'Successfully logged out.')
-    return render(request, 'user/login.html')
-
+    return redirect('login')
 
 def register(request):
     if request.method == 'POST':

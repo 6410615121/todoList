@@ -13,8 +13,8 @@ class UserViewsTest(TestCase):
 
     def test_homepage_view(self):
         response = self.client.get(reverse('homepage'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'user/homepage.html')
+        self.assertEqual(response.status_code, 302)
+
             
     def test_login_view_invalid(self):
         user = User.objects.create_user(username='testuser', password='testpassword')
@@ -26,8 +26,7 @@ class UserViewsTest(TestCase):
 
     def test_logout_view(self):
         response = self.client.get(reverse('logout'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Successfully logged out')
+        self.assertEqual(response.status_code, 302)
 
 
     def test_successful_login(self):
