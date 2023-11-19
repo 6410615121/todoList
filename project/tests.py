@@ -208,6 +208,25 @@ class ProjectTaskViewTest(TestCase):
         response = self.client.get(reverse('project_task_edit', kwargs={'task_id': task.Task_ID}))
         self.assertEqual(response.status_code, 403)
 
+    def test_delete_project_view(self):
+        project = Project.objects.first()
+        response = self.client.post(reverse('project_delete', kwargs={'project_id': project.Project_ID}))
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_project_view_noPermission(self):
+        project = Project.objects.first()
+
+        another_user = User.objects.create_user(username='testuser2', password='testpassword')
+        another_todoUser = todoUser.objects.create(user=another_user, Firstname='testuser2', Lastname='testpassword')
+        
+        self.client = Client()
+        self.client.login(username='testuser2', password='testpassword')
+
+        response = self.client.post(reverse('project_delete', kwargs={'project_id': project.Project_ID}))
+        self.assertEqual(response.status_code, 403)
+
+
+
 
 class ProjectEditViewTest(TestCase):
     def setUp(self):

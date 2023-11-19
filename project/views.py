@@ -229,7 +229,7 @@ def delete_project(request, project_id):
 
     todouser_request = todoUser.objects.get(user=request.user)
     if project.TeamLeader != todouser_request:
-        raise HttpResponseForbidden("You don't have permission to delete this project.")
+        return HttpResponseForbidden("You don't have permission to delete this project.")
    
     project .delete()
     return redirect('ProjectList')
