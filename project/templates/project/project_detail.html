@@ -172,6 +172,9 @@
         <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class=""> 
           Edit Project
         </a>
+        <a href="{% url 'project_delete' project_id=project_obj.Project_ID %}" class=""> 
+          Delete Project
+        </a>
         
         <div class='task_container'>
             <p class ='Owned_task_and_other_tasks_label'>

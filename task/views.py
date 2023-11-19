@@ -125,14 +125,14 @@ def task_detail(request, task_id):
         
     }
     return render(request,'task/task_detail.html', context)
-
+# do next iteration
 @login_required(login_url='login')
 def download_file(request, task_id):
-    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
-    
-    response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
-    return response
+#    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+#    
+#    response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
+#    response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
+    return True
     
 @login_required(login_url='login')
 def submit(request, task_id):

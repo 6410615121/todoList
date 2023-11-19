@@ -221,3 +221,15 @@ def project_edit(request, project_id):
     context = {'form': form, 'project_id': project_id, 'friendList': friendList}
     
     return render(request, 'project/project_edit.html', context)
+
+
+@login_required(login_url='login')
+def delete_project(request, project_id):
+    project = Project.objects.get( Project_ID = project_id)
+
+    todouser_request = todoUser.objects.get(user=request.user)
+    if project.TeamLeader != todouser_request:
+        raise HttpResponseForbidden("You don't have permission to delete this project.")
+   
+    project .delete()
+    return redirect('ProjectList')

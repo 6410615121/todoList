@@ -63,8 +63,14 @@ class TaskViewTest(TestCase):
         
 
     def test_submit_view(self):
+        #submit
         response = self.client.post(reverse('submit', kwargs={'task_id': self.task.Task_ID}))
         self.assertEqual(response.status_code, 302)  # Assuming it redirects after submission
+        #undo submit
+        response = self.client.post(reverse('submit', kwargs={'task_id': self.task.Task_ID}))
+        self.assertEqual(response.status_code, 302)  # Assuming it redirects after submission
+    
+
 
 
 class TaskAddViewTest(TestCase):
@@ -100,3 +106,72 @@ class TaskAddViewTest(TestCase):
 
         # Optionally, check other aspects of the response or the database as needed
         # For example, you might want to check that the task is associated with the correct project or user
+
+
+
+class IndividualTaskTests_edit_del(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Create a todoUser for the test user
+        self.todo_user = todoUser.objects.create(user=self.user)
+
+        # Create a test individual task
+        self.task = Individual_Task.objects.create(
+            task_title="test",
+            User=self.todo_user,
+           
+        )
+        self.task2 = Individual_Task.objects.create(
+            task_title="test",
+            User=self.todo_user,
+           
+        )
+
+    def test_individual_task_edit_view(self):
+        # Log in the test user
+        self.client.login(username='testuser', password='testpassword')
+        
+        # Get the URL for the individual_task_edit view with the task_id parameter
+        url = reverse('individual_task_edit', args=[self.task.Task_ID])
+
+        # Simulate a GET request to the view
+        response = self.client.get(url)
+
+        # Check that the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Create a test POST data dictionary
+        post_data = {
+            'task_title': 'change name'
+        }
+
+        # Simulate a POST request to the view with the test data
+        response = self.client.post(url, post_data)
+
+        # Check that the response status code is 200 (OK) or 302 (Redirect) depending on your implementation
+        self.assertIn(response.status_code, [200, 302])
+
+        # Optionally, you can check if the task was updated in the database
+        updated_task = Individual_Task.objects.get(Task_ID=self.task.Task_ID)
+        #self.assertEqual(updated_task, expected_updated_task)
+
+    def test_delete_individual_task_view(self):
+        # Log in the test user
+        self.client.login(username='testuser', password='testpassword')
+
+        # Get the URL for the delete_individual_task view with the task_id parameter
+        url = reverse('delete_individual_task', args=[self.task2.Task_ID])
+
+
+        # Simulate a POST request to the view to delete the task
+        response = self.client.post(url)
+
+        # Check that the response status code is 302 (Redirect) if the task is deleted
+        self.assertEqual(response.status_code, 302)
+
+        # Optionally, you can check if the task was deleted from the database
+        with self.assertRaises(Individual_Task.DoesNotExist):
+            deleted_task = Individual_Task.objects.get(Task_ID=self.task2.Task_ID)
+       
