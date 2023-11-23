@@ -1,0 +1,123 @@
+.individual_taskAdd_container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    background-color: rgb(255, 255, 255);
+    border-radius: 60px;
+    padding: 30px;
+    margin-top: 100px;
+    margin-left: 300px;
+    margin-right: 100px;
+    box-shadow: 4px 4px 5px rgb(211, 211, 211);
+    
+    font-size: 30px;
+    font-family: 'Lexend', sans-serif;
+    color: rgb(105, 105, 105);
+}
+
+.individual_taskAdd_container .cover {
+    width: 100%;
+    object-fit: cover;
+    align-self: self-start;
+    justify-self: start;
+    opacity: 0.65;
+}
+
+.individual_taskAdd_container .form_box {
+    margin-left: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: center;
+}
+
+.task_title_input {
+    display: block;
+
+    width: 95%;
+    padding: 25px;
+    border: 1px solid #b6b6b6;
+    border-radius: 20px;
+    background-color: rgb(242, 242, 242);
+
+    font-size: 30px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: rgb(58, 58, 58);
+    margin-bottom: 30px;
+}
+
+.task_title_input::placeholder {
+    font-size: 30px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: rgb(105, 105, 105);
+}
+
+.due_date {
+    color: rgb(105, 105, 105);
+    font-size: 30px;
+    padding: 15px;
+    width: 95%;
+    border-radius: 20px;
+    border: 1px solid #b6b6b6;
+
+    background-color: rgb(242, 242, 242);
+
+    margin-bottom: 30px;
+}
+
+.description_box {
+    width: 95%;
+    height: 150px;
+    padding: 10px;
+    font-size: 30px;
+    font-family: 'Lexend', sans-serif;
+    border: 1px solid #b6b6b6;
+
+    background-color: rgb(242, 242, 242);
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    resize: none;
+
+    margin-bottom: 30px;
+}
+
+.submit_button{
+    display: inline-block;
+
+    font-size: 20px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+
+    background-color: rgb(44, 131, 218);
+
+    margin-right: 5%;
+    justify-self: end;
+    width: 50%;
+    height: 210%;
+
+    border-radius: 10px;
+    border: 1px solid #979797;
+}
+
+.submit_button:hover{
+    display: inline-block;
+    cursor: pointer;
+
+    font-size: 20px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 400;
+    color: #ffffff;
+
+    background-color: rgb(10, 71, 133);
+
+    margin-right: 5%;
+    justify-self: end;
+    width: 50%;
+    height: 210%;
+
+    transition: 0.15s;
+
+    border-radius: 10px;
+    border: 1px solid #979797;
+}

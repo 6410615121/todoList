@@ -11,6 +11,11 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/individual_taskAdd.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -166,19 +171,20 @@
 
     <!-- element task -->
 
-    <div class='container'>
-        <form method = "post">
+    <div class='individual_taskAdd_container'>
+        <img class='cover' src='{% static 'images/free-task-list-2080780-1753768.png' %}'>
+        <form method = "post" class="form_box">
             {% csrf_token %}
-            <label for="task_title">Task Title:</label>
-            <input type="text" id="task_title" required name="task_title"><br>
+            {% comment %} <label for="task_title">Task Title:</label> {% endcomment %}
+            <input type="text" id="task_title" class='task_title_input' placeholder="Task Title" required name="task_title">
         
-            <label for="due_date">Due Date:</label>
-            <input type="datetime-local" required id="due_date" name="due_date"><br>
+            {% comment %} <label for="due_date">Due Date:</label> {% endcomment %}
+            <input type="datetime-local" class="due_date" required id="due_date" name="due_date">
         
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+            {% comment %} <label for="description">Description:</label> {% endcomment %}
+            <textarea id="description" name="description" class='description_box' placeholder="Description here"></textarea>
         
-            <button type="submit">Submit</button>
+            <button type="submit" class='submit_button'>Submit</button>
         </form>
     </div>
 
