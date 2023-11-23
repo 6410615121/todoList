@@ -175,13 +175,10 @@
         <img class='cover' src='{% static 'images/free-task-list-2080780-1753768.png' %}'>
         <form method = "post" class="form_box">
             {% csrf_token %}
-            {% comment %} <label for="task_title">Task Title:</label> {% endcomment %}
             <input type="text" id="task_title" class='task_title_input' placeholder="Task Title" required name="task_title">
         
-            {% comment %} <label for="due_date">Due Date:</label> {% endcomment %}
             <input type="datetime-local" class="due_date" required id="due_date" name="due_date">
         
-            {% comment %} <label for="description">Description:</label> {% endcomment %}
             <textarea id="description" name="description" class='description_box' placeholder="Description here"></textarea>
         
             <button type="submit" class='submit_button'>Submit</button>

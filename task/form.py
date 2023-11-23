@@ -7,7 +7,9 @@ class IndividualTaskEditForm(forms.ModelForm):
         fields = ['task_title', 'Due_Date', 'description']
 
         widgets = {
-            'Due_Date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'format': 'yyyy-MM-ddTHH:mm'}),
+            'Due_Date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
-    
+        input_formats = {
+            'Due_Date': ['%Y-%m-%dT%H:%M'],
+        }

@@ -157,20 +157,14 @@ def submit(request, task_id):
 
 
 @login_required(login_url='login')
-def individual_task_edit(request,task_id):
+def individual_task_edit(request, task_id):
     task = get_object_or_404(Individual_Task, Task_ID=task_id)
 
-    todouser_request = todoUser.objects.get(user = request.user)
-    
     if request.method == 'POST':
         form = IndividualTaskEditForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-
-    else:
-        form = IndividualTaskEditForm(instance=task)
-
-    context = {'form': form,
-               'task_id':task_id,
-               }
-    return render(request, 'task/individual_task_edit.html',context)
+            
+    form = IndividualTaskEditForm(instance=task)
+    context = {'form': form, 'task_id': task_id}
+    return render(request, 'task/individual_task_edit.html', context)
