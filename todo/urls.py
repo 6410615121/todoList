@@ -1,3 +1,4 @@
+from user.views import resetpass ,login_view,forgetpass,register
 """
 URL configuration for todo project.
 
@@ -21,6 +22,10 @@ from .views import homepage
 
 urlpatterns = [
     path('', homepage, name="index"),
+    path('<uuid:requestID>/resetpass/', resetpass, name='resetpass'),
+    path('login/', login_view, name='login'),
+    path('register/', register, name='register'),
+    path('forgetpassword/', forgetpass, name='forgetpass'),
     path('admin/', admin.site.urls),
     path("project/", include('project.urls')),
     path("task/", include('task.urls')),

@@ -1,0 +1,48 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change password</title>
+    
+    <link rel="stylesheet" href="{% static 'user_css/login_register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="cover">
+            <div class="image">
+                <img src= "{% static 'images/login.jpg' %}"> 
+            </div>
+            <!--
+            <div class="text">
+                <span class="text-1">ToDoList</span>
+                <span class="text-2">Let's get connected</span>
+            </div>
+            -->
+        </div>
+        <form action="{%url 'forgetpass' %}" method="post" class="login100-form validate-form">
+            {% csrf_token %}
+            <div class="form-content">
+                <div class="login-form">
+                    <div class="title">Change password</div>
+                    <div class="input-boxes">
+                        <div class="input-box">
+                            <input type="text" name="email" placeholder="Enter your email" required>
+                        </div>
+
+                    
+                        <div class="button input-box">
+                            <input type="submit">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

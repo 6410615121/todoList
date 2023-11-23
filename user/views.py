@@ -3,8 +3,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User 
 from .form import RegistrationForm
-from .models import todoUser ,Friend_request
+from .models import todoUser ,Friend_request ,Forget_pass
 from django.contrib.auth import authenticate, login ,logout
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -30,6 +33,39 @@ def login_view(request):
             return render(request, 'user/login.html')
 
     return render(request, 'user/login.html')
+
+def forgetpass(request):
+    
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = User.objects.get(email=email)
+
+        mail = Forget_pass.objects.create(user=user)
+        content=f"""
+            Hello {request.user.username}!
+
+            We received a request to update the password To reset your password, click the link below:
+            http://127.0.0.1:8000/{mail.forget_ID}/resetpass/
+
+            """
+        send_mail('Reset password request', content, settings.EMAIL_HOST_USER,[email])
+        return render(request, 'user/login.html')
+    return render(request, 'user/forgetpass.html')
+
+def resetpass(request,requestID):
+    Forget_pass_obj = get_object_or_404(Forget_pass, forget_ID=requestID)
+
+    if request.method == 'POST':
+        newpass = request.POST.get('pass1')
+
+        user = Forget_pass_obj.user
+        user.set_password(str(newpass))
+        user.save()
+        Forget_pass_obj.delete()
+        return render(request, 'user/login.html')
+    
+    return render(request, 'user/resetpass.html', {"requestID":requestID,})
+    
 
 @login_required(login_url='login')
 def logout_view(request):

@@ -25,6 +25,8 @@ class Friend_request(models.Model):
     From_user = models.ForeignKey(todoUser,related_name="from_user", on_delete=models.CASCADE)
     To_user = models.ForeignKey(todoUser,related_name= "to_user", on_delete=models.CASCADE)
 
-
+class Forget_pass(models.Model):
+   forget_ID = models.UUIDField(default=uuid.uuid4, primary_key=True)
+   user = models.ForeignKey(User, on_delete=models.CASCADE )
 
 
