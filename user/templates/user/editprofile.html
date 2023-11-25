@@ -25,15 +25,15 @@
         </div>
   
 
-        <div class="search_bar">
+        <!-- <div class="search_bar">
             <input type="text" placeholder="Search" />
-        </div>
+        </div> -->
 
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
             <i class='bx bx-bell'></i>
-            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+            <img src="{{ todouser.image_field.url }}" alt="" class="profile" />
         </div>
     </nav>
     <!-- sidebar -->
@@ -171,14 +171,17 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     
-                    <label for="profile_picture">Profile Picture:</label>
+                    <label for="profile_picture">Profile Picture </label>
                     <input type="file" name="profile_picture" accept="image/*">
-                     <br>
+                    <br>
                     <label for="Firstname">First Name:</label>
                     <input type="text" name="Firstname" value="{{ todouser.Firstname }}" required>
                     <br>
                     <label for="Lastname">Last Name:</label>
                     <input type="text" name="Lastname" value="{{ todouser.Lastname }}" required>
+                    <br>
+                    <label for="Lastname">Email:</label>
+                    <input type="text" name="Email" value="{{ todouser.user.email }}" required>
                     <br>
                 
                     <button type="submit">Save Profile</button>

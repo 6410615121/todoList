@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    
     <title>Homepage</title>
     
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
@@ -29,17 +30,27 @@
       <div class="navbar_content">
         <i class="bi bi-grid"></i>
         <i class='bx bx-sun' id="darkLight"></i>
-        <div class="dropdown" >
-          <button class="bx bx-bell"></button>
+
+
+        <div class="icon-dropdown">
+          <i class='bx bx-bell'></i>
           <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+              <table>
+                  <tbody>
+                      {% for request in notification %}
+                          <tr>
+                              <td>
+                                  <img src="{{ request.From_user.image_field.url }}" alt="User Image" > 
+                                  <a href="{% url 'friend request' %}">friend request</a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
           </div>
+      </div>
 
-
-        </div>
-        <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+        <img src="{{ todouser.image_field.url }}" alt="" class="profile" />
       </div>
     </nav>
     <!-- sidebar -->

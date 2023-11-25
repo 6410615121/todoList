@@ -11,6 +11,7 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/friendrequest.css' %}">
 </head>
 
 <body>
@@ -25,25 +26,14 @@
         </div>
   
 
-        <div class="search_bar">
+        <!-- <div class="search_bar">
             <input type="text" placeholder="Search" />
-        </div>
+        </div> -->
 
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
-            <div class="dropdown" >
-              <button class="bx bx-bell"></button>
-                <div class="dropdown-content">
-                  {% for request in friends_request %}
-                        
-                        {{ request }}
-                    
-                  {% endfor %}
-                    
-                </div>
-              </div>
-            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+            <img src="{{ todouser.image_field.url }}" alt="" class="profile" />
         </div>
     </nav>
     <!-- sidebar -->
@@ -180,17 +170,22 @@
     
     <div class='container'>
         
-        {% for request in friends_request %}
-        <div class="original-box-shadow">
-            {{ request }}<br>
-            <a href="{% url 'accept_friend_request'  %}" >
-                accept request
-            </a>
+        
+      {% for request in friends_request %}
+        <div class="friendrequest_container">
+          <div>
+            <img src="{{ request.From_user.image_field.url }}" alt="User Image" class="profile_picture">
+          </div><br>
+          <div class="friendrequest_content ">
+            Username: {{ request.From_user.user.username }}<br>
+            Fullname: {{ request.From_user.Firstname }} {{ request.From_user.Lastname }} <br>
+            Email:    {{ request.From_user.user.email }}<br>
 
-
+            <a href="{% url 'accept_friend_request'  %}" class="accept_button">accept request</a>
+          </div>
         </div>
-        {% endfor %}
-
+      {% endfor %}
+            
         
 
     </div>
