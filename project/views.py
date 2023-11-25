@@ -141,6 +141,20 @@ def submit(request, task_id):
         mytask.save()
         return HttpResponseRedirect(reverse('project_task_detail', kwargs={'task_id': task_id}))
     
+@login_required(login_url='login')
+def mask_submit(request, task_id):
+    mytask = Task.objects.get(Task_ID=task_id)
+    if request.method == 'POST':
+        if mytask.achieve == True:
+            mytask.achieve = False  # undo submit 
+            mytask.category = 'due'
+        else:
+            mytask.achieve = True   # submit
+            mytask.category = 'complete'
+
+        mytask.save()
+        return project_detail(request,  mytask.Project.Project_ID)
+    
     
 @login_required(login_url='login')
 def delete_project_task(request, task_id):

@@ -226,12 +226,13 @@
                   {% endif %}
                     
                 </div>
-                <form action="{% url 'project_task_submit' task_id=task.Task_ID %}" method="post">
+                <form action="{% url 'mask_submit' task_id=task.Task_ID %}" method="post">
                   {% csrf_token %}
+                  
                   {% if task.achieve %}
                     <button type="submit" name="action" class = "mark" value="achieve">mark as finish</button>
                   {% else %}
-                    <button type="submit" name="action" class = "mark" value="achieve">Unmark as finished</button>
+                    <button type="submit" name="action" class = "mark" value="achieve">Unmark as finish</button>
                   {% endif %}
                 </form>
                 
