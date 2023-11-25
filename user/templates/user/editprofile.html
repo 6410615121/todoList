@@ -43,12 +43,14 @@
                 <div class="menu_title menu_dahsboard"></div>
                 <!-- start -->
                 <li class="item">
-                  <a href="{% url 'homepage' %}" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class="bx bx-home-alt"></i>
-                    </span>
-                    <span class="navlink">Home</span>
-                  </a>
+                    <a href="{% url 'homepage' %}" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bx-home-alt"></i>
+                        </span>
+                        <span class="navlink">Home</span>
+                      </a>
+
+                   
                 </li>
                 <!-- end -->
 
@@ -163,35 +165,30 @@
         </div>
     </nav>
 
-
-    <!-- element task -->
-
-
-    <a href="{% url 'individual_taskadd' %}" class="right-top-addtask">
-        Add Task
-    </a>
     <div class='container'>
-
-        {% for task in tasklist %}
-        <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="original-box-shadow">
-          
-          <div class="task-due">
-              {{ task.task_title }}
-          </div>
-          <div class="description">
-            {{ task.description|slice:"101" }}
-            {% if task.description|length > 101 %}
-                ...  
-            {% endif %}
-          </div>
-          <p class='status'>
-               {{task.time_difference_format}} left
-          </p>
-
-        </a>
-        {% endfor %}
-
+        <div class= 'detailuser_box'>
+            <div class='user_container'>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="file" name="profile_picture" accept="image/*">
+                     <br>
+                    <label for="Firstname">First Name:</label>
+                    <input type="text" name="Firstname" value="{{ todouser.Firstname }}" required>
+                    <br>
+                    <label for="Lastname">Last Name:</label>
+                    <input type="text" name="Lastname" value="{{ todouser.Lastname }}" required>
+                    <br>
+                
+                    <button type="submit">Save Profile</button>
+                </form>
+                
+            </div>
+            
+        </div>
     </div>
+    
     
 
 

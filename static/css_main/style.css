@@ -621,3 +621,23 @@ body.dark {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+
+.detailuser_box{
+  display: flex;
+  margin-top: 125px;
+  width: 500px;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  padding: 50px;
+}
+
+.user_container{
+  
+  display: block;
+  text-align: center;  
+  align-items: center; 
+  margin-bottom: 20px;
+}
+

@@ -8,7 +8,7 @@ class todoUser(models.Model):
     todoUser_ID = models.UUIDField(default=uuid.uuid4,editable=False,primary_key=True)
     Firstname = models.CharField(max_length=50 )
     Lastname = models.CharField(max_length=50 )
-    image_field = models.ImageField(default='Django_todo/staticstatic/images/defaultprofile.jpg')
+    image_field = models.ImageField(upload_to='user_images/', default='user_images/defaultprofile.jpg')
     
 
     friends = models.ManyToManyField('self', blank=True)

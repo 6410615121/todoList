@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('about/', views.about, name ='about'),
+    path('myaccount/', views.myaccount, name='myaccount'),
+    path('editmyaccount/', views.editprofile, name='editprofile'),
     path('logout/', views.logout_view, name='logout'),
     path('homepage/', views.homepage, name='homepage'),
     path('sendfriendrequest/<uuid:userID>/' ,views.send_friend_request ,name="send_friend_request"),

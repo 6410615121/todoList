@@ -162,3 +162,36 @@ def find_user(request):
 
 
     return render(request, 'user/finduser.html')
+
+
+@login_required(login_url='login')
+def myaccount(request):
+
+    user = User.objects.get(username = request.user)
+    todouser = todoUser.objects.get(user= request.user)
+    return render(request, 'user/myaccount.html',{'user':user,'todouser':todouser}) 
+
+
+@login_required(login_url='login')
+def editprofile(request):
+    todouser_request = todoUser.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        # Get the uploaded image from the request
+        uploaded_image = request.FILES.get('profile_picture')
+
+        if uploaded_image:
+            # Use the original filename of the uploaded image
+            filename = uploaded_image.name
+            
+            # Save the image to the user's profile picture field
+            todouser_request.image_field.save(filename, uploaded_image)
+
+        # You can also update other profile fields here if needed
+        todouser_request.Firstname = request.POST.get('Firstname')
+        todouser_request.Lastname = request.POST.get('Lastname')
+        todouser_request.save()
+
+        return redirect('myaccount')
+
+    return render(request, 'user/editprofile.html', {'todouser': todouser_request})
