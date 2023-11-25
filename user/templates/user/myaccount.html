@@ -11,6 +11,7 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/myaccount.css' %}">
 </head>
 
 <body>
@@ -165,64 +166,31 @@
         </div>
     </nav>
 
-    <div class='container'>
-        <div class= 'detailuser_box'>
-            <div class='user_container'>
-                <img src="{{ todouser.image_field.url }}" alt="User Image"><br>
-                Username: {{user.username}}<br>
-                Firstname: {{todouser.Firstname }}<br>
-                Lirstname:  {{todouser.Lastname}}<br>
-                Email: {{user.email}}
+    <div class='myaccount_container'>
+      <div>
+        <img src="{{ todouser.image_field.url }}" alt="User Image" class="profile_picture">
+        <a href="{% url 'editprofile' %}" class="edit_button">Edit</a>
+      </div>
 
-                {% comment %} <div class='title'>
-                    Task name : {{taskdetail.task_title}}
-                </div>
-                <div class='date'>
-                    Entry date :  {{ taskdetail.Entry_Date }}
-                </div>
-                <div class='date'>
-                    Due date : {{ taskdetail.Due_Date }}
-                </div>
-                <div class='description'>
-                    Task description 
-                </div>
-                <div class='descriptiondetail'>
-                    {{ taskdetail.description }} 
-                </div>
-                    <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post">
-                    {% csrf_token %}
-                    {% if taskdetail.achieve %}
-                      <button type="submit" name="action" class = "submit"  value="undo">Undo Achieve</button>
-                    {% else %}
-                      <button type="submit" name="action" class = "submit" value="achieve">Achieve</button>
-                    {% endif %}
-                    </form>
-                
-                
-                <a href="{% url 'delete_individual_task' task_id=taskdetail.Task_ID %}">Delete Task</a>
+      <div class="user_detail_box">
 
-                <a href="{% url 'individual_task_edit' task_id=taskdetail.Task_ID %}">Edit Task</a>
-                
+        <label for="username">username</label>
+        <p>{{user.username}}</p>
 
+        <label for="Firstname">Firstname</label>
+        <p>{{todouser.Firstname }}</p>
 
+        <label for="Lastname">Lastname</label>
+        <p>{{todouser.Lastname}}</p>
 
-                <div class='file'>
-                    {% if taskdetail.file %}
-                    <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}">{{ taskdetail.file}}</a>
-                        
-                    {% else  %}
-                    
-                       
-                    
-                    {% endif %}
-                </div> {% endcomment %}
-                
-            </div>
-            
-        </div>
+        <label for="email">email</label>
+        <p>{{user.email}}</p>
+
+      </div>
+
+      
     </div>
-    
-    
+  
 
 
 
