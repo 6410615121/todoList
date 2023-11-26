@@ -11,6 +11,7 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/friendrequest.css' %}">
 </head>
 
 <body>
@@ -25,15 +26,15 @@
         </div>
   
 
-        <div class="search_bar">
+        <!-- <div class="search_bar">
             <input type="text" placeholder="Search" />
-        </div>
+        </div> -->
 
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
-            <i class='bx bx-bell'></i>
-            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+            
+            <img src="{{ todouser.image_field.url }}" alt="" class="profile" />
         </div>
     </nav>
     <!-- sidebar -->
@@ -169,18 +170,18 @@
 
     
     <div class='container'>
-
-        <div class="original-box-shadow">
-            {{ user.user }}<br>
-            {{ user.Firstname }}
-            {{ user.Lastname }}
-
-
+      <div class="friendrequest_container">
+        <div>
+          <img src="{{ user.image_field.url }}" alt="User Image" class="profile_picture">
+        </div><br>
+        <div class="friendrequest_content ">
+          Username: {{ user.user }}<br>
+          Fullname: {{ user.Firstname }} {{ user.Lastname }} <br>
+          Email:    {{ user.user.email }}<br>
+          <a href="{% url 'send_friend_request'  userID=user.todoUser_ID %}" class="request_button">send request</a>
         </div>
-        
-        <a href="{% url 'send_friend_request'  userID=user.todoUser_ID %}" >
-            send friend request 
-        </a>
+    
+
     </div>
     
 

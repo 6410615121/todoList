@@ -26,15 +26,32 @@
         </div>
   
 
-        <div class="search_bar">
+        <!-- <div class="search_bar">
             <input type="text" placeholder="Search" />
-        </div>
+        </div> -->
 
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
-            <i class='bx bx-bell'></i>
-            <img src="{% static 'images/defaultprofile.jpg' %}" alt="" class="profile" />
+            <div class="icon-dropdown">
+              <i class='bx bx-bell'></i>
+              <div class="dropdown-content">
+                  <table>
+                      <tbody>
+                          {% for request in notification %}
+                              <tr>
+                                  <td>
+                                      <img src="{{ request.From_user.image_field.url }}" alt="User Image" > 
+                                      <a href="{% url 'friend request' %}">friend request</a>
+                                  </td>
+                              </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+    
+          <img src="{{ todouser.image_field.url }}" alt="" class="profile" />
         </div>
     </nav>
     <!-- sidebar -->

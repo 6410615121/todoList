@@ -21,12 +21,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from django.shortcuts import redirect
-from .views import homepage
+from .views import index
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', homepage, name="index"),
+    path('', index, name="index"),
     path('<uuid:requestID>/resetpass/', resetpass, name='resetpass'),
     path('login/', login_view, name='login'),
     path('register/', register, name='register'),

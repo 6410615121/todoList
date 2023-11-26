@@ -1,0 +1,70 @@
+.friendrequest_container {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    width: auto;
+    height: auto;
+    margin-left: 300px;
+    margin-top: 100px;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+}
+
+.profile_picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    background-color: rgb(187, 189, 203);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.friendrequest_content {
+    flex-grow: 1; /* Use flex-grow to allow the content to take up remaining space */
+    padding-left: 20px; /* Adjust the padding as needed */
+}
+
+
+.accept_button{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 700;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+
+    background-color: rgb(129, 241, 112);
+}
+.request_button{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-weight: 700;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+
+    background-color: rgb(22, 75, 223);
+}
+
+.accept_button:hover{
+    background-color: rgb(185, 185, 211);
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+}
+

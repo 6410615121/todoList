@@ -2,5 +2,5 @@
 
 from django.shortcuts import render
 
-def homepage(request):
+def index(request):
     return render(request, 'index.html')

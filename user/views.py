@@ -116,7 +116,7 @@ def send_friend_request(request ,userID):
     to_user = todoUser.objects.get(todoUser_ID=userID)
     Friend_request.objects.get_or_create( From_user = from_user ,To_user = to_user )
     
-    return show_send_request(request)
+    return friend_list(request)
     
     
 
@@ -175,7 +175,7 @@ def myaccount(request):
 @login_required(login_url='login')
 def editprofile(request):
     todouser_request = todoUser.objects.get(user=request.user)
-
+    user = User.objects.get(username = request.user)
     if request.method == 'POST':
         # Get the uploaded image from the request
         uploaded_image = request.FILES.get('profile_picture')
@@ -190,8 +190,9 @@ def editprofile(request):
         # You can also update other profile fields here if needed
         todouser_request.Firstname = request.POST.get('Firstname')
         todouser_request.Lastname = request.POST.get('Lastname')
+        user.email = request.POST.get('Email')
         todouser_request.save()
-
+        user.save()
         return redirect('myaccount')
 
     return render(request, 'user/editprofile.html', {'todouser': todouser_request})
