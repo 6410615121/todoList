@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#self add
+media/
+.vscode/
+
 # C extensions
 *.so
 # email envirovment
