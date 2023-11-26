@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .models import todoUser, Friend_request
+from .models import todoUser, Friend_request, Forget_pass
 from .form import RegistrationForm
 
 class UserViewsTest(TestCase):
@@ -33,6 +33,8 @@ class UserViewsTest(TestCase):
         # Create a test user
         user = User.objects.create_user(username='testuser', password='testpassword')
         todo_user = todoUser.objects.create(user=user, Firstname='Test', Lastname='User')
+
+        response = self.client.get(reverse('login'))
 
         # Submit a POST request to the login view with valid credentials
         response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword'})
@@ -144,6 +146,94 @@ class RegistrationTest(TestCase):
         self.assertEqual(user.email, 'testuser@example.com')
         self.assertEqual(todo_user.Firstname, 'John')
         self.assertEqual(todo_user.Lastname, 'Doe')
+
+
+
+class profileTest(TestCase):
+    def setUp(self):
+        # Define test data
+        registration_data = {
+            'username': 'testuser',
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+        }
+
+
+
+        # Simulate a POST request to the registration view
+        self.client.post(reverse('register'), registration_data)
+        self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword123'})
+
+    def test_editprofile_view(self):
+        edit_data = {
+            'Firstname': 'John1',
+            'Lastname': 'Doe1',
+            'Email': 'testuser1@example.com',
+        }
+        response = self.client.get(reverse('editprofile'))
+        response = self.client.post(reverse('editprofile'), edit_data)
+
+        self.assertRedirects(response, '/user/myaccount/')
+
+    def test_find_user_view(self):
+        # Create another user for testing
+        another_user = User.objects.create_user(username='anotheruser', password='anotherpassword')
+
+        # Create a todoUser for another user
+        another_todo_user = todoUser.objects.create(user=another_user, Firstname='Another', Lastname='User')
+
+        #check that we can find exist user
+        response = self.client.post(reverse('find_user'), {'user': 'anotheruser'})
+        self.assertContains(response, "anotheruser")
+        self.assertEqual(response.status_code, 200)
+
+        #check that we can't find non-exist user
+        response = self.client.post(reverse('find_user'), {'user': 'anotheruser123'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There is no user")
+
+    def test_resetpass_view(self):
+        user = User.objects.get(username='testuser')
+        request_new_pass = Forget_pass.objects.create(user = user)
+        content ={
+            'pass1': '1234'
+        }
+
+        response = self.client.get(reverse('resetpass', kwargs={'requestID': request_new_pass.forget_ID}))
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('resetpass', kwargs={'requestID': request_new_pass.forget_ID}), content)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': '1234'})
+        self.assertEqual(response.status_code, 302)
+        
+    def test_logout_view(self):
+        response = self.client.post(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_forgetpass_view(self):
+        response = self.client.get(reverse('forgetpass'))
+        self.assertEqual(response.status_code, 200)
+
+        content = {
+            'email': User.objects.get(username='testuser').email
+        }
+
+        response = self.client.post(reverse('forgetpass'), content)
+        self.assertEqual(response.status_code, 200)
+
+    
+
+
+
+
+
+        
+        
 
 
 

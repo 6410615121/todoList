@@ -229,8 +229,6 @@ def project_edit(request, project_id):
     else:
         form = ProjectEditForm(instance=project, project=project)
 
-    # Print the content of form.TeamMember.all() for debugging
-    print(form.fields['TeamMember'].queryset)
 
     context = {'form': form, 'project_id': project_id, 'friendList': friendList}
     

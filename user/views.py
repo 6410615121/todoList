@@ -21,18 +21,22 @@ def homepage(request):
     todouser = todoUser.objects.get(user = request.user)
 
     project_obj = Project.objects.filter(TeamMember =  todouser)
-    tasks = None
+    mytask = updatetask(request,"due")[:4]
     assignedtask = None
+
     for t in project_obj:
         tasks = t.tasks_project.all()
         assignedtask = tasks.filter(TeamUser = todouser)
 
+    context = {'individualtask': None,
+                'assignedtask': None
+               }
     
-    mytask = updatetask(request,"due")[:4]
-    context = {
-        'individualtask' : mytask,
-        'assignedtask'   : assignedtask[:4],
-    }
+    if assignedtask:
+        context['assignedtask'] = assignedtask[:4]
+
+    context['individualtask'] = mytask
+    
     return render(request, 'user/homepage.html',context) 
 
 from django.contrib import messages
