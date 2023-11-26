@@ -140,7 +140,10 @@ def task_detail(request, task_id):
 '''
 @login_required(login_url='login')
 def download_file(request, task_id):
-    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    try:
+        instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    except Http404:
+        instance = get_object_or_404(Task, Task_ID=task_id)
 
     try:
         # PythonAnywhere-specific modification
@@ -158,7 +161,10 @@ def download_file(request, task_id):
 '''
 @login_required(login_url='login')
 def download_file(request, task_id):
-    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    try:
+        instance = get_object_or_404(Individual_Task, Task_ID=task_id)
+    except Http404:
+        instance = get_object_or_404(Task, Task_ID=task_id)
 
     response = HttpResponse(instance.file.read(), content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{instance.file.name}"'
