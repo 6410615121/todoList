@@ -28,10 +28,10 @@ def homepage(request):
         assignedtask = tasks.filter(TeamUser = todouser)
 
     
-    mytask = updatetask(request,"due")
+    mytask = updatetask(request,"due")[:4]
     context = {
         'individualtask' : mytask,
-        'assignedtask'   : assignedtask,
+        'assignedtask'   : assignedtask[:4],
     }
     return render(request, 'user/homepage.html',context) 
 

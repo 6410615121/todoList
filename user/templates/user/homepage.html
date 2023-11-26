@@ -187,15 +187,17 @@
       </div>
     </nav>
     <div class='container_previewe'>
-      <div class= 'content_box'>
-
+      <div class= 'contentpreview_box'>
+        <p class='project_name'>
+          Task  preview
+        </p>
         {% for task in individualtask %}
           <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="previewtask-box-shadow">
 
             <div class="task-due">
                 {{ task.task_title }}
             </div>
-            <p class='status'>
+            <p class='status-preview'>
                  {{task.time_difference_format}} left
             </p>
 
@@ -203,17 +205,21 @@
           {% endfor %}
 
       </div>
-      <div class= 'content_box'>
-
+      <div class= 'contentpreview_box'>
+        <p class='project_name'>
+          Task project preview
+        </p>
         {% for task in assignedtask %}
           <a href="{% url 'project_detail' project_id=task.Project.Project_ID %}" class="previewtask-box-shadow">
 
             <div class="task-due">
                 {{ task.task_title }}
             </div>
-            <p class='status'>
-                 {{task.time_difference_format}} left
+            
+            <p class='status-preview'>
+              {{task.time_difference_format}} left
             </p>
+            
 
           </a>
           {% endfor %}
