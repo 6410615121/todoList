@@ -18,7 +18,8 @@
 }
 
 .profile_picture {
-    width: 100%;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
 
     background-color: rgb(187, 189, 203);
