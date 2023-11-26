@@ -532,13 +532,13 @@ body.dark {
   display: inline-block;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: rgb(58, 183, 225);
+  background-color: rgb(91, 225, 58);
   border-radius: 25px;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.3s ease;
   font-size: 20px;
-  color: rgb(255, 255, 255);
+  color: rgb(3, 3, 3);
  
 }
 

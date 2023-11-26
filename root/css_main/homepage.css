@@ -1,0 +1,19 @@
+
+.previewtask-box-shadow{
+    position: relative;
+    background-color: #FFFFFF;
+    width: auto;
+    height: auto;
+    margin: 15px; 
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer; 
+    color: #707070;
+    padding: 25px;
+}
+
+.previewtask-box-shadow:hover {
+    background-color: #d1e5f4; 
+  }
