@@ -194,15 +194,20 @@
             </label>
 
             <div class ='edit_delete_achieve'>
-                <div class="button_and_icon">
-                  <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}" class="edit-button">Edit Task</a>
-                  <img src="" alt="">
-                </div>
-                
-                <div class="button_and_icon">
-                  <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}"class="delete_button">Delete Task</a>
-                
-                </div>
+
+                {% if authorization == task.Teamleader %}
+                  <div class="button_and_icon">
+                    <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}" class="edit-button">Edit Task</a>
+                    <img src="" alt="">
+                  </div>
+                {% endif %} 
+
+                {% if authorization == task.Teamleader %}
+                  <div class="button_and_icon">
+                    <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}"class="delete_button">Delete Task</a>
+                  
+                  </div>
+                {% endif %} 
                 
 
                   <form action="{% url 'project_task_submit' task_id=taskdetail.Task_ID %}" method="post" class="button_and_icon">
