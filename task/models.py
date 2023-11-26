@@ -17,7 +17,7 @@ class Task(models.Model):
     Finish_Date = models.DateTimeField(default=timezone.now)
     achieve = models.BooleanField(default=False)
     description = models.TextField(default="No description")
-    file = models.FileField(null=True,blank=True)
+    file = models.FileField(upload_to='user_files/',null=True,blank=True)
     
     CATEGORY_CHOICES = (
         ('due', 'due'),
@@ -64,7 +64,7 @@ class Individual_Task(models.Model):
     Finish_Date = models.DateTimeField(default=timezone.now)
     achieve = models.BooleanField(default=False)
     description = models.TextField(default="No description")
-    file = models.FileField(null=True,blank=True)
+    file = models.FileField(upload_to='user_files/',null=True,blank=True)
     CATEGORY_CHOICES = (
         ('due', 'due'),
         ('pastdue', 'pastdue'),
