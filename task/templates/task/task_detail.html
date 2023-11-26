@@ -12,6 +12,9 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/task_detail.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -183,66 +186,96 @@
         </div>
     </nav>
 
-    <div class='container'>
-        <div class= 'detailtask_box'>
-            <div class='task_container'>
-                <div class='title'>
-                    Task name : {{taskdetail.task_title}}
+
+
+
+    <div class='tasK_detail_container'>
+      
+        <div class="head">
+            <label class='task_title'>
+              {{taskdetail.task_title}}
+            </label>
+
+            <div class ='edit_delete_achieve'>
+                <div class="button_and_icon">
+                  <a href="{% url 'individual_task_edit' task_id=taskdetail.Task_ID %}" class="edit-button">Edit Task</a>
+                  <img src="" alt="">
                 </div>
-                <div class='date'>
-                    Entry date :  {{ taskdetail.Entry_Date }}
+                
+                <div class="button_and_icon">
+                  <a href="{% url 'delete_individual_task' task_id=taskdetail.Task_ID %}"class="delete_button">Delete Task</a>
+                
                 </div>
-                <div class='date'>
-                    Due date : {{ taskdetail.Due_Date }}
-                </div>
-                <div class='description'>
-                    Task description 
-                </div>
-                <div class='descriptiondetail'>
-                    {{ taskdetail.description }} 
-                </div>
-                    <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post">
+                
+
+                  <form action="{% url 'submit' task_id=taskdetail.Task_ID %}" method="post" class="button_and_icon">
                     {% csrf_token %}
                     {% if taskdetail.achieve %}
-                      <button type="submit" name="action" class = "submit"  value="undo">Undo Achieve</button>
+                      <button type="submit" name="action" class = "achieve_button"  value="undo">Undo Achieve</button>
                     {% else %}
-                      <button type="submit" name="action" class = "submit" value="achieve">Achieve</button>
+                      <button type="submit" name="action" class = "achieve_button" value="achieve">Achieve</button>
                     {% endif %}
-                    </form>
-                
-                
-                <a href="{% url 'delete_individual_task' task_id=taskdetail.Task_ID %}">Delete Task</a>
+                  </form>
 
-                <a href="{% url 'individual_task_edit' task_id=taskdetail.Task_ID %}">Edit Task</a>
 
-                <div class='file'>
-                    {% if taskdetail.file %}
-                    <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}" download>{{ taskdetail.file.name|filename }}</a>
-                        
-                    {% else  %}
-                    
-                       there is no file
-                    
-                    {% endif %}
-                </div>
+            </div>
 
-                <div class='file'>
-                  <form action="{%url 'upload_file' task_id=taskdetail.Task_ID %}" method="post" enctype="multipart/form-data">
+        </div>
+
+
+        <div class="task_date">
+            <div class="">
+                <label for="">Entry date</label>
+                <p class=''>{{ taskdetail.Entry_Date }}</p>
+            </div>
+
+            <div class="due_date">
+                <label for="">Due date</label>
+                <p class=''>{{ taskdetail.Due_Date }}</p>
+            </div>
+
+        </div>
+
+        <div class='description_box'>
+            <label class=''>Description:</label>
+            <p class=''>{{ taskdetail.description }}</p>
+        </div>
+
+        
+        <div class="file">
+
+            <label for="">File Attachment</label>
+            <div class=''>
+                {% if taskdetail.file %}
+                  <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}" download>{{ taskdetail.file.name|filename }}</a>
+                {% else  %}
+                  there is no file
+                {% endif %}
+            </div>
+
+            
+            <div class='file_upload'>
+                <form action="{%url 'upload_file' task_id=taskdetail.Task_ID %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" name="file_task"><br>
-                    <button type="submit">Upload File</button>
-                  </form>
-                </div>
+                    <button type="submit">Upload</button>
+                </form>
             </div>
-            
+
         </div>
+
+
+
     </div>
     
+
+
+
+
+
+
+
     
-
-
-
-
 
     <!-- JavaScript -->
     <!-- JavaScript -->

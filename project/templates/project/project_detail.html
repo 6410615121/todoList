@@ -229,7 +229,7 @@
                 <form action="{% url 'mask_submit' task_id=task.Task_ID %}" method="post">
                   {% csrf_token %}
                   
-                  {% if task.achieve %}
+                  {% if not task.achieve %}
                     <button type="submit" name="action" class = "mark" value="achieve">mark as finish</button>
                   {% else %}
                     <button type="submit" name="action" class = "mark" value="achieve">Unmark as finish</button>

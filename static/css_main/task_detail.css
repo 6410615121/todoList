@@ -1,0 +1,178 @@
+/* container */
+.tasK_detail_container{
+    background: white;
+    margin-top: 100px;
+    margin-left: 280px;
+
+    padding: 30px;
+
+    border-radius: 30px;
+
+    width: 80%;
+
+}
+
+
+/* head */
+.tasK_detail_container .head{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+.head .task_title{
+    font-size: 50px;
+    font-weight: 500;
+    font-family: 'Lexend', sans-serif;
+    
+}
+
+.head form{
+    display: inline-block
+}
+
+/* edit_delete_achieve */
+
+.edit_delete_achieve .button_and_icon{
+    display: inline-block;
+}
+
+
+.edit_delete_achieve .edit_button{
+    display: inline-block;
+
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: black;
+
+    border: none;
+    background-color: rgb(186, 186, 186);
+
+    padding: 20px;
+    
+    margin-left: 30px;
+    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.edit_delete_achieve .edit-button{
+    display: inline-block;
+
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: black;
+
+    border-radius: 10px;
+
+    border: none;
+    background-color: rgb(241, 204, 175);
+
+    padding: 20px;
+    
+    margin-left: 30px;
+    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit_delete_achieve .delete_button{
+    display: inline-block;
+
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: black;
+
+    border-radius: 10px;
+
+    border: none;
+    background-color: rgb(250, 180, 180);
+
+    padding: 20px;
+    
+    margin-left: 30px;
+    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit_delete_achieve .achieve_button{
+    display: inline-block;
+
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Lexend', sans-serif;
+    color: black;
+
+    border-radius: 10px;
+
+    border: none;
+    background-color: rgb(209, 246, 159);
+
+    padding: 20px;
+    
+    margin-left: 30px;
+    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
+
+/* end head */
+
+
+.tasK_detail_container .description_box{
+    margin-bottom: 20px;
+    font-size: 20px;
+    
+    /* background-color: rgb(211, 210, 210); */
+}
+
+.description_box p{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-left: -5px;
+
+    font-size: 17px;
+
+    padding: 20px;
+
+    border-radius: 30px;
+
+    width: 100%;
+    min-height: 270px;
+    
+    background-color: rgb(225, 225, 225);
+}
+
+/* task date */
+.tasK_detail_container .task_date{
+    display: grid;
+    grid-template-columns: auto auto;
+
+    margin-bottom: 20px;
+
+    font-size: 20px;
+
+    /* background-color: aquamarine; */
+}
+
+.task_date .due_date{
+    text-align: end;
+}
+/* end task date */
+
+.tasK_detail_container .file{
+        font-size: 20px;
+}
+
+
