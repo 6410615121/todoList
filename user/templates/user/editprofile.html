@@ -8,9 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/editprofile.css' %}">
 </head>
 
 <body>
@@ -165,31 +167,29 @@
         </div>
     </nav>
 
-    <div class='container'>
-        <div class= 'detailuser_box'>
-            <div class='user_container'>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                    <label for="profile_picture">Profile Picture </label>
-                    <input type="file" name="profile_picture" accept="image/*">
-                    <br>
-                    <label for="Firstname">First Name:</label>
-                    <input type="text" name="Firstname" value="{{ todouser.Firstname }}" required>
-                    <br>
-                    <label for="Lastname">Last Name:</label>
-                    <input type="text" name="Lastname" value="{{ todouser.Lastname }}" required>
-                    <br>
-                    <label for="Lastname">Email:</label>
-                    <input type="text" name="Email" value="{{ todouser.user.email }}" required>
-                    <br>
-                
-                    <button type="submit">Save Profile</button>
-                </form>
-                
-            </div>
-            
-        </div>
+    <div class='myaccount_container'>
+      <div>
+        <img src="{{ todouser.image_field.url }}" alt="User Image" class="profile_picture">
+        <input type="file" name="profile_picture" accept="image/*" class="profile_input">
+      </div>
+
+      <form method="post" enctype="multipart/form-data" class="user_detail_box">
+          {% csrf_token %}
+          <label for="username">username</label>
+          <p>{{user.username}}</p>
+
+          <label for="Firstname">First Name:</label>
+          <input type="text" name="Firstname" value="{{ todouser.Firstname }}" required>
+
+          <label for="Lastname">Last Name:</label>
+          <input type="text" name="Lastname" value="{{ todouser.Lastname }}" required>
+
+          <label for="Lastname">Email:</label>
+          <input type="text" name="Email" value="{{ todouser.user.email }}" required>
+
+      
+          <button type="submit" class="save_change_button">Save Changes</button>
+      </form>
     </div>
     
     

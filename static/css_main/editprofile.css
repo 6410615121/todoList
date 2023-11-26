@@ -1,0 +1,84 @@
+.myaccount_container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    
+    background: white;
+
+    width: 75%;
+    height: auto;
+    min-height: 500px;
+
+    margin-left: 300px;
+    margin-top: 100px;
+
+    padding: 30px;
+    border-radius: 30px;
+
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+}
+
+
+.profile_picture {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+
+    background-color: rgb(187, 189, 203);
+
+    padding: 8px;
+    border-radius: 150px;
+}
+
+.user_detail_box{
+    width: 90%;
+
+    margin-left: 50px;
+
+    font-size: 25px;
+}
+
+.user_detail_box input{
+    display: block;
+    margin-bottom: 30px;
+    width: 100%;
+
+    font-size: 25px;
+
+    padding: 15px;
+    border-radius: 20px;
+
+    background-color: rgb(219, 221, 234);
+    border: 1px solid rgb(77, 77, 77);
+}
+
+.user_detail_box p{
+    display: block;
+    margin-bottom: 30px;
+
+    padding: 15px;
+    border-radius: 20px;
+
+    background-color: rgb(219, 221, 234);
+}
+
+.save_change_button{
+    display: block;
+
+    color: black;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    background-color: rgb(219, 221, 234);
+    margin-left: auto;
+
+    border: 1px solid black;
+}
+
+.save_change_button:hover{
+    background-color: rgb(185, 185, 211);
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+    cursor: pointer;
+}
