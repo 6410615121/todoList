@@ -32,6 +32,7 @@ class UserViewsTest(TestCase):
     def test_successful_login(self):
         # Create a test user
         user = User.objects.create_user(username='testuser', password='testpassword')
+        todo_user = todoUser.objects.create(user=user, Firstname='Test', Lastname='User')
 
         # Submit a POST request to the login view with valid credentials
         response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword'})
