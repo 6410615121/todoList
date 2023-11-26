@@ -17,6 +17,7 @@
     box-shadow: 5px 5px 5px rgb(224, 224, 224);
 }
 
+
 .profile_picture {
     width: 300px;
     height: 300px;
@@ -29,33 +30,25 @@
 }
 
 .user_detail_box{
+    width: 90%;
 
     margin-left: 50px;
 
-    font-size: 30px;
+    font-size: 25px;
 }
 
-.edit_button{
-    display: inline-block;
-    margin-left: 76px;
-    margin-top: 10px;
+.user_detail_box input{
+    display: block;
+    margin-bottom: 30px;
+    width: 100%;
 
-    text-decoration: none;
-    color: black;
     font-size: 25px;
-    font-weight: 600;
 
-    padding: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 20px;
 
     background-color: rgb(219, 221, 234);
-}
-
-.edit_button:hover{
-    background-color: rgb(185, 185, 211);
-    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+    border: 1px solid rgb(77, 77, 77);
 }
 
 .user_detail_box p{
@@ -66,4 +59,26 @@
     border-radius: 20px;
 
     background-color: rgb(219, 221, 234);
+}
+
+.save_change_button{
+    display: block;
+
+    color: black;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    background-color: rgb(219, 221, 234);
+    margin-left: auto;
+
+    border: 1px solid black;
+}
+
+.save_change_button:hover{
+    background-color: rgb(185, 185, 211);
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+    cursor: pointer;
 }

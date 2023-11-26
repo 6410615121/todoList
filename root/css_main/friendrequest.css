@@ -1,5 +1,6 @@
 .friendrequest_container {
-    display: flex; /* Use flex container */
+    display: flex;
+    flex-direction: row;
     background: white;
     width: auto;
     height: auto;
@@ -42,6 +43,24 @@
     border-radius: 15px;
 
     background-color: rgb(129, 241, 112);
+}
+.request_button{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-weight: 700;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+
+    background-color: rgb(22, 75, 223);
 }
 
 .accept_button:hover{

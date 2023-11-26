@@ -32,6 +32,10 @@ class Task(models.Model):
     )
 
     @property
+    def time_difference(self):
+        return max(self.Due_Date - timezone.now(), timedelta())
+
+    @property
     def time_difference_format(self):
         if self.achieve:
             return "Completed"
@@ -77,6 +81,11 @@ class Individual_Task(models.Model):
         default='due',  # Set a default to be due
     )
 
+    @property
+    def time_difference(self):
+        return max(self.Due_Date - timezone.now(), timedelta())
+    
+    
     @property
     def time_difference_format(self):
         if self.achieve:

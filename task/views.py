@@ -27,11 +27,20 @@ def updatetask(request ,cat):
             task.category = 'complete'   
         task.save()
     if cat == "due":
-        mytask = Individual_Task.objects.filter(User=mytodouser, category='due')
+        mytask = sorted(
+            Individual_Task.objects.filter(User=mytodouser, category='due'),
+            key=lambda x: x.time_difference
+        )
     elif cat == "past":
-        mytask = Individual_Task.objects.filter(User=mytodouser, category='pastdue')
+        mytask = sorted(
+            Individual_Task.objects.filter(User=mytodouser, category='pastdue'),
+            key=lambda x: x.time_difference
+        )
     elif cat == "com":
-        mytask = Individual_Task.objects.filter(User=mytodouser, category='complete')
+        mytask = sorted(
+            Individual_Task.objects.filter(User=mytodouser, category='complete'),
+            key=lambda x: x.time_difference
+        )
     
     return   mytask
 
