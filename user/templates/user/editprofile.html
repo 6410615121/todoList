@@ -169,8 +169,7 @@
 
     <div class='myaccount_container'>
       <div>
-        <img src="{{ todouser.image_field.url }}" alt="User Image" class="profile_picture">
-        <input type="file" name="profile_picture" accept="image/*" class="profile_input">
+        <img src="{{ todouser.image_field.url }}" alt="User Image" class="profile_picture">       
       </div>
 
       <form method="post" enctype="multipart/form-data" class="user_detail_box">
@@ -186,6 +185,8 @@
 
           <label for="Lastname">Email:</label>
           <input type="text" name="Email" value="{{ todouser.user.email }}" required>
+          <label for="Lastname">Profile Picture:</label>
+          <input type="file" name="profile_picture" accept="image/*"  class="profile_input">
 
       
           <button type="submit" class="save_change_button">Save Changes</button>

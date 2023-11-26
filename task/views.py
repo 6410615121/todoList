@@ -10,7 +10,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from task.form import IndividualTaskEditForm
 from project.views import project_task_detail
-
+#from django.utils.http import quote
 
 import os
 # Create your views here.
@@ -136,7 +136,26 @@ def task_detail(request, task_id):
     }
     return render(request,'task/task_detail.html', context)
 
+# for using in pythonanywhere
+'''
+@login_required(login_url='login')
+def download_file(request, task_id):
+    instance = get_object_or_404(Individual_Task, Task_ID=task_id)
 
+    try:
+        # PythonAnywhere-specific modification
+        filename = quote(instance.file.name)  # Update the function name
+        response = HttpResponse(content_type='application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename={filename}'
+
+        instance.file.open(mode='rb')
+        response.write(instance.file.read())
+        instance.file.close()
+
+        return response
+    except FileNotFoundError:
+        raise Http404("File not found")
+'''
 @login_required(login_url='login')
 def download_file(request, task_id):
     instance = get_object_or_404(Individual_Task, Task_ID=task_id)

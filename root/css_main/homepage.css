@@ -1,19 +1,51 @@
+.container_previewe {
+    display: flex;
+    flex-direction: row;  /* Use row instead of column */
+    flex-wrap: wrap; 
+    align-items: center;
+    justify-content: center;
+    height: auto; 
+    margin-top: 170px; /* Adjust the top margin if needed */
+    margin-bottom: 100px;
+}
+
+.contentpreview_box{
+    display: inline-block;
+    margin-top: 125px;
+    width: 650px;
+    margin-left: 20px;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    padding: 50px;
+}
 
 .previewtask-box-shadow{
+
+    display: inline-block;
     position: relative;
     background-color: #FFFFFF;
-    width: auto;
+    width: 500px;
+    align-items: left;
     height: auto;
-    margin: 15px; 
+    margin: 10px; 
     border-radius: 20px;
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
     text-decoration: none;
     transition: background-color 0.3s ease;
     cursor: pointer; 
     color: #707070;
-    padding: 25px;
+    padding: 10px;
 }
 
 .previewtask-box-shadow:hover {
     background-color: #d1e5f4; 
+  }
+
+
+.status-preview {
+    position: absolute;
+    display: block;
+    bottom : 10px;
+    margin-left: 15px;
   }

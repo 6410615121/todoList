@@ -205,7 +205,7 @@ def editprofile(request):
     if request.method == 'POST':
         # Get the uploaded image from the request
         uploaded_image = request.FILES.get('profile_picture')
-
+       
         if uploaded_image:
             # Use the original filename of the uploaded image
             filename = uploaded_image.name
