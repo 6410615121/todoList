@@ -25,7 +25,7 @@
   
   
         <div class="search_bar">
-          <input type="text" placeholder="Search" />
+          <input type="text" id='projectSearch' placeholder="Search" />
         </div>
   
         <div class="navbar_content">
@@ -183,7 +183,7 @@
     <div class='container'>
 
         {% for project in projects_with_user %}
-        <a href="{% url 'project_detail' project_id=project.Project_ID %}" class="original-box-shadow">
+        <a href="{% url 'project_detail' project_id=project.Project_ID %}" class="original-box-shadow project-item">
           <p class='project_name'>
             {{ project.Project_name }}
           </p>
@@ -202,5 +202,6 @@
 
     <!-- JavaScript -->
     <script src="{% static 'javasc/script.js' %}"></script>
+    <script src="{% static 'javasc/searchproject.js' %}"></script>
   </body>
 </html>

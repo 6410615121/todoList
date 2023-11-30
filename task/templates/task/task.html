@@ -26,7 +26,7 @@
   
 
         <div class="search_bar">
-            <input type="text" placeholder="Search" />
+            <input type="text" id="taskSearch1" placeholder="Search" />
         </div>
 
         <div class="navbar_content">
@@ -187,10 +187,10 @@
     <a href="{% url 'individual_taskadd' %}" class="right-top-addtask">
         Add Task
     </a>
-    <div class='container'>
+    <div class='container' >
 
         {% for task in tasklist %}
-        <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="original-box-shadow">
+        <a href="{% url 'task_detail'  task_id=task.Task_ID %}" class="original-box-shadow task-item1">
           
           <div class="task-due">
               {{ task.task_title }}
@@ -211,13 +211,16 @@
     </div>
     
 
-
-
-
-
-    <!-- JavaScript -->
-    <!-- JavaScript -->
     <script src="{% static 'javasc/script.js' %}"></script>
+    <script src="{% static 'javasc/search.js' %}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const taskItems1 = document.querySelectorAll('.task-item1');
+          const taskSearch1 = document.getElementById('taskSearch1');
+  
+          setupSearch(taskItems1, taskSearch1, 'task-due');
+      });
+  </script>
 </body>
 
 </html>
