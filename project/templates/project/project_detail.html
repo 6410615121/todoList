@@ -10,6 +10,9 @@
     <title>Project</title>
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
     <link rel="stylesheet" href="{% static 'css_main/project_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/task_detail.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
   </head>
   <body>
     <!-- navbar -->
@@ -182,17 +185,26 @@
     
     <!--content -->
     <div class= 'content_box'>
-        <p class='project_name'>
+        <div class ='edit_delete_achieve'>
+          <p class='project_name'>
             {{ project_name }}
-        </p>
-      
-        <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class="" style="margin-right: 20px;"> 
-          Edit Project
-        </a>
+          </p>
+
+          {% if authorization == project_obj.TeamLeader %}
+            <div class="button_and_icon">
+              <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class="edit-button">Edit Task</a>
+              <img src="" alt="">
+            </div>
+          {% endif %} 
+
+          {% if authorization == project_obj.TeamLeader %}
+            <div class="button_and_icon">
+              <a href="{% url 'project_delete' project_id=project_obj.Project_ID %}"class="delete_button">Delete Task</a>
+            
+            </div>
+          {% endif %} 
+        </div>
         
-        <a href="{% url 'project_delete' project_id=project_obj.Project_ID %}" class=""> 
-          Delete Project
-        </a>
  
         
         <div class='task_container'>

@@ -195,14 +195,14 @@
 
             <div class ='edit_delete_achieve'>
 
-                {% if authorization == task.Teamleader %}
+                {% if authorization == taskdetail.Teamleader %}
                   <div class="button_and_icon">
                     <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}" class="edit-button">Edit Task</a>
                     <img src="" alt="">
                   </div>
                 {% endif %} 
 
-                {% if authorization == task.Teamleader %}
+                {% if authorization == taskdetail.Teamleader %}
                   <div class="button_and_icon">
                     <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}"class="delete_button">Delete Task</a>
                   

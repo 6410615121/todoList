@@ -103,7 +103,6 @@ def project_detail(request, project_id):
 
     assignedtask = tasks.filter(TeamUser = todouser)
     other_tasks = tasks.exclude(TeamUser=todouser)
-
     context = {
         'project_obj': project_obj,
         'project_name': project_obj.Project_name,
