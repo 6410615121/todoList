@@ -184,8 +184,8 @@ def project_task_edit(request,task_id):
         if form.is_valid():
             form.save()
 
-    else:
-        form = ProjectTaskEditForm(instance=task, initial={'TeamUser': task.TeamUser}, project=task.Project)
+            
+    form = ProjectTaskEditForm(instance=task, initial={'TeamUser': task.TeamUser}, project=task.Project)
 
     context = {'form': form,
                'task_id':task_id,

@@ -11,6 +11,11 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/individual_taskAdd.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -182,32 +187,27 @@
         </div>
     </nav>
 
-    <div class='container'>
-        <div class= 'detailtask_box'>
-            <div class='task_container'>
-              <form method="post" action="{% url 'project_task_edit'  task_id=task_id %}">
-                {% csrf_token %}
-                
-                <label for="id_task_title">Task title:</label><br>
-                {{ form.task_title }}
-                
-                <br><label for="id_Due_Date">Due Date:</label><br>
-                {{ form.Due_Date }}
-                
-            
-                <br><label for="TeamUser">Task Owner:</label><br>
-                {{ form.TeamUser }}
-            
-            
-                <br><label for="id_description">Description:</label><br>
-                {{ form.description }}
-                
-                <br><button type="submit">Save Changes</button>
-              </form>
-            </div>
-            
-        </div>
+    <div class='individual_taskAdd_container'>
+      <img class='cover' src='{% static 'images/free-task-list-2080780-1753768.png' %}'>
+      <form method="post" class="form_box" action="{% url 'project_task_edit'  task_id=task_id %}">
+          {% csrf_token %}
+          
+          <input type="text" name="task_title" class='task_title_input' placeholder="Task Title" required value="{{ form.task_title.value }}">
+          
+          <input type="datetime-local" style="color: black;" class="due_date" required id="due_date" name="Due_Date" value="{{ form.Due_Date.value|date:'Y-m-d\TH:i' }}">
+    
+          <select name="TeamUser" id="TeamUser">
+              {% for user_option in form.fields.TeamUser.queryset %}
+                  <option value="{{ user_option.pk }}" {% if user_option.pk == form.TeamUser.value %}selected{% endif %}>{{ user_option }}</option>
+              {% endfor %}
+          </select>
+          
+          <textarea id="description" name="description" class='description_box' placeholder="Description here">{{ form.description.value }}</textarea>
+          
+          <button type="submit" class='submit_button'>Save Changes</button>
+      </form>
     </div>
+    
     
     
 

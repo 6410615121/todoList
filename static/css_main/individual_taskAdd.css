@@ -3,7 +3,7 @@
     grid-template-columns: 350px 1fr;
     background-color: rgb(255, 255, 255);
     border-radius: 60px;
-    padding: 30px;
+    padding: 40px;
     margin-top: 100px;
     margin-left: 300px;
     margin-right: 100px;
@@ -121,4 +121,16 @@
 
     border-radius: 10px;
     border: 1px solid #979797;
+}
+
+.individual_taskAdd_container select{
+    background-color: rgb(242, 242, 242);
+    font-size: 30px;
+    font-family: 'Lexend', sans-serif;
+
+    width: 95%;
+    padding: 10px;
+
+    margin-bottom: 30px;
+    border-radius: 15px;
 }
