@@ -4,18 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>TodoList Homepage</title>
     
-    <link rel="stylesheet" href="{% static 'user_css/login_register.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css_main/index.css' %}">
+   
 </head>
 
 <body>
-    <a href="{% url 'login' %}" class="nav_link sublink">Log in</i></a>
-    <a href="{% url 'register' %}">Sign Up</a>
-    <a href="{% url 'about' %}">About us</a>
-    <div class="container">
-        Welcome
+    <div class='header'>
+        <label class='name' for="TodoList">TodoList</label>
+        <div class="link">
+            <a href="{% url 'login' %}" class="nav_link ">Log in</i></a>
+            <a href="{% url 'register' %}">Sign Up</a>
+            <a href="{% url 'about' %}">About us</a>
+        </div>
+    </div>  
+
+    <div class='middle-content'>
+        <div class = 'text-box'>
+            <h1>New way of time management</h1>
+            <h2>A tool that'll sure help you</h2>
+            <h2>Your time, your tasks</h2>
+            <h2>effortlessly managed.</h2>
+            <h4>get started now!</h4>
+            
+        </div>
+
+        <img class ='cover' src="{% static 'images/workaholic-businessman-overworked-too-much-work-office-103505652.webp' %}">
     </div>
 
 </body>
