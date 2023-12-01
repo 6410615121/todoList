@@ -220,13 +220,15 @@ def project_edit(request, project_id):
 
             if team_member_remove != project.TeamLeader:
                 project.TeamMember.remove(team_member_remove)
+                project.save()
 
         added_member = request.POST.get('friend')
         if added_member != 'None' and added_member != '':
             added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
             project.TeamMember.add(added_member)
-    else:
-        form = ProjectEditForm(instance=project, project=project)
+            project.save()
+    
+    form = ProjectEditForm(instance=project, project=project)
 
 
     context = {'form': form, 'project_id': project_id, 'friendList': friendList}

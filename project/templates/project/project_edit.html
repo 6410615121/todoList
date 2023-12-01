@@ -9,6 +9,7 @@
         <title>Project</title>
         <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
         <link rel="stylesheet" href="{% static 'css_main/project_edit.css' %}">
+        <link rel="stylesheet" href="{% static 'css_main/createproject_style.css' %}">
       </head>
     <body>
         <nav class="navbar">
@@ -175,40 +176,69 @@
         </nav>
 
         
-        <form method="post" action="" class='form_box'>
-          {% csrf_token %}
-          <div class='project_name_box'>
-            <p>project name</p>
-            <input type='text' name='Project_name' value="{{ form.Project_name.value }}">
-          </div>
-        
-          <div>
-            <p>Team members</p>
-            <div class="team-members">
-              {% for member in form.fields.TeamMember.queryset %}
-              <div class="team-member">
-                {{ member }}
-                <button type="submit" name="remove_member" value="{{ member.todoUser_ID }}">Remove</button>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-        
-          <div>
-            <p>Add member</p>
-            <select name="friend">
-              <option value="None">======</option>
-              {% for friend in friendList %}
-              <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
-              {% endfor %}
-            </select>
-          </div>
+        <div class="container_project_add">
+          <img class='cover' src='{% static 'images/pngtree-messy-documents-pile-paperwork-overload-png-image_6349779.png' %}' >
           
-          <div>
-            <button class="" type="submit">Save Changes</button>
+          <div class='content'>
+              <p class ='project-add-header'>
+                PROJECT EDIT
+              </p>
+    
+              <form method="post">
+                  {% csrf_token %}
+    
+                  <div class='project_name_form'>
+                      <label>Project Name</label>
+                      <input type="text" name="Project_name"required  placeholder="Enter project name" value="{{ form.Project_name.value }}">
+                  </div>
+          
+                  <div class="added_member_box">
+    
+                    <div class='head'>
+                        <p>
+                          Added member
+                        </p>
+                    </div>
+                    
+                    <div class='memberbox'>
+                      {% for member in form.fields.TeamMember.queryset %}
+                        <img src="{% static 'images/computer-icons-user-profile-head-ico-download.jpg' %}">
+                        <p>{{ member }}</p>
+                        <button type="submit" name="remove_member" value="{{ member.todoUser_ID }}" class="remove-button">
+                          <img src="{% static 'images/Red-X-No-Background.png' %}">
+                        </button>
+                      {% endfor %}
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="friend_container">
+                      <label class=''>
+                        Friend
+                      </label>
+                      <div class='addmember_and_submit'>
+    
+                        <select name="friend" class=''>
+                                <option value="">None</option>
+                            {% for friend in friendList %}
+                                <option value="{{ friend.todoUser_ID }}"> {{ friend.Firstname }} </option>
+                            {% endfor %}
+                        </select>
+                      
+                        <button type="submit" name="submit_add_member" class='button'>Add</button>
+    
+                        <div class='submit_add_project_box'>
+                          <button type="submit" name="submit_add_project" class='submit_add_project'>Submit project</button>
+                        </div>
+    
+                      </div>
+                  </div>
+                  
+    
+              </form>
           </div>
-
-        </form>
+    
+        </div>
 
 
         <!-- JavaScript -->
