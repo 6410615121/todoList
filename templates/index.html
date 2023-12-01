@@ -1,1 +1,23 @@
-<p>test</p>
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <link rel="stylesheet" href="{% static 'user_css/login_register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <a href="{% url 'login' %}" class="nav_link sublink">Log in</i></a>
+    <a href="{% url 'register' %}">Sign Up</a>
+    <a href="{% url 'about' %}">About us</a>
+    <div class="container">
+        Welcome
+    </div>
+
+</body>
+
+</html>

@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from task.views import updatetask
-
+from django.utils import timezone
 # Create your views here.
 
 def about(request):
@@ -19,21 +19,25 @@ def about(request):
 @login_required(login_url='login')
 def homepage(request):
     todouser = todoUser.objects.get(user = request.user)
-
     project_obj = Project.objects.filter(TeamMember =  todouser)
     mytask = updatetask(request,"due")[:4]
-    assignedtask = None
+    assignedtask = []
 
-    for t in project_obj:
-        tasks = t.tasks_project.all()
-        assignedtask = tasks.filter(TeamUser = todouser)
+    for task_in_project in project_obj:
+        tasks = task_in_project.tasks_project.filter(TeamUser = todouser)
+        for update in tasks:
+            if update.Due_Date < timezone.now():
+
+                update.category = 'pastdue'
+            
+        assignedtask += [i for i in tasks if i.category == 'due']
 
     context = {'individualtask': None,
                 'assignedtask': None
                }
     
     if assignedtask:
-        context['assignedtask'] = assignedtask[:4]
+        context['assignedtask'] = sorted(assignedtask[:4],key=lambda x: x.time_difference)
 
     context['individualtask'] = mytask
     
