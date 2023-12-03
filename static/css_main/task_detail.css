@@ -36,92 +36,53 @@
 
 /* edit_delete_achieve */
 
-.edit_delete_achieve .button_and_icon{
-    display: inline-block;
+.custom-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 20px;
+    
+    color: black;
+    font-size: 30px;
+    font-weight: 500;
+
+    
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-
-.edit_delete_achieve .edit_button{
-    display: inline-block;
-
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Lexend', sans-serif;
-    color: black;
-
-    border: none;
-    background-color: rgb(186, 186, 186);
-
-    padding: 20px;
-    
-    margin-left: 30px;
-    
-    cursor: pointer;
-    text-decoration: none;
+.custom-button-orange{
+    background-color: rgb(248, 213, 161);
 }
 
-
-.edit_delete_achieve .edit-button{
-    display: inline-block;
-
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Lexend', sans-serif;
-    color: black;
-
-    border-radius: 10px;
-
-    border: none;
-    background-color: rgb(241, 204, 175);
-
-    padding: 20px;
-    
-    margin-left: 30px;
-    
-    cursor: pointer;
-    text-decoration: none;
+.custom-button-orange:hover{
+    background-color: #e3b342;
 }
 
-.edit_delete_achieve .delete_button{
-    display: inline-block;
-
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Lexend', sans-serif;
-    color: black;
-
-    border-radius: 10px;
-
-    border: none;
-    background-color: rgb(250, 180, 180);
-
-    padding: 20px;
-    
-    margin-left: 30px;
-    
-    cursor: pointer;
-    text-decoration: none;
+.custom-button-red{
+    background-color: rgb(252, 185, 185);
 }
 
-.edit_delete_achieve .achieve_button{
-    display: inline-block;
+.custom-button-red:hover{
+    background-color: rgb(246, 162, 156);
+}
 
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Lexend', sans-serif;
-    color: black;
-
-    border-radius: 10px;
-
-    border: none;
-    background-color: rgb(209, 246, 159);
-
-    padding: 20px;
-    
-    margin-left: 30px;
-    
+.custom-button-green{
+    background-color: rgb(198, 232, 146);
     cursor: pointer;
-    text-decoration: none;
+    border: none;
+}
+
+.custom-button-green:hover{
+    background-color: rgb(129, 209, 129);
+}
+    
+
+.button-icon {
+    margin-left: 8px;
+    width: 30px; 
+    height: 30px; 
 }
 
 

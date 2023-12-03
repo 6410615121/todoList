@@ -10,7 +10,6 @@
     <title>Project</title>
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
     <link rel="stylesheet" href="{% static 'css_main/project_list.css' %}">
-    <link rel="stylesheet" href="{% static 'css_main/task_detail.css' %}">
 
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
   </head>
@@ -185,23 +184,23 @@
     
     <!--content -->
     <div class= 'content_box'>
-        <div class ='edit_delete_achieve'>
+        <div class =''>
           <p class='project_name'>
             {{ project_name }}
           </p>
 
           {% if authorization == project_obj.TeamLeader %}
-            <div class="button_and_icon">
-              <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class="edit-button">Edit Task</a>
-              <img src="" alt="">
-            </div>
+            <a href="{% url 'project_edit' project_id=project_obj.Project_ID %}" class="custom-button custom-button-orange">
+              Edit
+              <img src="{% static 'images/edit-editor-pen-pencil-write-icon--4.png' %}" alt="Custom Icon" class="button-icon">
+            </a>
           {% endif %} 
 
           {% if authorization == project_obj.TeamLeader %}
-            <div class="button_and_icon">
-              <a href="{% url 'project_delete' project_id=project_obj.Project_ID %}"class="delete_button">Delete Task</a>
-            
-            </div>
+            <a href="{% url 'project_delete' project_id=project_obj.Project_ID %}" class="custom-button custom-button-red">
+              Delete
+              <img src="{% static 'images/Red-X-No-Background.png' %}" alt="Custom Icon" class="button-icon">
+            </a>
           {% endif %} 
         </div>
         
