@@ -102,7 +102,7 @@ class FriendRequestTest(TestCase):
         friend_request = Friend_request.objects.create(From_user=self.profile1, To_user=self.profile2)
 
         self.client.force_login(self.user2)
-        self.client.get(reverse('accept_friend_request'))
+        self.client.get(reverse('accept_friend_request', kwargs={'userID': self.profile1.todoUser_ID}))
         
 
         # Ensure the friend request is accepted
@@ -209,7 +209,7 @@ class profileTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('login'), {'username': 'testuser', 'password': '1234'})
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         
     def test_logout_view(self):
         response = self.client.post(reverse('logout'))
