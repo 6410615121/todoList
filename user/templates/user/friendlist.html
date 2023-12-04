@@ -204,7 +204,8 @@
           <div class="friendrequest_content ">
             Username: {{ friend.user.username }}<br>
             Fullname: {{ friend.Firstname }} {{ friend.Lastname }} <br>
-            Email:    {{ friend.user.email }}
+            Email:    {{ friend.user.email }}<br>
+            <a href="{% url 'delete_friend'  userID=friend.todoUser_ID %}" class="delete_button">delete friend</a>
           </div>
         </div>
         

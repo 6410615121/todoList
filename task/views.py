@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.shortcuts import redirect
 from task.form import IndividualTaskEditForm
-from project.views import project_task_detail
+from project.views import project_task_detail ,project_detail
 #from django.utils.http import quote
 
 import os
@@ -93,6 +93,9 @@ def individual_taskAdd(request):
         task_title = request.POST.get('task_title')
         Due_date = request.POST.get('due_date')
         description = request.POST.get('description')
+        
+        if description == "" :
+            description = "No description"
         Individual_Task.objects.create(User = todouser, task_title = task_title, Due_Date = Due_date, description = description)
         
         return individual_tasklist(request)
@@ -113,8 +116,11 @@ def task_add(request,project_ID):
         task_title = request.POST.get('task_title')
         due_date = request.POST.get('due_date')
         description = request.POST.get('description')
+        
+        if description == "":
+             description = "No description"
         Task.objects.create(Project = selected_project, Teamleader=todouser ,TeamUser = selected_Owner, task_title = task_title, Due_Date = due_date, description = description)
-            
+        return project_detail(request,project_ID)
     todouser = todoUser.objects.get(user = request.user)
     requester_projects = Project.objects.filter(TeamLeader=todouser)
 
@@ -213,11 +219,20 @@ def submit(request, task_id):
 @login_required(login_url='login')
 def individual_task_edit(request, task_id):
     task = get_object_or_404(Individual_Task, Task_ID=task_id)
-
+    
     if request.method == 'POST':
         form = IndividualTaskEditForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
+            print("do ")
+            mytask = Individual_Task.objects.get(Task_ID=task_id)
+   
+            context = {
+                'taskdetail': mytask,
+            }
+            return render(request,'task/task_detail.html', context)
+        else:
+            print(form.errors) 
             
     form = IndividualTaskEditForm(instance=task)
     context = {'form': form, 'task_id': task_id}

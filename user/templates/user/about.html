@@ -4,32 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>TodoList Homepage</title>
     
-    <link rel="stylesheet" href="{% static 'user_css/login_register.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css_main/index.css' %}">
+   
 </head>
 
 <body>
-    <a href="{% url 'login' %}" class="nav_link sublink">Log in</i></a>
-    <a href="{% url 'register' %}">Sign Up</a>
-    <a href="{% url 'about' %}">About us</a>
-    <div class="container">
-        <h1>เกี่ยวกับ:</h1>
-    <h2>สมาชิก:</h2>
-    <ul>
-        <li>นิพิฐพนธ์ กำพลรัตน์ 6410685173</li>
-        <li>ธนบูรณ์ จิวริยเวชช์ 6410615055</li>
-        <li>นวภูมิ นาชัย 6410615071</li>
-        <li>ปริวรรต สวัสดิ์ชาติ 6410685207</li>
-        <li>ศุทธา จงเจริญ 6410615121</li>
-    </ul>
+    <div class='header'>
+        <label class='name' for="TodoList">ToDoList</label>
+        <div class="link">
+            <a href="{% url 'login' %}" class="nav_link ">Log in</i></a>
+            <a href="{% url 'register' %}">Sign Up</a>
+            <a href="{% url 'about' %}">About us</a>
+        </div>
+    </div>  
 
-    <h2>ลิงค์:</h2>
-    <ul>
-        <li><a href="https://www.pivotaltracker.com/n/projects/2682452">pivotaltracker</a></li>
-        <li><a href="https://github.com/6410615121/todoList">github</a></li>
-    </ul>
+    <div class='middle-content'>
+        <div class = 'text-box'>
+            <h3>สมาชิก:</h3>
+        <ul>
+           <p> นิพิฐพนธ์ กำพลรัตน์   6410685173 </p>
+           <p> ธนบูรณ์ จิวริยเวชช์    6410615055 </p>
+           <p>นวภูมิ นาชัย         6410615071 </p>
+           <p>ปริวรรต สวัสดิ์ชาติ    6410685207 </p>
+           <p>ศุทธา จงเจริญ       6410615121 </p>
+        </ul>
+
+        <h3>ลิงค์:</h3>
+        <ul>
+            <a href="https://www.pivotaltracker.com/n/projects/2682452">pivotaltracker</a> <br>
+            <a href="https://github.com/6410615121/todoList">github</a>
+         </ul>
+            
+    
     </div>
 
 </body>

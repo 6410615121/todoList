@@ -255,14 +255,16 @@
         
         <div class="file">
 
-            <label for="">File Attachment</label>
-            <div class=''>
+            <label >File Attachment</label>
+            
+            <div >
                 {% if taskdetail.file %}
-                  <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}" download>{{ taskdetail.file.name|filename }}</a>
+                  <a href="{% url 'download_file' task_id=taskdetail.Task_ID %}" class='box-shadow' download>{{ taskdetail.file.name|filename }}</a>
                 {% else  %}
                   there is no file
                 {% endif %}
             </div>
+            
 
             
             <div class='file_upload'>

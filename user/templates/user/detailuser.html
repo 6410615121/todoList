@@ -178,7 +178,9 @@
           Username: {{ user.user }}<br>
           Fullname: {{ user.Firstname }} {{ user.Lastname }} <br>
           Email:    {{ user.user.email }}<br>
-          <a href="{% url 'send_friend_request'  userID=user.todoUser_ID %}" class="request_button">send request</a>
+          {% if isnot_friend %}
+            <a href="{% url 'send_friend_request'  userID=user.todoUser_ID %}" class="request_button">send request</a>
+          {% endif %}
         </div>
     
 

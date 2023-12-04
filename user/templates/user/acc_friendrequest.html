@@ -181,7 +181,7 @@
             Fullname: {{ request.From_user.Firstname }} {{ request.From_user.Lastname }} <br>
             Email:    {{ request.From_user.user.email }}<br>
 
-            <a href="{% url 'accept_friend_request'  %}" class="accept_button">accept request</a>
+            <a href="{% url 'accept_friend_request' userID=request.From_user.todoUser_ID   %}" class="accept_button">accept request</a>
           </div>
         </div>
       {% endfor %}

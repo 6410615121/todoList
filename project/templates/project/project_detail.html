@@ -10,6 +10,7 @@
     <title>Project</title>
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
     <link rel="stylesheet" href="{% static 'css_main/project_list.css' %}">
+    
 
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap" rel="stylesheet">
   </head>
@@ -183,7 +184,31 @@
       </a>
     
     <!--content -->
-    <div class= 'content_box'>
+    <div class='container-project'>
+      <div class= 'content_box'>
+        
+        <p class='project_name'>
+          TeamMember
+        </p>
+        {% for member in TeamMember %}
+        <div class="friendrequest_container">
+          <div>
+            <img src="{{  member.image_field.url }}" alt="User Image" class="profile_picture">
+          </div><br>
+          <div class="friendrequest_content ">
+            {% if member == project_obj.TeamLeader %}
+              <p style="color: red;">TeamLeader</p>
+            {% endif %}
+            Username: {{  member.user.username }}<br>
+            Fullname: {{  member.Firstname }} {{  member.Lastname }} <br>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+
+      
+      <div class= 'content_box'>
         <div class =''>
           <p class='project_name'>
             {{ project_name }}
@@ -288,8 +313,11 @@
               </div>
           </div>
           {% endfor %}
+        </div>
       </div>
 
+      
+    </div>
 
     
 

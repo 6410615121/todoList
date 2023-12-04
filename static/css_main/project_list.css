@@ -1,7 +1,8 @@
 .content_box{
     display: inline-block;
     margin-top: 125px;
-    margin-left: 300px;
+    margin-left: 0px;
+    margin-right: 20px;
     width: 800px;
     height: auto;
     min-height: 400px;
@@ -26,7 +27,19 @@
     background-color: #dbe5fa;
 }
 
-
+.container-project {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap; 
+    justify-content: center;
+    height: auto; 
+    margin-top: 170px; /* Adjust the top margin if needed */
+    
+    margin-bottom: 100px;
+    
+  }
+  
 
 
 
@@ -152,4 +165,32 @@
     margin-left: 8px;
     width: 30px; 
     height: 30px; 
+}
+
+.friendrequest_container {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    width: auto;
+    height: auto;
+    margin-left: 30px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 5px rgb(224, 224, 224);
+}
+
+.profile_picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    background-color: rgb(187, 189, 203);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.friendrequest_content {
+    flex-grow: 1; 
+    padding-left: 20px; 
+    padding-top: 20px; 
 }

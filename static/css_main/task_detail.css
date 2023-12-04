@@ -136,4 +136,22 @@
         font-size: 20px;
 }
 
-
+.box-shadow {
+    position: relative;
+    display: block;
+    background-color: rgb(166, 206, 247);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer; 
+    color: #050505;
+    padding: 10px;
+  }
+  .box-shadow:hover {
+    background-color: #d1e5f4; 
+  }

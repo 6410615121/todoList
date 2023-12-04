@@ -11,6 +11,7 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/individual_taskAdd.css' %}">
 </head>
 
 <body>
@@ -183,26 +184,27 @@
 
     <!-- element task -->
 
-    <div class='container'>
-        <form method="post">
+    <div class='individual_taskAdd_container'>
+        <img class='cover' src='{% static 'images/free-task-list-2080780-1753768.png' %}'>
+        <form method="post" class="form_box">
             {% csrf_token %}
             <label for="task_owner">Task Owner:</label>
             <select name="task_owner" id="task_owner" required>
                 {% for member in project_members %}
                     <option value="{{ member.todoUser_ID }}">{{ member.Firstname }} {{ member.Lastname }} </option>
                 {% endfor %}
-            </select><br>
+            </select>
         
-            <label for="task_title">Task Title:</label>
-            <input type="text" id="task_title" name="task_title"><br>
+            <label for="task_title" >Task Title:</label>
+            <input class='task_title_input' type="text" id="task_title" name="task_title" required>
         
             <label for="due_date">Due Date:</label>
-            <input type="datetime-local" id="due_date" name="due_date" required><br>
+            <input type="datetime-local" class="due_date" id="due_date" name="due_date" required>
         
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+            <label for="description">Description:</label>
+            <textarea class='description_box' id="description" name="description" rows="4" cols="50"></textarea>
         
-            <button type="submit" name="submit_task">Submit</button>
+            <button type="submit" class='submit_button' name="submit_task">Submit</button>
         </form>
         
         

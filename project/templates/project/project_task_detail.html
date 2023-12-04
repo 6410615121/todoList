@@ -196,26 +196,37 @@
             <div class ='edit_delete_achieve'>
 
                 {% if authorization == taskdetail.Teamleader %}
-                  <div class="button_and_icon">
-                    <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}" class="edit-button">Edit Task</a>
-                    <img src="" alt="">
-                  </div>
+                  
+                  <a href="{% url 'project_task_edit' task_id=taskdetail.Task_ID %}" class="custom-button custom-button-orange">
+                      Edit Task
+                      <img src="{% static 'images/edit-editor-pen-pencil-write-icon--4.png' %}" alt="Custom Icon" class="button-icon">
+                  </a>
+                  
                 {% endif %} 
 
                 {% if authorization == taskdetail.Teamleader %}
-                  <div class="button_and_icon">
-                    <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}"class="delete_button">Delete Task</a>
                   
-                  </div>
+                    <a href="{% url 'delete_project_task' task_id=taskdetail.Task_ID %}"class="custom-button custom-button-red">
+                      Delete Task
+                      <img src="{% static 'images/Red-X-No-Background.png' %}" alt="Custom Icon" class="button-icon">
+                    </a>
+                  
+                  
                 {% endif %} 
                 
 
                   <form action="{% url 'project_task_submit' task_id=taskdetail.Task_ID %}" method="post" class="button_and_icon">
                     {% csrf_token %}
                     {% if taskdetail.achieve %}
-                      <button type="submit" name="action" class = "achieve_button"  value="undo">Undo Achieve</button>
+                      <button type="submit" name="action" class = "custom-button custom-button-green"  value="undo">
+                        Undo Achieve
+                        <img src="{% static 'images/kTMn5z8Ec.png' %}" alt="Custom Icon" class="button-icon">
+                      </button>
                     {% else %}
-                      <button type="submit" name="action" class = "achieve_button" value="achieve">Achieve</button>
+                      <button type="submit" name="action" class = "custom-button custom-button-green" value="achieve">
+                        Achieve
+                        <img src="{% static 'images/kTMn5z8Ec.png' %}" alt="Custom Icon" class="button-icon">
+                      </button>
                     {% endif %}
                   </form>
 

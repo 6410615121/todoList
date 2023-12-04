@@ -603,9 +603,10 @@ body.dark {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  width: 240px; /* Adjust the width as needed */
+  width: 240px; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  left: -150px; 
+  top: 25px;
   right: 10px;
   border-radius: 15px;
   padding: 10px;
@@ -662,3 +663,34 @@ table tbody tr:hover {
   margin-bottom: 20px;
 }
 
+.name_input {
+  display: block;
+
+  width: 95%;
+  padding: 25px;
+  border: 1px solid #b6b6b6;
+  border-radius: 20px;
+  background-color: rgb(242, 242, 242);
+
+  font-size: 30px;
+  font-weight: 400;
+  font-family: 'Lexend', sans-serif;
+  color: rgb(58, 58, 58);
+  margin-bottom: 30px;
+}
+
+.find_button{
+  display: block;
+
+  color: black;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 10px;
+
+
+  border-radius: 10px;
+  background-color: rgb(154, 191, 247);
+  margin-left: auto;
+
+  border: 1px solid black;
+}

@@ -1,13 +1,15 @@
 
 body{
-    height: 100svh;
+    height: 100vh;
     display: grid;
     align-items: baseline;
-    background-color: rgb(244, 253, 253);
-    
+    background-image: url("indexbackground.png");
+    background-size: cover;
+    background-position: center;
     padding: 30px;
     font-size: 30px;
 }
+
 
 .container{
     position: relative;
@@ -23,17 +25,21 @@ body{
 .header{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-bottom: 3px solid black;
+    text-decoration: none;
+    
 }
+
 
 .name{
     display: inline-block;
-    color: black;
+    text-decoration: none;
+    color: rgb(68, 68, 68);
     font-weight: 600;
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .link{
+    text-decoration: none;
     justify-self: end;
     margin-top: 8px;
 }
@@ -42,13 +48,13 @@ body{
     text-decoration: none;
     margin-left: 20px;
 
-    color: black;
+    color: rgb(68, 68, 68);
     font-weight: 600;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .link a:hover{
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid rgb(68, 68, 68);
     transition: 0.15s;
 }
 
@@ -59,6 +65,27 @@ body{
 
 .text-box{
     text-align: center;
+    color: rgb(68, 68, 68);
+
+}
+
+.text-box a{
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+    font-size: 25px;
+    
+    
+}
+
+.text-box p{
+    font-size: 25px;
+    color: rgb(68, 68, 68);
+    
+}
+
+.text-box a:hover{
+    border-bottom: 2px solid rgb(0, 0, 0);
+    transition: 0.15s;
 }
 
 .cover{

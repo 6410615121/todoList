@@ -11,6 +11,7 @@
     <title>Task</title>
 
     <link rel="stylesheet" href="{% static 'css_main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_main/editprofile.css' %}">
 </head>
 
 <body>
@@ -170,9 +171,9 @@
 
         <form method = "post">
             {% csrf_token %}
-            <label for="user">User</label>
-            <input type="text" required name="user"><br>
-            <button type="submit">find</button>
+            
+            <input type="text" class="name_input" required name="user" placeholder="Username"><br>
+            <button type="submit" class="find_button">find user</button>
             {% if messages %}
                             <ul class="messages">
                                 {% for message in messages %}

@@ -37,7 +37,15 @@
 
                             <input type="text" name="pass2" placeholder="confirm your new password" required>
                         </div>
-
+                        <div>
+                            {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <p{% if message.tags %} style='color: red;' class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
                     
                         <div class="button input-box">
                             <input type="submit"  value="submit">

@@ -179,7 +179,8 @@
             <div class="friendrequest_content ">
               Username: {{ request.To_user.user.username }}<br>
               Fullname: {{ request.To_user.Firstname }} {{ request.To_user.Lastname }} <br>
-              Email:    {{ request.To_user.user.email }}
+              Email:    {{ request.To_user.user.email }}<br>
+              <a href="{% url 'unsend'  userID=request.To_user.todoUser_ID %}" class="delete_button">Cancel request</a>
             </div>
         </div>
         {% endfor %}

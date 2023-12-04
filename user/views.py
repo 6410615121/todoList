@@ -87,12 +87,19 @@ def resetpass(request,requestID):
 
     if request.method == 'POST':
         newpass = request.POST.get('pass1')
-
-        user = Forget_pass_obj.user
-        user.set_password(str(newpass))
-        user.save()
-        Forget_pass_obj.delete()
-        return render(request, 'user/login.html')
+        confirmpass = request.POST.get('pass2')
+        
+        if newpass == confirmpass:
+            user = Forget_pass_obj.user
+            user.set_password(str(newpass))
+            user.save()
+            Forget_pass_obj.delete()
+            return render(request, 'user/login.html')
+            
+        else:
+            messages.error(request, 'password mismatch')
+            return render(request, 'user/resetpass.html',{"requestID":requestID,})
+        
     
     return render(request, 'user/resetpass.html', {"requestID":requestID,})
     
@@ -101,7 +108,7 @@ def resetpass(request,requestID):
 def logout_view(request):
     logout(request)
     messages.success(request, 'Successfully logged out.')
-    return redirect('login')
+    return redirect('index')
 
 def register(request):
     if request.method == 'POST':
@@ -151,11 +158,12 @@ def send_friend_request(request ,userID):
     
 
 @login_required(login_url='login')
-def accept_friend_request(request):
+def accept_friend_request(request,userID):
     
     user_profile = request.user
     id = todoUser.objects.get(user=user_profile)
-    friend_request = Friend_request.objects.get(To_user = id)  # other users send to me 
+    form = todoUser.objects.get(todoUser_ID=userID)
+    friend_request = Friend_request.objects.get(To_user = id,From_user = form)  # other users send to me 
     if friend_request.To_user == id:
         friend_request.To_user.friends.add(friend_request.From_user)
         friend_request.From_user.friends.add(friend_request.To_user)
@@ -181,9 +189,16 @@ def find_user(request):
         try:
             user_instance = User.objects.get(username=user)
             user = todoUser.objects.get(user= user_instance)
+
+            friends = user.friends.all()
+            is_not_friend = not user.friends.filter(user=request.user).exists()
+            
             context = {
                 'user': user,  
-        }
+                'isnot_friend':is_not_friend,
+            }
+            print(friends)
+            print(user)
             return render(request, 'user/detailuser.html',context)
         except:
             messages.error(request, 'There is no user')
@@ -226,3 +241,23 @@ def editprofile(request):
         return redirect('myaccount')
 
     return render(request, 'user/editprofile.html', {'todouser': todouser_request})
+
+@login_required(login_url='login')
+def delete_friend(request,userID):
+    user = todoUser.objects.get(user=request.user)
+    friend = todoUser.objects.get(todoUser_ID= userID)
+    
+    user.friends.remove(friend)
+    user.save()
+    return friend_list(request)
+
+@login_required(login_url='login')
+def unsend(request,userID):
+    form = todoUser.objects.get(user=request.user)
+    id = todoUser.objects.get(todoUser_ID=userID)
+    friend_request = Friend_request.objects.get(To_user = id,From_user = form)
+   
+    friend_request.delete()
+    
+    
+    return show_send_request(request)

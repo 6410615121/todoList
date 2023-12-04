@@ -100,6 +100,7 @@ def project_detail(request, project_id):
     
     project_obj = Project.objects.get(Project_ID = project_id)
     tasks = project_obj.tasks_project.all()
+    TeamMember = project_obj.TeamMember.all()
 
     assignedtask = tasks.filter(TeamUser = todouser)
     other_tasks = tasks.exclude(TeamUser=todouser)
@@ -109,6 +110,7 @@ def project_detail(request, project_id):
         'assignedtask': assignedtask,
         'other_tasks': other_tasks,
         'authorization':todouser,
+        'TeamMember':TeamMember,
     }
     return render(request,'project/project_detail.html', context)
 
@@ -183,6 +185,14 @@ def project_task_edit(request,task_id):
         form = ProjectTaskEditForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
+            mytasks = Task.objects.get(Task_ID=task_id)
+            todouser_request = todoUser.objects.get(user = request.user)
+
+            context = {
+                'taskdetail': mytasks,
+                'authorization':todouser_request,
+             }
+            return render(request,'project/project_task_detail.html', context)
 
             
     form = ProjectTaskEditForm(instance=task, initial={'TeamUser': task.TeamUser}, project=task.Project)
@@ -227,6 +237,11 @@ def project_edit(request, project_id):
             added_member = get_object_or_404(todoUser, todoUser_ID=added_member)
             project.TeamMember.add(added_member)
             project.save()
+
+        submit = request.POST.get('submit')
+        print(submit)
+        if submit == "" :
+            return project_detail(request,project_id)
     
     form = ProjectEditForm(instance=project, project=project)
 
