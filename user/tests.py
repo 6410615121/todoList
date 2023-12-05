@@ -2,6 +2,9 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .models import todoUser, Friend_request, Forget_pass
+from task.models import Task, Individual_Task
+from project.models import Project
+
 from .form import RegistrationForm
 
 class UserViewsTest(TestCase):
@@ -12,8 +15,34 @@ class UserViewsTest(TestCase):
         self.assertTemplateUsed(response, 'user/about.html')
 
     def test_homepage_view(self):
+        user = User.objects.create_user(username='testuser', password='testpassword')
+        todo_user = todoUser.objects.create(user=user, Firstname='Test', Lastname='User')
+
+        self.client.force_login(user)
+
+        new_project = Project(
+            Project_name="Your Project",
+            TeamLeader=todo_user,
+        )
+        new_project.TeamMember.add(todo_user)
+        new_project.save()
+
+        Task.objects.create(
+            Project=new_project,
+            Teamleader=todo_user,
+            TeamUser=todo_user,
+            task_title="Your Task",
+        )
+
+        Individual_Task.objects.create(
+            User = todo_user,
+            task_title = 'mytask',
+        )
+
         response = self.client.get(reverse('homepage'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+
+
 
             
     def test_login_view_invalid(self):
@@ -112,6 +141,32 @@ class FriendRequestTest(TestCase):
         self.assertIn(self.profile2, self.profile1.friends.all())
         self.assertFalse(Friend_request.objects.filter(pk=friend_request.pk).exists())  # Friend request should be deleted because it was accepted
 
+    def test_friend_request_list(self):
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('friend request'))
+        self.assertEqual(response.status_code,200)
+
+        response = self.client.get(reverse('show_send_request'))
+        self.assertEqual(response.status_code,200)
+
+    def test_delete_friend(self):
+        self.client.force_login(self.user1)
+        self.profile1.friends.add(self.profile2)
+        # self.profile2.friends.add(self.profile1)
+
+        response = self.client.get(reverse('delete_friend', kwargs={'userID': self.profile2.todoUser_ID}))
+        self.assertEqual(response.status_code,200)
+
+    def test_unsend_friend_request(self):
+        self.client.force_login(self.user1)
+        self.client.get(reverse('send_friend_request', kwargs={'userID': self.profile2.todoUser_ID}))
+       
+
+        friend_request = Friend_request.objects.filter(From_user=self.profile1, To_user=self.profile2).first()
+        response = self.client.get(reverse('unsend', kwargs={'userID': self.profile2.todoUser_ID}))
+        
+
+
 
 
 
@@ -127,6 +182,7 @@ class RegistrationTest(TestCase):
             'password1': 'testpassword123',
             'password2': 'testpassword123',
         }
+        response = self.client.get(reverse('register'), registration_data)
 
         # Simulate a POST request to the registration view
         response = self.client.post(reverse('register'), registration_data)
@@ -198,8 +254,19 @@ class profileTest(TestCase):
     def test_resetpass_view(self):
         user = User.objects.get(username='testuser')
         request_new_pass = Forget_pass.objects.create(user = user)
+        #password mismatch
         content ={
-            'pass1': '1234'
+            'pass1': '1234',
+            'pass2': '12345',
+        }
+        response = self.client.post(reverse('resetpass', kwargs={'requestID': request_new_pass.forget_ID}), content)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,'password mismatch')
+
+        #password correct 
+        content ={
+            'pass1': '1234',
+            'pass2': '1234',
         }
 
         response = self.client.get(reverse('resetpass', kwargs={'requestID': request_new_pass.forget_ID}))
@@ -209,7 +276,7 @@ class profileTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('login'), {'username': 'testuser', 'password': '1234'})
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         
     def test_logout_view(self):
         response = self.client.post(reverse('logout'))
