@@ -63,22 +63,29 @@ def forgetpass(request):
     
     if request.method == 'POST':
         email = request.POST.get('email')
-        user = User.objects.get(email=email)
-
-        mail = Forget_pass.objects.create(user=user)
-        content=f"""
+        try:
+            user = User.objects.get(email=email)
+            mail = Forget_pass.objects.create(user=user)
+            content=f"""
             Hello {request.user},
 
             We received a request to update the password for your account. To reset your password, please click the link below:
 
-            [Password Reset Link:](http://127.0.0.1:8000/{mail.forget_ID}/resetpass/)
+            [Password Reset Link:](https://6410615121.pythonanywhere.com/{mail.forget_ID}/resetpass/)
 
             If you did not initiate this request, please ignore this email. Your account security is important to us.
 
-        """
+            """
 
-        send_mail(' Password Reset Request', content, settings.EMAIL_HOST_USER,[email])
-        return render(request, 'user/login.html')
+            send_mail(' Password Reset Request', content, settings.EMAIL_HOST_USER,[email])
+            return render(request, 'user/login.html')
+        
+        except User.DoesNotExist:
+            return render(request, 'user/login.html')
+
+
+
+
     
     return render(request, 'user/forgetpass.html')
 
